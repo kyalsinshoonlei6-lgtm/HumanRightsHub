@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MNHRC Complaint Letter | Human Rights Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pyidaungsu:wght@300;400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="format.css">
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="auth.js" defer></script>
+  <script src="profile.js" defer></script>
+</head>
+<body class="lang-my page-complaint-format" data-lang="my">
+
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <div class="nav-brand">
+      <a class="brand-link" href="index.html#home" data-route="home" aria-label="Human Rights Hub home">
+        <span class="brand-mark" aria-hidden="true"><img src="images/humanity.png" alt=""></span>
+        <span class="brand-wordmark"><span class="lang-en">Human Rights Hub</span><span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span></span>
+      </a>
+    </div>
+    <ul class="nav-menu" id="primary-menu">
+      <li>
+        <a href="index.html#home" data-route="home"><span class="lang-en">Home</span><span class="lang-my">ပင်မစာမျက်နှာ</span></a>
+        <ul>
+          <li><a href="index.html#home" data-route="home"><span class="lang-en">What is Human Rights?</span><span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ။</span></a></li>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Human Rights Essentials</span><span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအဓိကအနှစ်ချုပ်</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="essential.html#framework" data-route="essentials"><span class="lang-en">Learn</span><span class="lang-my">လေ့လာရန်</span></a>
+        <ul>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">UDHR</span><span class="lang-my">UDHR ကြေညာစာတမ်း</span></a></li>
+          <li><a href="articles.html#articles" data-route="articles"><span class="lang-en">Articles</span><span class="lang-my">အပိုဒ်များ</span></a></li>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Conventions</span><span class="lang-my">သဘောတူညီချက်များ</span></a></li>
+        </ul>
+      </li>
+      <li class="current">
+        <a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">MNHRC</span><span class="lang-my">MNHRC</span></a>
+        <ul>
+          <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">What is MNHRC?</span><span class="lang-my">MNHRC ဆိုတာဘာလဲ။</span></a></li>
+          <li><a href="format.html" aria-current="page"><span class="lang-en">To collect a complaint letter</span><span class="lang-my">တိုင်ကြားစာရယူရန်</span></a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#action"><span class="lang-en">Take Action</span><span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span></a><ul><li><a href="chat.html"><span class="lang-en">Anonymous Text Box</span><span class="lang-my">အမည်မဖော် ရင်ဖွင့်စာ</span></a></li><li><a href="eme.html"><span class="lang-en">Emergency Support</span><span class="lang-my">အရေးပေါ် အကူအညီ</span></a></li></ul></li>
+      <li><a href="index.html#quiz"><span class="lang-en">Quiz</span><span class="lang-my">ဉာဏ်စမ်း</span></a></li>
+    </ul>
+    <div class="nav-actions">
+      <nav class="account-actions" aria-label="Account">
+        <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false"><span id="opt-en" class="lang-label active">EN</span><span class="divider" aria-hidden="true">|</span><span id="opt-my" class="lang-label">မြန်မာ</span></button>
+        <button class="account-profile" id="profile-open" type="button" aria-label="Guest profile" disabled><span class="nav-profile-avatar" aria-hidden="true"><img id="nav-profile-image" alt="" hidden><span id="nav-profile-initials">G</span></span><span class="account-user" id="user-name" aria-live="polite">Guest</span></button>
+        <a class="account-link" href="form.html?mode=signin">Sign in</a>
+        <a class="account-link account-link--primary" href="form.html?mode=signup">Sign up</a>
+        <button class="account-link account-link--logout" id="logout-button" type="button" hidden>Log out</button>
+      </nav>
+      <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false"><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Open navigation menu</span></button>
+    </div>
+  </nav>
+
+  <main class="complaint-page" id="complaint-letter">
+
+  <div class="app-header no-print">
+    <h1>
+      <span class="lang-en">MNHRC Complaint Letter Generator</span>
+      <span class="lang-my">MNHRC တိုင်ကြားစာ ထုတ်ယူရန် စနစ်</span>
+    </h1>
+    <p>
+      <span class="lang-en">Fill in the form below to generate a complaint letter for submission to the Myanmar National Human Rights Commission (MNHRC).</span>
+      <span class="lang-my">အချက်အလက်များကို ဖြည့်သွင်း၍ A4 စာတိုက်/ရုံးတင် တိုင်ကြားစာအား အလိုအလျောက် ထုတ်ယူပါ</span>
+    </p>
+    <div class="format-header-actions">
+      <a class="format-guidelines-link" href="mnhrc.html#complaint">
+        <span class="lang-en">Read MNHRC complaint guidelines</span>
+        <span class="lang-my">MNHRC တိုင်ကြားခြင်းဆိုင်ရာ လမ်းညွှန်ချက်များ ဖတ်ရန်</span>
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="form-section no-print">
+      
+      <div class="control-panel">
+        <div class="control-group">
+          <label class="control-label" id="lblComplaintType">တိုင်ကြားမှု အမျိုးအစား</label>
+          <div class="segmented-control">
+            <input type="radio" id="typeDirect" name="complaintType" value="direct" checked>
+            <label for="typeDirect" id="optDirect">ကိုယ်တိုင် တိုင်ကြားမည်</label>
+            
+            <input type="radio" id="typeRep" name="complaintType" value="representative">
+            <label for="typeRep" id="optRep">ကိုယ်စား တိုင်ကြားမည်</label>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label class="control-label" id="lblLanguage">စာရွက် ဘာသာစကား</label>
+          <div class="segmented-control">
+            <input type="radio" id="langMY" name="docLanguage" value="my" checked>
+            <label for="langMY">မြန်မာ (MY)</label>
+            
+            <input type="radio" id="langEN" name="docLanguage" value="en">
+            <label for="langEN">English (EN)</label>
+          </div>
+        </div>
+      </div>
+
+      <form id="complaintForm" autocomplete="off">
+        
+        <fieldset>
+          <legend id="legComplainant">တိုင်ကြားသူ၏ အချက်အလက်</legend>
+          
+          <div class="form-group">
+            <label for="compName" id="lblCompName">တိုင်ကြားသူ အမည် *</label>
+            <input type="text" id="compName" required placeholder="ဥပမာ - ဦးဘမောင်"
+            data-placeholder-en="e.g., U Ba Maung"
+            data-placeholder-my="ဥပမာ - ဦးဘမောင်"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="compNrc" id="lblCompNrc">မှတ်ပုံတင်အမှတ် *</label>
+            <input type="text" id="compNrc" required placeholder="ဥပမာ - ၁၂/မဂဒ(နိုင်)၁၂၃၄၅၆"
+            data-placeholder-en="e.g., 12/MaGaDa(N)123456"
+            data-placeholder-my="ဥပမာ - ၁၂/မဂဒ(နိုင်)၁၂၃၄၅၆">
+          </div>
+
+          <div class="form-group">
+            <label for="compPhone" id="lblCompPhone">ဖုန်းနံပါတ် *</label>
+            <input type="tel" id="compPhone" required placeholder="09xxxxxxxxx"
+            data-placeholder-en="e.g., 09xxxxxxxxx"
+            data-placeholder-my="ဥပမာ - ၀၉xxxxxxxxx">
+          </div>
+
+          <div class="form-group">
+            <label for="compEmail" id="lblCompEmail">အီးမေးလ် (ရှိပါက)</label>
+            <input type="email" id="compEmail" placeholder="example@mail.com"
+            data-placeholder-en="e.g., example@mail.com"
+            data-placeholder-my="ဥပမာ - example@mail.com">
+          </div>
+
+          <div class="form-group">
+            <label for="compAddress" id="lblCompAddress">နေရပ်လိပ်စာ အပြည့်အစုံ *</label>
+            <textarea id="compAddress" rows="2" required placeholder="အိမ်အမှတ်၊ လမ်း၊ ရပ်ကွက်၊ မြို့နယ်..."
+            data-placeholder-en="e.g., House No., Street, Township, City..."
+            data-placeholder-my="ဥပမာ - အိမ်အမှတ်၊ လမ်း၊ ရပ်ကွက်၊ မြို့နယ်..."
+            ></textarea>
+          </div>
+        </fieldset>
+
+        <fieldset id="repSection" class="hidden">
+          <legend id="legRepresentative">နစ်နာသူ၏ အချက်အလက် (ကိုယ်စား တိုင်ကြားခြင်း)</legend>
+          
+          <div class="form-group">
+            <label for="victimName" id="lblVictimName">နစ်နာသူ အမည် *</label>
+            <input type="text" id="victimName" placeholder="ဥပမာ - မောင်မောင်"
+            data-placeholder-en="e.g., Maung Maung"
+            data-placeholder-my="ဥပမာ - မောင်မောင်">
+          </div>
+
+          <div class="form-group">
+            <label for="victimRelation" id="lblVictimRelation">တော်စပ်ပုံ *</label>
+            <input type="text" id="victimRelation" placeholder="ဥပမာ - ဖခင် / ဇနီး / တရားဝင်ကိုယ်စားလှယ်"
+            data-placeholder-en="e.g., Father / Wife / Legal Representative"
+            data-placeholder-my="ဥပမာ - ဖခင် / ဇနီး / တရားဝင်ကိုယ်စားလှယ်">
+          </div>
+
+          <div class="form-group">
+            <label for="repReason" id="lblRepReason">ကိုယ်စား တိုင်ကြားရသည့် အကြောင်းအရင်း *</label>
+            <input type="text" id="repReason" placeholder="ဥပမာ - ကျန်းမာရေး မကောင်းခြင်း / မတရား ထိန်းသိမ်းခံထားရခြင်း"
+            data-placeholder-en="e.g., Poor health / Unlawful detention"
+            data-placeholder-my="ဥပမာ - ကျန်းမာရေး မကောင်းခြင်း / မတရား ထိန်းသိမ်းခံထားရခြင်း">
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend id="legIncident">ဖြစ်စဉ် အချက်အလက်များ</legend>
+          
+          <div class="form-group">
+            <label for="respondent" id="lblRespondent">တိုင်ကြားခံရသူ / ဌာန / အဖွဲ့အစည်း *</label>
+            <input type="text" id="respondent" required placeholder="ဥပမာ - xxx ရဲစခန်း / xxx ဌာန" 
+            data-placeholder-en="e.g., xxx Police Station / xxx Department"
+            data-placeholder-my="ဥပမာ - xxx ရဲစခန်း / xxx ဌာန">
+          </div>
+
+          <div class="form-group">
+            <label for="incidentDate" id="lblIncidentDate">ဖြစ်ပွားခဲ့သည့် ရက်စွဲ *</label>
+            <input type="date" id="incidentDate" required>
+          </div>
+
+          <div class="form-group">
+            <label for="incidentLocation" id="lblIncidentLocation">ဖြစ်ပွားခဲ့သည့် နေရာ *</label>
+            <input type="text" id="incidentLocation" required placeholder="ဥပမာ - ရန်ကုန်မြို့၊ ..."
+            data-placeholder-en="e.g., Yangon City, ..."
+            data-placeholder-my="ဥပမာ - ရန်ကုန်မြို့၊ ...">
+          </div>
+
+          <div class="form-group">
+            <label for="incidentDetail" id="lblIncidentDetail">ဖြစ်စဉ် အသေးစိတ် *</label>
+            <textarea id="incidentDetail" rows="4" required placeholder="လူ့အခွင့်အရေး ချိုးဖောက်ခံရသည့် ဖြစ်စဉ်ကို တိကျစွာ ရေးသားပါ..."
+            data-placeholder-en="e.g., Detailed account of the incident affecting human rights..."
+            data-placeholder-my="ဥပမာ - လူ့အခွင့်အရေး ချိုးဖောက်ခံရသည့် ဖြစ်စဉ်ကို တိကျစွာ ရေးသားပါ..."
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="evidence" id="lblEvidence">ပူးတွဲ အထောက်အထားများ</label>
+            <input type="text" id="evidence" placeholder="ဥပမာ - ဓာတ်ပုံ (၂) ပုံ၊ ဆေးစာရွက် မိတ္တူ"
+            data-placeholder-en="e.g., 2 photos, medical report copies"
+            data-placeholder-my="ဥပမာ - ဓာတ်ပုံ (၂) ပုံ၊ ဆေးစာရွက် မိတ္တူ">
+          </div>
+        </fieldset>
+
+        <button type="button" class="btn-print" onclick="window.print()">
+          🖨️ <span id = "btnPrintText" data-en = "Print Complaint Form/ Save PDF" data-my = "တိုင်ကြားစာ print ထုတ်မည်/ PDF သိမ်းမည်">
+            တိုင်ကြားစာ print ထုတ်မည်/ PDF သိမ်းမည်
+          </span>
+        </button>
+      </form>
+    </div>
+
+    <div class="preview-section">
+      <div class="a4-paper" id="printArea">
+        
+        <div class="doc-header">
+          <p class="doc-date"><span id="lblDatePrefix">ရက်စွဲ။ ။</span> <span id="outDate">...</span></p>
+        </div>
+
+        <div class="doc-to">
+          <p id="docToPrefix">သို့</p>
+          <p class="indent"><strong id="docToTitle">ဥက္ကဋ္ဌ</strong></p>
+          <p class="indent" id="docToOrg">မြန်မာနိုင်ငံ အမျိုးသား လူ့အခွင့်အရေး ကော်မရှင်</p>
+          <p class="indent" id="docToCity">ရန်ကုန်မြို့။</p>
+        </div>
+
+        <div class="doc-subject">
+          <p><strong id="outSubject">အကြောင်းအရာ။ ။ လူ့အခွင့်အရေး ချိုးဖောက်ခံရမှုအတွက် တိုင်ကြားစာ ပေးပို့ခြင်း။</strong></p>
+        </div>
+
+        <div class="doc-body" id="outBody">
+          </div>
+
+        <div class="doc-footer">
+          <p id="lblSignClosing">လေးစားစွာဖြင့်</p>
+          <div class="sign-space"></div>
+          <p id="lblSignature">(လက်မှတ်) ........................................</p>
+          <p><span id="lblSignName">အမည်</span> - <span class="fill-data" id="outSignName">[တိုင်ကြားသူအမည်]</span></p>
+          <p id="outSignRelationRow" class="hidden"><span id="lblSignRelation">တော်စပ်ပုံ</span> - <span class="fill-data" id="outSignRelation">[တော်စပ်ပုံ]</span></p>
+          <p><span id="lblSignPhone">ဖုန်းနံပါတ်</span> - <span class="fill-data" id="outSignPhone">[ဖုန်းနံပါတ်]</span></p>
+          <p id="outSignEmailRow" class="hidden"><span id="lblSignEmail">အီးမေးလ်</span> - <span class="fill-data" id="outSignEmail">[အီးမေးလ်]</span></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  </main>
+
+  <div class="auth-modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-message">
+    <div class="auth-overlay" id="auth-overlay"></div>
+    <section class="auth-card">
+      <button class="auth-close-btn" id="auth-close" type="button" aria-label="Close authentication dialog">&times;</button>
+      <h2 class="sr-only" id="auth-title">Account access</h2>
+      <div class="auth-tabs" role="tablist" aria-label="Account access"><button class="tab-btn active" id="tab-signin" type="button" role="tab" aria-selected="true">Sign in</button><button class="tab-btn" id="tab-signup" type="button" role="tab" aria-selected="false">Sign up</button></div>
+      <p class="auth-message" id="auth-message" role="alert" hidden></p>
+      <form class="auth-form" id="form-signin" novalidate>
+        <div class="form-group"><label for="signin-email">Email address</label><input id="signin-email" type="email" autocomplete="email" required></div>
+        <div class="form-group"><label for="signin-password">Password</label><input id="signin-password" type="password" autocomplete="current-password" minlength="6" required></div>
+        <button class="auth-submit-btn" type="submit">Sign in</button>
+      </form>
+      <form class="auth-form hidden" id="form-signup" novalidate>
+        <div class="form-group"><label for="signup-name">Full name</label><input id="signup-name" type="text" autocomplete="name" maxlength="100" required></div>
+        <div class="form-group"><label for="signup-email">Email address</label><input id="signup-email" type="email" autocomplete="email" required></div>
+        <div class="form-group"><label for="signup-password">Password</label><input id="signup-password" type="password" autocomplete="new-password" minlength="6" required></div>
+        <button class="auth-submit-btn" type="submit">Create account</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="profile-modal hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" aria-hidden="true">
+    <div class="profile-overlay" id="profile-overlay"></div>
+    <section class="profile-card">
+      <button class="profile-close" id="profile-close" type="button" aria-label="Close profile">&times;</button>
+      <header class="profile-summary"><div class="profile-avatar profile-avatar--large"><img id="profile-image" alt="" hidden><span id="profile-initials" aria-hidden="true">G</span></div><div><p class="profile-eyebrow">Your account</p><h2 id="profile-title"><span id="profile-display-name">Guest</span></h2><p id="profile-email">Not signed in</p></div></header>
+      <p class="profile-message" id="profile-message" role="status" hidden></p><button class="profile-edit-button" id="profile-edit" type="button">Edit profile</button>
+      <form class="profile-form hidden" id="profile-form" novalidate>
+        <div class="profile-field"><label for="profile-name-input">Display name</label><input id="profile-name-input" type="text" autocomplete="name" minlength="2" maxlength="100" required></div>
+        <div class="profile-field"><span class="profile-field-label">Profile picture</span><div class="profile-drop-zone" id="profile-drop-zone" role="button" tabindex="0" aria-label="Choose or drop a profile image"><div class="profile-avatar profile-avatar--preview"><img id="profile-preview-image" alt="Selected profile preview" hidden><span id="profile-preview-initials" aria-hidden="true">G</span></div><div class="profile-drop-copy"><strong>Drop an image here</strong><span>or choose a file</span><small id="profile-file-status">PNG, JPG or WebP &middot; maximum 10 MB</small></div><input id="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden></div></div>
+        <div class="profile-form-actions"><button class="profile-button profile-button--secondary" id="profile-cancel" type="button">Cancel</button><button class="profile-button profile-button--primary" id="profile-save" type="submit"><span>Save changes</span><span class="profile-spinner" id="profile-spinner" aria-label="Uploading" hidden></span></button></div>
+      </form>
+    </section>
+  </div>
+  <script src="format.js"></script>
+  <script src="script.js"></script>
+  <script src="footer.js" defer></script>
+</body>
+</html>

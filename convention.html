@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Human Rights Conventions | Human Rights Hub</title>
+    <meta name="description" content="Explore international human rights conventions ratified by Myanmar, their key protections, dates, and articles in English and Myanmar language.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style1.css.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+    <script src="firebase-config.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="profile.js" defer></script>
+    <script src="script.js" defer></script>
+    <script src="convention.js" defer></script>
+</head>
+<body class="lang-en page-essentials page-conventions">
+
+    <!-- Global Navigation Bar -->
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <div class="nav-brand">
+            <a class="brand-link" href="index.html#home" data-route="home" aria-label="Human Rights Hub home">
+                <span class="brand-mark" aria-hidden="true">
+                    <img src="images/humanity.png" alt="">
+                </span>
+                <span class="brand-wordmark">
+                    <span class="lang-en">Human Rights Hub</span>
+                    <span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span>
+                </span>
+            </a>
+        </div>
+
+        <ul class="nav-menu" id="primary-menu">
+            <li>
+                <a href="index.html#home" data-route="home">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-my">ပင်မစာမျက်နှာ</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="index.html#home" data-route="home">
+                            <span class="lang-en">What is Human Rights?</span>
+                            <span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ။</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="essential.html#framework" data-route="essentials">
+                            <span class="lang-en">Human Rights Essentials</span>
+                            <span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအဓိကအနှစ်ချုပ်</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="current">
+                <a href="#learn" data-route="essentials">
+                    <span class="lang-en">Learn</span>
+                    <span class="lang-my">လေ့လာရန်</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="ud.html">
+                            <span class="lang-en">UDHR</span>
+                            <span class="lang-my">UDHR ကြေညာစာတမ်း</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="articles.html">
+                            <span class="lang-en">Articles</span>
+                            <span class="lang-my">အပိုဒ်များ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="convention.html">
+                            <span class="lang-en">Conventions</span>
+                            <span class="lang-my">သဘောတူညီချက်များ</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="index.html#mnhrc">
+                    <span class="lang-en">MNHRC</span>
+                    <span class="lang-my">MNHRC</span>
+                </a>
+            </li>
+            <li>
+                <a href="index.html#action">
+                    <span class="lang-en">Take Action</span>
+                    <span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span>
+                </a>
+            </li>
+            <li>
+                <a href="index.html#quiz">
+                    <span class="lang-en">Quiz</span>
+                    <span class="lang-my">ဉာဏ်စမ်း</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-actions">
+            <nav class="account-actions" aria-label="Account">
+                <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false">
+                    <span id="opt-en" class="lang-label active">EN</span>
+                    <span class="divider" aria-hidden="true">|</span>
+                    <span id="opt-my" class="lang-label">မြန်မာ</span>
+                </button>
+                <button class="account-profile" id="profile-open" type="button" aria-label="Guest profile" disabled>
+                    <span class="nav-profile-avatar" aria-hidden="true">
+                        <img id="nav-profile-image" alt="" hidden>
+                        <span id="nav-profile-initials">G</span>
+                    </span>
+                    <span class="account-user" id="user-name" aria-live="polite">Guest</span>
+                </button>
+                <a class="account-link" href="#auth-modal" data-auth-open="signin">Sign in</a>
+                <a class="account-link account-link--primary" href="#auth-modal" data-auth-open="signup">Sign up</a>
+                <button class="account-link account-link--logout" id="logout-button" type="button" hidden>Log out</button>
+            </nav>
+            <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false">
+                <span class="menu-toggle__icon" aria-hidden="true"></span>
+                <span class="sr-only">Open navigation menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="page-content" data-page="conventions">
+        <section class="categories-page">
+            <!-- Header Section -->
+            <header class="page-header conventions-hero" id="overview">
+                <nav class="conventions-breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html#home">Home</a><span aria-hidden="true">/</span>
+                    <a href="essential.html#framework">Learn</a><span aria-hidden="true">/</span>
+                    <span aria-current="page">Conventions</span>
+                </nav>
+                <span class="category-badge">
+                    <span class="lang-en">International Treaties</span>
+                    <span class="lang-my">နိုင်ငံတကာ စာချုပ်များ</span>
+                </span>
+                <h1>
+                    <span class="lang-en">International Human Rights Treaties Signed by Myanmar</span>
+                    <span class="lang-my">မြန်မာနိုင်ငံမှ ပါဝင်ချုပ်ဆိုထားသည့် နိုင်ငံတကာ လူ့အခွင့်အရေးစာချုပ်ကြီးများ</span>
+                </h1>
+                <p>
+                    <span class="lang-en">Key global conventions and optional protocols signed or ratified by Myanmar to protect human rights.</span>
+                    <span class="lang-my">မြန်မာနိုင်ငံမှ ပါဝင်ချုပ်ဆိုထားသည့် သဘောတူစာချုပ်များနှင့် နောက်ဆက်တွဲ စာချုပ်များဆိုင်ရာ အချက်အလက်များ။</span>
+                </p>
+            </header>
+
+            <div class="conventions-summary" aria-label="Convention page summary">
+                <div><strong>7+</strong><span class="lang-en">Key treaty instruments</span><span class="lang-my">အဓိက စာချုပ်များ</span></div>
+                <div><strong>42</strong><span class="lang-en">CRC articles explained</span><span class="lang-my">CRC အပိုဒ် ရှင်းလင်းချက်များ</span></div>
+                <div><strong>2</strong><span class="lang-en">Languages available</span><span class="lang-my">ဘာသာစကားများ</span></div>
+            </div>
+
+            <div class="content-container">
+                <!-- Ratified Conventions Overview -->
+                <article class="udhr-card treaty-overview-card" id="conventions">
+                    <h2>
+                        <span class="lang-en">Ratified Conventions</span>
+                        <span class="lang-my">သဘောတူညီချက်များ</span>
+                    </h2>
+
+                    <ul class="udhr-list">
+                        <!-- CRC -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Convention on the Rights of the Child (CRC)</span>
+                                <span class="lang-my">ကလေးသူငယ်အခွင့်အရေးများဆိုင်ရာ သဘောတူစာချုပ်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en"><strong>Enforcement Date:</strong> 2-9-1990</span>
+                                <span class="lang-en"><strong>Myanmar Accession Date:</strong> 15-7-1991</span>
+                                <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၂-၉-၁၉၉၀</span>
+                                <span class="lang-my"><strong>မြန်မာနိုင်ငံမှပါဝင်ချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၁၅-၇-၁၉၉၁</span>
+                            </div>
+                        </li>
+
+                        <!-- CRC-OP-SC -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">CRC Optional Protocol: The Sale of Children, Child Prostitution and Child Pornography (CRC-OP-SC)</span>
+                                <span class="lang-my">CRC ၏ နောက်ဆက်တွဲစာချုပ် (CRC-OP-SC) ကလေးသူငယ်များအား ရောင်းချခြင်း၊ ပြည့်တန်ဆာ ပြုလုပ်ခြင်းနှင့် ညစ်ညမ်းရုပ်/သံ/စာ အသုံးပြုခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en"><strong>Myanmar Accession Date:</strong> 16-1-2012</span>
+                                <span class="lang-my"><strong>မြန်မာနိုင်ငံမှပါဝင်ချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၁၆-၁-၂၀၁၂</span>
+                            </div>
+                        </li>
+
+                        <!-- CRC-OP-AC -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">CRC Optional Protocol: The Involvement of Children in Armed Conflict (CRC-OP-AC)</span>
+                                <span class="lang-my">CRC ၏ နောက်ဆက်တွဲစာချုပ် (CRC-OP-AC) လက်နက်ကိုင် ပဋိပက္ခတွင် ကလေးသူငယ်များ ပါဝင်ပတ်သက်မှု</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en"><strong>Myanmar Ratification Date:</strong> 27-9-2019</span>
+                                <span class="lang-my"><strong>မြန်မာနိုင်ငံမှအတည်ပြုချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၂၇-၉-၂၀၁၉</span>
+                            </div>
+                        </li>
+
+                        <!-- CEDAW -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Convention on the Elimination of All Forms of Discrimination against Women (CEDAW)</span>
+                                <span class="lang-my">အမျိုးသမီးများအားနည်းမျိုးစုံဖြင့် ခွဲခြားမှုပပျောက်ရေးဆိုင်ရာ သဘောတူစာချုပ်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en"><strong>Enforcement Date:</strong> 3-9-1981</span>
+                                <span class="lang-en"><strong>Myanmar Accession Date:</strong> 22-7-1997</span>
+                                <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၃-၉-၁၉၈၁</span>
+                                <span class="lang-my"><strong>မြန်မာနိုင်ငံမှပါဝင်ချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၂၂-၇-၁၉၉၇</span>
+                            </div>
+                        </li>
+
+                        <!-- CRPD -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Convention on the Rights of Persons with Disabilities (CRPD)</span>
+                                <span class="lang-my">မသန်စွမ်းသူများ အခွင့်အရေးဆိုင်ရာ သဘောတူစာချုပ်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en"><strong>Enforcement Date:</strong> 3-5-2008</span>
+                                <span class="lang-en"><strong>Myanmar Accession Date:</strong> 7-12-2011</span>
+                                <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၃-၅-၂၀၀၈</span>
+                                <span class="lang-my"><strong>မြန်မာနိုင်ငံမှပါဝင်ချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၇-၁၂-၂၀၁၁</span>
+                            </div>
+                        </li>
+
+                        <!-- ICESCR -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">International Covenant on Economic, Social and Cultural Rights (ICESCR)</span>
+                                <span class="lang-my">စီးပွားရေး၊ လူမှုရေးနှင့် ယဉ်ကျေးမှုအခွင့်အရေးများဆိုင်ရာ အပြည်ပြည်ဆိုင်ရာ သဘောတူစာချုပ်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en"><strong>Enforcement Date:</strong> 3-1-1976</span>
+                                <span class="lang-en"><strong>Myanmar Ratification Date:</strong> 6-10-2017</span>
+                                <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၃-၁-၁၉၇၆</span>
+                                <span class="lang-my"><strong>မြန်မာနိုင်ငံမှအတည်ပြုချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၆-၁၀-၂၀၁၇</span>
+                            </div>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- CRPD Interactive Card -->
+                <article class="udhr-card" id="crpd-convention">
+                    <div class="convention-header-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="crpd-articles-wrapper" data-convention-toggle="crpd-articles-wrapper">
+                        <h2>
+                            <span class="lang-en">Convention on the Rights of Persons with Disabilities (CRPD)</span>
+                            <span class="lang-my">မသန်စွမ်းသူများ အခွင့်အရေးဆိုင်ရာ သဘောတူစာချုပ် (CRPD)</span>
+                        </h2>
+                        <span class="convention-toggle-icon" aria-hidden="true">+</span>
+                    </div>
+
+                    <div class="convention-details">
+                        <span class="lang-en"><strong>Enforcement Date:</strong> 3-5-2008</span>
+                        <span class="lang-en"><strong>Myanmar Accession Date:</strong> 7-12-2011</span>
+                        <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၃-၅-၂၀၀၈</span>
+                        <span class="lang-my"><strong>မြန်မာနိုင်ငံမှပါဝင်ချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၇-၁၂-၂၀၁၁</span>
+                    </div>
+
+                    <div id="crpd-articles-wrapper" class="convention-articles" hidden>
+                        <h3>
+                            <span class="lang-en">Key Factors & Guiding Principles</span>
+                            <span class="lang-my">အဓိက အချက်များနှင့် လမ်းညွှန်မူဝါဒများ</span>
+                        </h3>
+
+                        <ul class="udhr-list">
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Equality and Non-Discrimination</span>
+                                    <span class="lang-my">တန်းတူညီမျှမှုနှင့် ခွဲခြားဆက်ဆံမှု မရှိရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Ensures all persons with disabilities enjoy full legal protection and are free from discrimination on the basis of disability.</span>
+                                    <span class="lang-my">မသန်စွမ်းမှုအပေါ် အခြေခံသည့် ခွဲခြားဆက်ဆံမှုများ ပပျောက်စေရန်နှင့် ဥပဒေရှေ့မှောက်တွင် တန်းတူညီမျှ အကာအကွယ် ရရှိစေရမည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Accessibility</span>
+                                    <span class="lang-my">လွတ်လပ်စွာ လက်လှမ်းမီ ရယူနိုင်ခွင့်</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Guarantees equal access to physical environments, transportation, information, technology, and public facilities.</span>
+                                    <span class="lang-my">ရုပ်ပိုင်းဆိုင်ရာ ပတ်ဝန်းကျင်၊ သယ်ယူပို့ဆောင်ရေး၊ သတင်းအချက်အလက်၊ နည်းပညာနှင့် အများပြည်သူ ဝန်ဆောင်မှုများကို အဟန့်အတားမရှိ လက်လှမ်းမီ အသုံးပြုနိုင်ရမည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Equal Recognition Before the Law & Personal Liberty</span>
+                                    <span class="lang-my">ဥပဒေရှေ့မှောက်တွင် တန်းတူအသိအမှတ်ပြုခြင်းနှင့် ကိုယ်ပိုင်လွတ်လပ်ခွင့်</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Affirms legal capacity, decision-making rights, freedom from exploitation or abuse, and personal integrity for persons with disabilities.</span>
+                                    <span class="lang-my">ဥပဒေဆိုင်ရာ စွမ်းဆောင်ရည်၊ ကိုယ်ပိုင် ဆုံးဖြတ်ချက်ချပိုင်ခွင့်နှင့် ရုပ်ပိုင်း/စိတ်ပိုင်း ခေါင်းပုံဖြတ် အကြမ်းဖက်မှုများမှ အကာအကွယ် ရရှိစေရမည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Inclusive Education, Health, and Employment</span>
+                                    <span class="lang-my">အကျုံးဝင် ပညာရေး၊ ကျန်းမာရေးနှင့် အလုပ်အကိုင် အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Promotes inclusive, quality education, accessible health services, rehabilitation, and equal opportunities in work and employment.</span>
+                                    <span class="lang-my">ခွဲခြားမှုမရှိသော အကျုံးဝင် ပညာရေးစနစ်၊ ကျန်းမာရေး ဝန်ဆောင်မှုများနှင့် အလုပ်အကိုင် တန်းတူ အခွင့်အရေးများကို ဖန်တီးပေးရမည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Participation in Cultural, Public, and Social Life</span>
+                                    <span class="lang-my">လူမှုရေး၊ နိုင်ငံရေးနှင့် ယဉ်ကျေးမှု ကဏ္ဍများတွင် ပါဝင်ခွင့်</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Protects rights to participate in political, public, cultural, sports, and recreational activities on an equal basis with others.</span>
+                                    <span class="lang-my">နိုင်ငံရေး၊ အများပြည်သူဆိုင်ရာ ကဏ္ဍများ၊ ယဉ်ကျေးမှုနှင့် အားကစား လှုပ်ရှားမှုများတွင် အခြားသူများနှင့် တန်းတူ လွတ်လပ်စွာ ပါဝင်ခွင့်ရှိသည်။</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- CRC-OP-SC Interactive Card -->
+                <article class="udhr-card" id="crc-op-sc-convention">
+                    <div class="convention-header-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="crc-op-sc-articles-wrapper" data-convention-toggle="crc-op-sc-articles-wrapper">
+                        <h2>
+                            <span class="lang-en">CRC Optional Protocol: Sale of Children, Child Prostitution and Child Pornography (CRC-OP-SC)</span>
+                            <span class="lang-my">CRC ၏ နောက်ဆက်တွဲစာချုပ် - ကလေးသူငယ်များအား ရောင်းချခြင်း၊ ပြည့်တန်ဆာ ပြုလုပ်ခြင်းနှင့် ညစ်ညမ်းရုပ်/သံ/စာ အသုံးပြုခြင်း (CRC-OP-SC)</span>
+                        </h2>
+                        <span class="convention-toggle-icon" aria-hidden="true">+</span>
+                    </div>
+
+                    <div class="convention-details">
+                        <span class="lang-en"><strong>Enforcement Date:</strong> 18-1-2002</span>
+                        <span class="lang-en"><strong>Myanmar Accession Date:</strong> 16-1-2012</span>
+                        <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၁၈-၁-၂၀၀၂</span>
+                        <span class="lang-my"><strong>မြန်မာနိုင်ငံမှပါဝင်ချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၁၆-၁-၂၀၁၂</span>
+                    </div>
+
+                    <div id="crc-op-sc-articles-wrapper" class="convention-articles" hidden>
+                        <h3>
+                            <span class="lang-en">Key Factors & Legal Provisions</span>
+                            <span class="lang-my">အဓိက အချက်များနှင့် ဥပဒေရေးရာ ပြဋ္ဌာန်းချက်များ</span>
+                        </h3>
+
+                        <ul class="udhr-list">
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Prohibition of the Sale of Children</span>
+                                    <span class="lang-my">ကလေးသူငယ်များအား ရောင်းချခြင်းကို တားမြစ်ခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Criminalizes any act or transaction whereby a child is transferred by any person or group to another for remuneration or any other consideration.</span>
+                                    <span class="lang-my">ကလေးသူငယ်များအား မည်သည့်အကျိုးအမြတ်အတွက်မဆို တစ်ဦးမှတစ်ဦးသို့ လွှဲပြောင်းရောင်းချသည့် လုပ်ရပ်မှန်သမျှကို ပြစ်မှုအဖြစ် သတ်မှတ်တားမြစ်သည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Prevention of Child Prostitution</span>
+                                    <span class="lang-my">ကလေးသူငယ်များအား ပြည့်တန်ဆာ ပြုလုပ်ခြင်းမှ တားဆီးခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Prohibits the use, offering, or procuring of a child for child prostitution or sexual exploitation.</span>
+                                    <span class="lang-my">ကလေးသူငယ်များအား ပြည့်တန်ဆာပြုလုပ်ခြင်း သို့မဟုတ် လိင်ပိုင်းဆိုင်ရာ အမြတ်ထုတ်ခြင်းတို့တွင် အသုံးပြုခြင်းနှင့် စည်းရုံးခြင်းများကို တားမြစ်သည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Banning Child Pornography</span>
+                                    <span class="lang-my">ကလေးသူငယ် ညစ်ညမ်းရုပ်/သံ/စာ အသုံးပြုခြင်းကို ပိတ်ပင်ခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Criminalizes the production, distribution, dissemination, importing, exporting, offering, sale, or possession of child pornography.</span>
+                                    <span class="lang-my">ကလေးသူငယ်ဆိုင်ရာ ညစ်ညမ်းရုပ်ပုံ၊ ဗီဒီယိုနှင့် စာပေများကို ထုတ်လုပ်ခြင်း၊ ဖြန့်ဝေခြင်း၊ ရောင်းချခြင်းနှင့် လက်ဝယ်ထားရှိခြင်းတို့ကို ရာဇဝတ်ပြစ်မှုအဖြစ် သတ်မှတ်သည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Protection and Assistance for Child Victims</span>
+                                    <span class="lang-my">နစ်နာသူ ကလေးသူငယ်များအား အကာအကွယ်နှင့် ကူညီမှုပေးခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States must guarantee support, medical and psychological recovery, legal assistance, and social reintegration for child victims.</span>
+                                    <span class="lang-my">ထိခိုက်ခံရသူ ကလေးများအတွက် ဆေးဝါးကုသမှု၊ စိတ်ပိုင်းဆိုင်ရာ ပြန်လည်ထူထောင်မှု၊ ဥပဒေရေးရာ အကူအညီနှင့် လူမှုအဖွဲ့အစည်းအတွင်း ပြန်လည်ဝင်ဆံ့ရေးတို့ကို ဆောင်ရွက်ပေးရမည်။</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- CRC-OP-AC Interactive Card -->
+                <article class="udhr-card" id="crc-op-ac-convention">
+                    <div class="convention-header-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="crc-op-ac-articles-wrapper" data-convention-toggle="crc-op-ac-articles-wrapper">
+                        <h2>
+                            <span class="lang-en">CRC Optional Protocol: Involvement of Children in Armed Conflict (CRC-OP-AC)</span>
+                            <span class="lang-my">CRC ၏ နောက်ဆက်တွဲစာချုပ် - လက်နက်ကိုင် ပဋိပက္ခတွင် ကကလေးသူငယ်များ ပါဝင်ပတ်သက်မှု (CRC-OP-AC)</span>
+                        </h2>
+                        <span class="convention-toggle-icon" aria-hidden="true">+</span>
+                    </div>
+
+                    <div class="convention-details">
+                        <span class="lang-en"><strong>Enforcement Date:</strong> 12-2-2002</span>
+                        <span class="lang-en"><strong>Myanmar Ratification Date:</strong> 27-9-2019</span>
+                        <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၁၂-၂-၂၀၀၂</span>
+                        <span class="lang-my"><strong>မြန်မာနိုင်ငံမှအတည်ပြုချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၂၇-၉-၂၀၁၉</span>
+                    </div>
+
+                    <div id="crc-op-ac-articles-wrapper" class="convention-articles" hidden>
+                        <h3>
+                            <span class="lang-en">Key Factors & Legal Provisions</span>
+                            <span class="lang-my">အဓိက အချက်များနှင့် ဥပဒေရေးရာ ပြဋ္ဌာန်းချက်များ</span>
+                        </h3>
+
+                        <ul class="udhr-list">
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Ban on Direct Participation in Hostilities</span>
+                                    <span class="lang-my">တိုက်ပွဲများတွင် တိုက်ရိုက်ပါဝင်တိုက်ခိုက်မှုကို တားမြစ်ခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States shall take all feasible measures to ensure that members of their armed forces who have not attained the age of 18 do not take part in hostilities.</span>
+                                    <span class="lang-my">အသက် (၁၈) နှစ် မပြည့်သေးသော တပ်မတော်သားများ တိုက်ပွဲများတွင် တိုက်ရိုက်ပါဝင် တိုက်ခိုက်ခြင်း မရှိစေရန် စီမံဆောင်ရွက်ရမည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Prohibition of Compulsory Recruitment</span>
+                                    <span class="lang-my">မဖြစ်မနေ စစ်မှုထမ်းခိုင်းခြင်းကို တားမြစ်ခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Prohibits compulsory recruitment of anyone under the age of 18 into the armed forces.</span>
+                                    <span class="lang-my">အသက် (၁၈) နှစ် မပြည့်သေးသူများအား တပ်မတော်အတွင်းသို့ မဖြစ်မနေ အတင်းအဓမ္မ စစ်မှုထမ်းခိုင်းခြင်းကို တားမြစ်သည်။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Restrictions on Non-State Armed Groups</span>
+                                    <span class="lang-my">အစိုးရမဟုတ်သော လက်နက်ကိုင်အဖွဲ့များဆိုင်ရာ ကန့်သတ်ချက်များ</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Armed groups distinct from the armed forces of a State should not recruitment or use persons under 18 in hostilities under any circumstances.</span>
+                                    <span class="lang-my">အစိုးရ မဟုတ်သော လက်နက်ကိုင် အဖွဲ့အစည်းများသည် မည်သည့် အကြောင်းကြောင့်မျှ အသက် ၁၈ နှစ်အောက် ကကလေးသူငယ်များအား စုဆောင်းခြင်း သို့မဟုတ် တိုက်ပွဲတွင် အသုံးပြုခြင်း မပြုရ။</span>
+                                </div>
+                            </li>
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Demobilization and Rehabilitation</span>
+                                    <span class="lang-my">တပ်မတော်မှ နှုတ်ထွက်ခွင့်နှင့် ပြန်လည်ထူထောင်ရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States must provide physical and psychological recovery and social reintegration for children recruited or used in armed conflict.</span>
+                                    <span class="lang-my">လက်နက်ကိုင် ပဋိပက္ခတွင် ပါဝင်ခဲ့သည့် ကကလေးသူငယ်များအား တပ်မှ လွှတ်ပေးရန်နှင့် စိတ်ပိုင်း/ရုပ်ပိုင်း ပြန်လည်ထူထောင် ပေးရမည်။</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- ICESCR Interactive Card / Section with Articles / Factors -->
+                <article class="udhr-card" id="icescr-convention">
+                    <!-- Main Header Clickable Area -->
+                    <div class="convention-header-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="icescr-articles-wrapper" data-convention-toggle="icescr-articles-wrapper">
+                        <h2>
+                            <span class="lang-en">International Covenant on Economic, Social and Cultural Rights (ICESCR)</span>
+                            <span class="lang-my">စီးပွားရေး၊ လူမှုရေးနှင့် ယဉ်ကျေးမှုအခွင့်အရေးများဆိုင်ရာ အပြည်ပြည်ဆိုင်ရာ သဘောတူစာချုပ် (ICESCR)</span>
+                        </h2>
+                        <span class="convention-toggle-icon" aria-hidden="true">+</span>
+                    </div>
+
+                    <!-- Basic Dates Info -->
+                    <div class="convention-details">
+                        <span class="lang-en"><strong>Enforcement Date:</strong> 3-1-1976</span>
+                        <span class="lang-en"><strong>Myanmar Ratification Date:</strong> 6-10-2017</span>
+                        <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၃-၁-၁၉၇၆</span>
+                        <span class="lang-my"><strong>မြန်မာနိုင်ငံမှအတည်ပြုချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၆-၁၀-၂၀၁၇</span>
+                    </div>
+
+                    <!-- Details (Key Factors / Articles 1 to 15) -->
+                    <div id="icescr-articles-wrapper" class="convention-articles" hidden>
+                        <h3>
+                            <span class="lang-en">Key Factors & Substantive Articles (Articles 1 to 15)</span>
+                            <span class="lang-my">အဓိက အချက်များနှင့် အကြောင်းအရာဆိုင်ရာ အပိုဒ်များ (အပိုဒ် ၁ မှ ၁၅)</span>
+                        </h3>
+
+                        <ul class="udhr-list">
+                            <!-- Article 1 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 1: Right to Self-Determination</span>
+                                    <span class="lang-my">အပိုဒ် (၁) ကိုယ်ပိုင်ပြဋ္ဌာန်းခွင့် အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">All peoples have the right to self-determination to freely pursue their economic, social, and cultural development.</span>
+                                    <span class="lang-my">လူမျိုးအားလုံးသည် မိမိတို့၏ စီးပွားရေး၊ လူမှုရေးနှင့် ယဉ်ကျေးမှု ဖွံ့ဖြိုးတိုးတက်ရေးကို လွတ်လပ်စွာ စီမံဆောင်ရွက်နိုင်သော ကိုယ်ပိုင်ပြဋ္ဌာန်းခွင့် ရှိသည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 2 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 2: Progressive Realization & Non-Discrimination</span>
+                                    <span class="lang-my">အပိုဒ် (၂) အဆင့်ဆင့် အကောင်အထည်ဖော်ခြင်းနှင့် ခွဲခြားဆက်ဆံမှု မရှိရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States must take steps to maximum available resources to progressively achieve full realization of rights without discrimination.</span>
+                                    <span class="lang-my">နိုင်ငံများအနေဖြင့် ရှိသမျှ အရင်းအမြစ်များကို အသုံးပြု၍ ဤအခွင့်အရေးများကို ခွဲခြားဆက်ဆံမှု မရှိဘဲ အဆင့်ဆင့် အပြည့်အဝ ဖော်ဆောင်ပေးရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 3 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 3: Equal Rights of Men and Women</span>
+                                    <span class="lang-my">အပိုဒ် (၃) ကျား/မ တန်းတူ အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States undertake to ensure the equal right of men and women to the enjoyment of all economic, social, and cultural rights.</span>
+                                    <span class="lang-my">အမျိုးသားနှင့် အမျိုးသမီးများ စီးပွားရေး၊ လူမှုရေးနှင့် ယဉ်ကျေးမှု အခွင့်အရေး အားလုံးကို တန်းတူညီမျှ ခံစားခွင့် ရှိစေရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 4 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 4: Limitations Clause</span>
+                                    <span class="lang-my">အပိုဒ် (၄) အခွင့်အရေး ကန့်သတ်ချက်များဆိုင်ရာ စည်းကမ်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Rights may only be subjected to limitations determined by law and compatible with the nature of these rights solely for general welfare.</span>
+                                    <span class="lang-my">အခွင့်အရေးများကို ဥပဒေအရ သတ်မှတ်ထားသော ကန့်သတ်ချက်များဖြင့်သာ အများပြည်သူ သာယာဝပြောရေးအတွက် ကန့်သတ်နိုင်သည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 5 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 5: Prohibition of Abuse of Rights</span>
+                                    <span class="lang-my">အပိုဒ် (၅) အခွင့်အရေးများကို အလွဲသုံးစားပြုမှု တားမြစ်ခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Nothing in the Covenant implies any right to engage in activity aimed at the destruction of any rights or freedoms.</span>
+                                    <span class="lang-my">ဤစာချုပ်ပါ အချက် မည်သည့်အရာကမျှ အခွင့်အရေး သို့မဟုတ် လွတ်လပ်ခွင့်များကို ဖျက်ဆီးရန် လုပ်ဆောင်ခွင့် မပေးပါ။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 6 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 6: Right to Work</span>
+                                    <span class="lang-my">အပိုဒ် (၆) အလုပ်လုပ်ပိုင်ခွင့် အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Recognizes the right to work, including the opportunity to gain a living by work freely chosen or accepted.</span>
+                                    <span class="lang-my">မိမိကြိုက်နှစ်သက်ရာ အလုပ်အကိုင်ကို လွတ်လပ်စွာ ရွေးချယ် လုပ်ကိုင်ခွင့်နှင့် အသက်မွေးဝမ်းကျောင်း ပြုခွင့် ရှိသည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 7 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 7: Right to Just and Favourable Conditions of Work</span>
+                                    <span class="lang-my">အပိုဒ် (၇) တရားမျှတပြီး ကောင်းမွန်သော လုပ်ငန်းခွင် အခြေအနေများ</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Right to fair wages, equal pay for equal work, safe working conditions, rest, leisure, and reasonable limitation of working hours.</span>
+                                    <span class="lang-my">မျှတသော လုပ်ခလစာ၊ ဘေးကင်းသော လုပ်ငန်းခွင် အခြေအနေ၊ အနားယူခွင့်နှင့် သင့်တော်သော အလုပ်ချိန် သတ်မှတ်ချက်များ ရရှိပိုင်ခွင့် ရှိသည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 8 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 8: Trade Union Rights</span>
+                                    <span class="lang-my">အပိုဒ် (၈) အလုပ်သမားသမဂ္ဂ ဆိုင်ရာ အခွင့်အရေးများ</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Right to form and join trade unions, right to strike, and freedom of trade unions to function without arbitrary restrictions.</span>
+                                    <span class="lang-my">အလုပ်သမားသမဂ္ဂများ ဖွဲ့စည်းခွင့်၊ ပါဝင်ခွင့်၊ သပိတ်မှောက်ခွင့်နှင့် သမဂ္ဂများ လွတ်လပ်စွာ လှုပ်ရှားဆောင်ရွက်ခွင့် ရှိသည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 9 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 9: Right to Social Security</span>
+                                    <span class="lang-my">အပိုဒ် (၉) လူမှုဖူလုံရေး အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Recognizes the right of everyone to social security, including social insurance.</span>
+                                    <span class="lang-my">လူတိုင်း လူမှုဖူလုံရေးနှင့် လူမှုအာမခံ အကျိုးခံစားခွင့်များ ရရှိပိုင်ခွင့် ရှိသည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 10 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 10: Protection of the Family, Mothers, and Children</span>
+                                    <span class="lang-my">အပိုဒ် (၁၀) မိသားစု၊ မိခင်များနှင့် ကကလေးသူငယ်များ အကာအကွယ်ပေးခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Protection and assistance for families, paid maternity leave for mothers, and protection of children from economic exploitation.</span>
+                                    <span class="lang-my">မိသားစုများအား အကာအကွယ်ပေးခြင်း၊ မိခင်များ မီးဖွားခွင့် ခံစားခွင့်ရှိခြင်းနှင့် ကကလေးသူငယ်များကို စီးပွားရေး ခေါင်းပုံဖြတ်မှုမှ ကာကွယ်ပေးရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 11 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 11: Right to an Adequate Standard of Living</span>
+                                    <span class="lang-my">အပိုဒ် (၁၁) သင့်တော်သော လူနေမှုအဆင့်အတန်း ရရှိပိုင်ခွင့်</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Includes adequate food, clothing, housing, and the continuous improvement of living conditions, as well as freedom from hunger.</span>
+                                    <span class="lang-my">လုံလောက်သော အစားအစာ၊ အဝတ်အထည်၊ နေအိမ်နှင့် လူနေမှုအဆင့်အတန်း စဉ်ဆက်မပြတ် တိုးတက်ရေးတို့ ပါဝင်သည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 12 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 12: Right to Physical and Mental Health</span>
+                                    <span class="lang-my">အပိုဒ် (၁၂) ရုပ်ပိုင်းဆိုင်ရာနှင့် စိတ်ပိုင်းဆိုင်ရာ ကျန်းမာရေး အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Right to the enjoyment of the highest attainable standard of physical and mental health.</span>
+                                    <span class="lang-my">ရရှိနိုင်သမျှ အမြင့်မားဆုံးသော ရုပ်ပိုင်းနှင့် စိတ်ပိုင်းဆိုင်ရာ ကျန်းမာရေး အဆင့်အတန်းကို ခံစားပိုင်ခွင့် ရှိသည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 13 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 13: Right to Education</span>
+                                    <span class="lang-my">အပိုဒ် (၁၃) ပညာသင်ကြားပိုင်ခွင့် အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Free and compulsory primary education for all, accessible secondary and higher education, and fundamental education rights.</span>
+                                    <span class="lang-my">အခမဲ့ မူလတန်းပညာသင်ကြားခွင့်၊ အလတ်တန်းနှင့် အထက်တန်း ပညာရေးကို တန်းတူ သင်ယူနိုင်ခွင့်များ ရရှိစေရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 14 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 14: Plan for Primary Education</span>
+                                    <span class="lang-my">အပိုဒ် (၁၄) မူလတန်းပညာရေးဆိုင်ရာ အစီအစဉ်</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States which have not secured compulsory primary education free of charge must adopt a detailed plan of action to achieve it.</span>
+                                    <span class="lang-my">အခမဲ့ မူလတန်းပညာရေး မဆောင်ရွက်ရသေးသော နိုင်ငံများသည် အကောင်အထည်ဖော်ရန် အသေးစိတ် အစီအစဉ်များ ရေးဆွဲရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 15 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 15: Cultural Rights and Scientific Progress</span>
+                                    <span class="lang-my">အပိုဒ် (၁၅) ယဉ်ကျေးမှုနှင့် သိပ္ပံပညာ တိုးတက်မှုဆိုင်ရာ အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Right to participate in cultural life, enjoy benefits of scientific progress, and protection of moral/material interests from authoring.</span>
+                                    <span class="lang-my">ယဉ်ကျေးမှုဆိုင်ရာ လှုပ်ရှားမှုများတွင် ပါဝင်ခွင့်၊ သိပ္ပံပညာ တိုးတက်မှု အကျိုးကျေးဇူးများကို ခံစားခွင့်နှင့် မူပိုင်ခွင့် ကာကွယ်ခွင့် ရှိသည်။</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- CEDAW Interactive Card / Woman Section with Articles / Factors -->
+                <article class="udhr-card" id="cedaw-convention">
+                    <!-- Main Header Clickable Area -->
+                    <div class="convention-header-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="cedaw-articles-wrapper" data-convention-toggle="cedaw-articles-wrapper">
+                        <h2>
+                            <span class="lang-en">Convention on the Elimination of All Forms of Discrimination against Women (CEDAW)</span>
+                            <span class="lang-my">အမျိုးသမီးများအား နည်းမျိုးစုံဖြင့် ခွဲခြားမှု ပပျောက်ရေးဆိုင်ရာ သဘောတူစာချုပ် (CEDAW)</span>
+                        </h2>
+                        <span class="convention-toggle-icon" aria-hidden="true">+</span>
+                    </div>
+
+                    <!-- Basic Dates Info -->
+                    <div class="convention-details">
+                        <span class="lang-en"><strong>Enforcement Date:</strong> 3-9-1981</span>
+                        <span class="lang-en"><strong>Myanmar Accession Date:</strong> 22-7-1997</span>
+                        <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၃-၉-၁၉၈၁</span>
+                        <span class="lang-my"><strong>မြန်မာနိုင်ငံမှပါဝင်ချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၂၂-၇-၁၉၉၇</span>
+                    </div>
+
+                    <!-- Details (Key Factors / Articles 1 to 16) -->
+                    <div id="cedaw-articles-wrapper" class="convention-articles" hidden>
+                        <h3>
+                            <span class="lang-en">Key Factors & Core Articles (Articles 1 to 16)</span>
+                            <span class="lang-my">အဓိက အချက်များနှင့် အဓိက အပိုဒ်များ (အပိုဒ် ၁ မှ ၁၆)</span>
+                        </h3>
+
+                        <ul class="udhr-list">
+                            <!-- Article 1 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 1: Definition of Discrimination</span>
+                                    <span class="lang-my">အပိုဒ် (၁) ခွဲခြားဆက်ဆံမှု သတ်မှတ်ချက်</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Defines discrimination against women as any distinction, exclusion or restriction made on the basis of sex.</span>
+                                    <span class="lang-my">ကျား/မ အခြေခံပေါ်မူတည်၍ အမျိုးသမီးများအပေါ် ခွဲခြားမှု၊ ပယ်ပြင်မှု သို့မဟုတ် ကန့်သတ်မှုများကို ခွဲခြားဆက်ဆံခြင်းဟု သတ်မှတ်သည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 2 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 2: Policy Measures & Legal Obligations</span>
+                                    <span class="lang-my">အပိုဒ် (၂) မူဝါဒဆိုင်ရာ လုပ်ဆောင်ချက်များနှင့် ဥပဒေရေးရာ တာဝန်များ</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States must embody gender equality in national constitutions, legislation, and eliminate discriminatory laws.</span>
+                                    <span class="lang-my">နိုင်ငံတော် ဖွဲ့စည်းပုံအခြေခံဥပဒေနှင့် ဥပဒေများတွင် ကျား/မ တန်းတူညီမျှမှုကို ထည့်သွင်းရမည်ဖြစ်ပြီး ခွဲခြားဆက်ဆံသော ဥပဒေများကို ပယ်ဖျက်ရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 3 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 3: Guarantee of Basic Human Rights</span>
+                                    <span class="lang-my">အပိုဒ် (၃) အခြေခံ လူ့အခွင့်အရေးများ အာမခံခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Guarantees basic human rights and fundamental freedoms for women on an equal basis with men in all fields.</span>
+                                    <span class="lang-my">အမျိုးသမီးများ၏ အခြေခံ လူ့အခွင့်အရေးနှင့် လွတ်လပ်ခွင့်များကို အမျိုးသားများနှင့် တန်းတူ အာမခံချက် ပေးရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 4 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 4: Special Measures (Affirmative Action)</span>
+                                    <span class="lang-my">အပိုဒ် (၄) အထူးစီမံဆောင်ရွက်ချက်များ</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Temporary special measures aimed at accelerating de facto equality between men and women shall not be considered discrimination.</span>
+                                    <span class="lang-my">တန်းတူညီမျှမှု မြန်ဆန်စွာ ရရှိစေရန် ယာယီအထူးစီမံဆောင်ရွက်ချက်များ ပြုလုပ်ခြင်းသည် ခွဲခြားဆက်ဆံခြင်း မဟုတ်ပါ။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 5 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 5: Sex Roles, Stereotypes and Maternity</span>
+                                    <span class="lang-my">အပိုဒ် (၅) အယူအဆဟောင်းများနှင့် မိခင်ဘဝ မြှင့်တင်ရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States must modify social and cultural patterns to eliminate prejudices, stereotypes, and customary practices based on gender roles.</span>
+                                    <span class="lang-my">အမျိုးသမီးများအပေါ် နိမ့်ကျစေသော ရိုးရာဓလေ့များနှင့် စတီရီယိုရိုက် အယူအဆဟောင်းများကို ပြုပြင်ပြောင်းလဲရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 6 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 6: Trafficking and Exploitation of Prostitution</span>
+                                    <span class="lang-my">အပိုဒ် (၆) ကုန်ကူးမှုနှင့် အမြတ်ထုတ်မှုမှ ကာကွယ်ခြင်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">States shall suppress all forms of trafficking in women and exploitation of prostitution of women.</span>
+                                    <span class="lang-my">အမျိုးသမီးများအား လူကုန်ကူးခြင်းနှင့် ပြည့်တန်ဆာအဖြစ် အမြတ်ထုတ်ခြင်း နည်းလမ်းအားလုံးကို တားဆီး နှိမ်နင်းရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 7 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 7: Political and Public Life</span>
+                                    <span class="lang-my">အပိုဒ် (၇) နိုင်ငံရေးနှင့် အများပြည်သူဆိုင်ရာ ကဏ္ဍတွင် ပါဝင်ခွင့်</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Ensures women's right to vote, hold public office, and participate in non-governmental organizations and political decision-making.</span>
+                                    <span class="lang-my">မဲပေးပိုင်ခွင့်၊ အစိုးရနှင့် နိုင်ငံရေးဆိုင်ရာ ရာထူးများတွင် တာဝန်ထမ်းဆောင်ခွင့်နှင့် ဆုံးဖြတ်ချက်ချသည့် ကဏ္ဍများတွင် ပါဝင်ခွင့်ကို အာမခံရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 8 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 8: International Representation</span>
+                                    <span class="lang-my">အပိုဒ် (၈) နိုင်ငံတကာ ကိုယ်စားပြုခွင့်</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Ensures equal opportunity to represent governments at the international level and participate in international organizations.</span>
+                                    <span class="lang-my">နိုင်ငံတကာ အဆင့်တွင် နိုင်ငံတော်ကို ကိုယ်စားပြုရန်နှင့် နိုင်ငံတကာ အဖွဲ့အစည်းများတွင် တန်းတူ ပါဝင်ခွင့် ပေးရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 9 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 9: Nationality Rights</span>
+                                    <span class="lang-my">အပိုဒ် (၉) နိုင်ငံသားဖြစ်ခွင့် အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Equal rights to acquire, change, or retain nationality, and equal rights with respect to the nationality of their children.</span>
+                                    <span class="lang-my">နိုင်ငံသားဖြစ်ခွင့် ခံယူခြင်း၊ ပြောင်းလဲခြင်း သို့မဟုတ် ထိန်းသိမ်းခြင်းနှင့် သားသမီးများ၏ နိုင်ငံသားဖြစ်ခွင့်တို့တွင် တန်းတူအခွင့်အရေး ရရှိစေရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 10 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 10: Equal Rights in Education</span>
+                                    <span class="lang-my">အပိုဒ် (၁၀) ပညာရေးဆိုင်ရာ တန်းတူ အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Ensures equal access to education, career guidance, curricula, scholarships, and reduction of female drop-out rates.</span>
+                                    <span class="lang-my">ပညာသင်ကြားခွင့်၊ စကောလားရှစ်နှင့် သင်ရိုးညွှန်းတမ်းများတွင် အမျိုးသားများနှင့် တန်းတူ အခွင့်အရေး ရရှိစေရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 11 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 11: Employment & Work Rights</span>
+                                    <span class="lang-my">အပိုဒ် (၁၁) အလုပ်အကိုင်နှင့် လုပ်ငန်းခွင် အခွင့်အရေး</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Equal right to work, equal remuneration, maternity leave with pay, and protection against dismissal due to marriage or pregnancy.</span>
+                                    <span class="lang-my">တန်းတူ အလုပ်လုပ်ပိုင်ခွင့်၊ လုပ်ခလစာ တန်းတူရရှိမှု၊ မီးဖွားခွင့် လစာ ရရှိမှုနှင့် ကိုယ်ဝန်ဆောင်မှုကြောင့် အလုပ်မှ ထုတ်ပယ်ခြင်းမှ ကာကွယ်ရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 12 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 12: Healthcare and Family Planning</span>
+                                    <span class="lang-my">အပိုဒ် (၁၂) ကျန်းမာရေးနှင့် မိသားစု စီမံကိန်း</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Eliminate discrimination in access to health care services, including those related to family planning, prenatal, and postnatal care.</span>
+                                    <span class="lang-my">ကျန်းမာရေး စောင့်ရှောက်မှု၊ မိသားစု စီမံကိန်းနှင့် မီးဖွားမီ/မီးဖွားပြီး ကျန်းမာရေး ဝန်ဆောင်မှုများကို တန်းတူ ရရှိစေရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 13 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 13: Economic and Social Benefits</span>
+                                    <span class="lang-my">အပိုဒ် (၁၃) စီးပွားရေးနှင့် လူမှုရေး အကျိုးခံစားခွင့်များ</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Equal rights to family benefits, bank loans, mortgages, financial credit, and participation in recreational/cultural life.</span>
+                                    <span class="lang-my">မိသားစု အကျိုးခံစားခွင့်များ၊ ဘဏ်ချေးငွေ၊ ဘဏ္ဍာရေး ခရက်ဒစ်နှင့် အပန်းဖြေ/ယဉ်ကျေးမှု လှုပ်ရှားမှုများတွင် တန်းတူ အခွင့်အရေး ရရှိစေရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 14 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 14: Rural Women</span>
+                                    <span class="lang-my">အပိုဒ် (၁၄) ကျေးလက်နေ အမျိုးသမီးများ</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Ensures rural women participate in and benefit from rural development, agricultural credit, training, and community activities.</span>
+                                    <span class="lang-my">ကျေးလက်နေ အမျိုးသမီးများ၏ ပြဿနာများကို အထူးဂရုပြုပြီး စိုက်ပျိုးရေး၊ ဘဏ္ဍာရေးနှင့် ကျေးလက်ဖွံ့ဖြိုးရေး ကဏ္ဍများတွင် တန်းတူ ပါဝင်ခွင့် ပေးရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 15 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 15: Equality Before the Law & Civil Matters</span>
+                                    <span class="lang-my">အပိုဒ် (၁၅) ဥပဒေရှေ့မှောက်တွင် တန်းတူညီမျှမှု</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Full equality before the law, legal capacity identical to men, contract signing, property administration, and freedom of movement.</span>
+                                    <span class="lang-my">ဥပဒေရှေ့မှောက်တွင် တန်းတူ တရားစွဲဆိုခွင့်၊ စာချုပ်ချုပ်ဆိုခွင့်၊ ပိုင်ဆိုင်မှု စီမံခွင့်နှင့် လွတ်လပ်စွာ သွားလာလှုပ်ရှားခွင့် ရှိစေရမည်။</span>
+                                </div>
+                            </li>
+
+                            <!-- Article 16 -->
+                            <li>
+                                <strong>
+                                    <span class="lang-en">Article 16: Marriage and Family Law</span>
+                                    <span class="lang-my">အပိုဒ် (၁၆) ထိမ်းမြားလက်ထပ်ခြင်းနှင့် မိသားစု ဥပဒေ</span>
+                                </strong>
+                                <div class="convention-details">
+                                    <span class="lang-en">Equal rights in marriage, divorce, parental responsibilities, personal rights as husband and wife, and property ownership/management.</span>
+                                    <span class="lang-my">လက်ထပ်ခြင်း၊ ကွာရှင်းခြင်း၊ မိဘ တာဝန်ယူမှု၊ လွတ်လပ်စွာ အိမ်ထောင်ဖက် ရွေးချယ်ခွင့်နှင့် ပစ္စည်းဥစ္စာ ပိုင်ဆိုင်မှုများတွင် တန်းတူ အခွင့်အရေး ရရှိစေရမည်။</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- All 42 Articles of CRC -->
+                <article class="udhr-card" id="crc-articles">
+                    <div class="convention-header-toggle" role="button" tabindex="0" aria-expanded="false" aria-controls="crc-articles-wrapper" data-convention-toggle="crc-articles-wrapper">
+                        <h2>
+                            <span class="lang-en">UN Convention on the Rights of the Child (CRC) — Articles 1 to 42</span>
+                            <span class="lang-my">ကုလသမဂ္ဂ ကလေးသူငယ်အခွင့်အရေးများဆိုင်ရာ သဘောတူစာချုပ် (အပိုဒ် ၁ မှ ၄၂)</span>
+                        </h2>
+                        <span class="convention-toggle-icon" aria-hidden="true">+</span>
+                    </div>
+                     <div class="convention-details">
+                        <span class="lang-en"><strong>Enforcement Date:</strong> 3-9-1990</span>
+                        <span class="lang-en"><strong>Myanmar Accession Date:</strong> 15-8-1991</span>
+                        <span class="lang-my"><strong>အာဏာသက်ဝင်ရက်စွဲ -</strong> ၃-၉-၁၉၉၀</span>
+                        <span class="lang-my"><strong>မြန်မာနိုင်ငံမှပါဝင်ချုပ်ဆိုသည့်ရက်စွဲ -</strong> ၁၅-၈-၁၉၉၁</span>
+                    </div>
+
+                    <div id="crc-articles-wrapper" class="convention-articles" hidden>
+                        <ul class="udhr-list">
+                        <!-- Article 1 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 1: Definition of a Child</span>
+                                <span class="lang-my">အပိုဒ် (၁) ကလေးသူငယ် သတ်မှတ်ချက်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">A child means every human being below the age of 18 years unless majority is attained earlier under the law applicable to the child.</span>
+                                <span class="lang-my">ကလေးသူငယ်ဆိုသည်မှာ အသက် (၁၈) နှစ် မပြည့်သေးသော သူတိုင်းကို ဆိုလိုသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 2 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 2: Non-Discrimination</span>
+                                <span class="lang-my">အပိုဒ် (၂) ခွဲခြားဆက်ဆံမှု မရှိစေရေး</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">All rights apply to every child without discrimination of any kind, regardless of race, color, sex, language, religion, or background.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအားလုံးသည် မမည်သည့်ခွဲခြားဆက်ဆံမှုမျှ မရှိဘဲ တန်းတူညီမျှ အခွင့်အရေးများကို ရရှိခံစားပိုင်ခွင့်ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 3 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 3: Best Interests of the Child</span>
+                                <span class="lang-my">အပိုဒ် (၃) ကလေး၏ အကောင်းဆုံး အကျိုးစီးပွား</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">In all actions concerning children, the best interests of the child shall be a primary consideration.</span>
+                                <span class="lang-my">ဆုံးဖြတ်ချက်များ ချမှတ်သည့်အခါတိုင်း ကလေးသူငယ်များအတွက် အကောင်းဆုံး အကျိုးစီးပွားကို ဦးစားပေး ဆောင်ရွက်ရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 4 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 4: Implementation of Rights</span>
+                                <span class="lang-my">အပိုဒ် (၄) အခွင့်အရေးများ အကောင်အထည်ဖော်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments must take all appropriate measures to implement the rights recognized in the Convention.</span>
+                                <span class="lang-my">အစိုးရများသည် ဤစာချုပ်ပါ အခွင့်အရေးများကို အပြည့်အဝ ခံစားနိုင်ရေးအတွက် အစွမ်းကုန် ဆောင်ရွက်ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 5 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 5: Parental Guidance and Evolving Capacities</span>
+                                <span class="lang-my">အပိုဒ် (၅) မိဘများ၏ လမ်းညွှန်မှုနှင့် တာဝန်များ</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments shall respect the rights and duties of parents to guide their children appropriately as they grow.</span>
+                                <span class="lang-my">ကလေးသူငယ်များ ပြုစုပျိုးထောင်ရာတွင် မိဘများ၏ အခွင့်အရေးနှင့် တာဝန်များကို အစိုးရက လေးစားဆောင်ရွက်ရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 6 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 6: Survival and Development</span>
+                                <span class="lang-my">အပိုဒ် (၆) အသက်ရှင်သန်ခွင့်နှင့် ဖွံ့ဖြိုးတိုးတက်ခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Every child has the inherent right to life, survival, and development to the maximum extent possible.</span>
+                                <span class="lang-my">ကလေးသူငယ်တိုင်းသည် အသက်ရှင်သန်ခွင့် နှင့် ရှင်သန်ဖွံ့ဖြိုးတိုးတက်ပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 7 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 7: Name, Nationality, and Care</span>
+                                <span class="lang-my">အပိုဒ် (၇) မွေးဖွားမှတ်ပုံတင်ခြင်း၊ အမည်နှင့် နိုင်ငံသားအခွင့်အရေး</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Every child has the right to a legal name, registration at birth, nationality, and to know and be cared for by their parents.</span>
+                                <span class="lang-my">ကလေးသူငယ်တိုင်းသည် မွေးဖွားပြီးသည်နှင့် မှတ်ပုံတင်ခံယူပိုင်ခွင့်၊ အမည်နှင့် နိုင်ငံသားဖြစ်ခွင့်၊ မိဘများ၏ ပြုစုစောင့်ရှောက်မှုကို ခံယူပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 8 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 8: Preservation of Identity</span>
+                                <span class="lang-my">အပိုဒ် (၈) မည်သူမည်ဝါဖြစ်ကြောင်း ထိန်းသိမ်းခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments must respect the child's right to preserve their identity, including nationality, name, and family relations.</span>
+                                <span class="lang-my">ကလေးသူငယ်များ၏ မည်သူမည်ဝါဖြစ်ကြောင်း၊ နိုင်ငံသားဖြစ်မှု၊ အမည်နှင့် မိသားစု ဆက်ဆံရေးများကို အကာအကွယ်ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 9 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 9: Separation from Parents</span>
+                                <span class="lang-my">အပိုဒ် (၉) မိဘများနှင့် ခွဲခွာမနေရရေး</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children should not be separated from parents against their will unless it is in their best interest, and have the right to maintain contact.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအား အကျိုးစီးပွားထိခိုက်သည့် အခြေအနေမှအပ မိဘများနှင့် မတရား ခွဲခြားခြင်း မပြုရ။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 10 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 10: Family Reunification</span>
+                                <span class="lang-my">အပိုဒ် (၁၀) မိသားစု ပြန်လည်ပေါင်းစည်းရေး</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Requests for children and parents to enter or leave a country to reunite as a family shall be handled in a positive and humane manner.</span>
+                                <span class="lang-my">ကလေးသူငယ်များသည် မိသားစုများနှင့် အတူတကွ ပြန်လည်ပေါင်းစည်းရန်နှင့် ခရီးသွားလာပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 11 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 11: Protection Against Illicit Transfer</span>
+                                <span class="lang-my">အပိုဒ် (၁၁) တရားမဝင် ခေါ်ဆောင်ခြင်းမှ ကာကွယ်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments shall take measures to combat the illegal transfer and non-return of children abroad.</span>
+                                <span class="lang-my">မည်သည့်ကလေးသူငယ်ကိုမျှ ပြည်ပသို့ တရားမဝင် ခေါ်ဆောင်ခြင်းနှင့် ပြန်မလွှတ်ခြင်းတို့မှ တားဆီး ကာကွယ်ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 12 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 12: Respect for Children's Views</span>
+                                <span class="lang-my">အပိုဒ် (၁၂) ထင်မြင်ယူဆချက်များကို လွတ်လပ်စွာ ထုတ်ဖော်ပြောဆိုခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to express their views freely on all matters affecting them, with their opinions given due weight.</span>
+                                <span class="lang-my">မိမိနှင့် သက်ဆိုင်သည့် ဆုံးဖြတ်ချက်များတွင် ကကလေးသူငယ်များ၏ လွတ်လပ်စွာ ထုတ်ဖော်ပြောဆိုခွင့်နှင့် ထိရောက်စွာ ထည့်သွင်းစဉ်းစားမှုကို ခံယူပိုင်ခွင့်ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 13 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 13: Freedom of Expression</span>
+                                <span class="lang-my">အပိုဒ် (၁၃) လွတ်လပ်စွာ ထုတ်ဖော်ပြောဆိုပိုင်ခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to seek, receive, and impart information and ideas through any medium of their choice.</span>
+                                <span class="lang-my">ကလေးသူငယ်များတွင် လွတ်လပ်စွာ ထုတ်ဖော်ပြောဆိုပိုင်ခွင့်နှင့် သတင်းအချက်အလက် ရှာဖွေရယူပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 14 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 14: Freedom of Thought, Conscience, and Religion</span>
+                                <span class="lang-my">အပိုဒ် (၁၄) လွတ်လပ်စွာ တွေးခေါ်ခွင့်နှင့် ကိုးကွယ်ခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to freedom of thought, conscience, and religion, under appropriate parental guidance.</span>
+                                <span class="lang-my">ကလေးသူငယ်တိုင်းသည် လွတ်လပ်စွာ တွေးခေါ်စဉ်းစားခွင့်၊ ကိုးကွယ်ခွင့်နှင့် ယုံကြည်ကိုးကွယ်ရာ ဘာသာ သာသနာကို လွတ်လပ်စွာ ကိုးကွယ်ပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 15 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 15: Freedom of Association</span>
+                                <span class="lang-my">အပိုဒ် (၁၅) လွတ်လပ်စွာ အသင်းအပင်း ဖွဲ့စည်းခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to form and join associations and gather peacefully.</span>
+                                <span class="lang-my">အခြားသူများ၏ အခွင့်အရေးကို မထိခိုက်ဘဲ လွတ်လပ်စွာ အသင်းအဖွဲ့များ ဖွဲ့စည်းပိုင်ခွင့်နှင့် ငြိမ်းချမ်းစွာ စုဝေးခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 16 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 16: Right to Privacy</span>
+                                <span class="lang-my">အပိုဒ် (၁၆) ကိုယ်ရေးကိုယ်တာ လွတ်လပ်ခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to protection against unlawful interference with their privacy, family, home, or correspondence.</span>
+                                <span class="lang-my">ကလေးသူငယ်တိုင်း၏ ကိုယ်ရေးကိုယ်တာ၊ မိသားစု၊ နေအိမ်နှင့် ဆက်သွယ်ရေးတို့ကို တရားမဝင် ဝင်ရောက်စွက်ဖက်ခြင်းမှ အကာအကွယ် ရရှိပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 17 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 17: Access to Information</span>
+                                <span class="lang-my">အပိုဒ် (၁၇) သတင်းအချက်အလက် ရရှိပိုင်ခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children should have access to information and materials from diverse sources that promote their well-being and health.</span>
+                                <span class="lang-my">ကလေးသူငယ်များသည် အကျိုးပြုဖွံ့ဖြိုးစေမည့် သတင်းအချက်အလက်များကို ရယူနိုင်ခွင့်ရှိပြီး အန္တရာယ်ရှိသော စာပေများမှ အကာအကွယ် ရရှိရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 18 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 18: Parental Responsibilities</span>
+                                <span class="lang-my">အပိုဒ် (၁၈) မိဘများ၏ တာဝန်များ</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Both parents share primary responsibility for bringing up their child, and governments shall support them in doing so.</span>
+                                <span class="lang-my">မိဘနှစ်ပါးစလုံးသည် မိမိတို့၏ ကကလေးများအား ပြုစုပျိုးထောင်ရန် အဓိက တာဝန်ရှိပြီး အစိုးရက လိုအပ်သော ပံ့ပိုးမှုများ ပြုလုပ်ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 19 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 19: Protection from Violence and Abuse</span>
+                                <span class="lang-my">အပိုဒ် (၁၉) အကြမ်းဖက်မှုနှင့် နှိပ်စက်မှုများမှ ကာကွယ်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children must be protected from all forms of physical or mental violence, injury, abuse, neglect, or exploitation.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအား အကြမ်းဖက်ခြင်း၊ လျစ်လျူရှုခြင်း၊ ခေါင်းပုံဖြတ်ခြင်းနှင့် ရုပ်ပိုင်း/စိတ်ပိုင်း နှိပ်စက်မှုများမှ အကာအကွယ် ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 20 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 20: Protection of Children Without Families</span>
+                                <span class="lang-my">အပိုဒ် (၂၀) မိသားစုမရှိသော ကကလေးများအား စောင့်ရှောက်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children who cannot be looked after by their own family have the right to special protection and assistance from the state.</span>
+                                <span class="lang-my">မိသားစုပြုစုစောင့်ရှောက်မှု မရှိသော ကကလေးသူငယ်များကို အစိုးရမှ အထူးပြုစုစောင့်ရှောက်မှု ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 21 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 21: Adoption</span>
+                                <span class="lang-my">အပိုဒ် (၂၁) မွေးစားခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">In countries where adoption is allowed, the best interests of the child shall be the paramount consideration.</span>
+                                <span class="lang-my">မွေးစားခြင်းဆိုင်ရာ ကိစ္စရပ်များတွင် ကလေး၏ အကောင်းဆုံး အကျိုးစီးပွားကို အဓိကထား ဆောင်ရွက်ရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 22 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 22: Refugee Children</span>
+                                <span class="lang-my">အပိုဒ် (၂၂) ဒုက္ခသည် ကလေးသူငယ်များ</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Refugee children or those seeking refugee status have the right to appropriate protection and humanitarian assistance.</span>
+                                <span class="lang-my">ဒုက္ခသည်ဖြစ်သော သို့မဟုတ် ဒုက္ခသည်အဖြစ် လျှောက်ထားသော ကကလေးများအတွက် သင့်တော်သော အကာအကွယ်နှင့် ကူညီမှုများ ရရှိစေရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 23 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 23: Children with Disabilities</span>
+                                <span class="lang-my">အပိုဒ် (၂၃) မသန်စွမ်း ကကလေးသူငယ်များ</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children with mental or physical disabilities have the right to enjoy a full, decent life with dignity and special care.</span>
+                                <span class="lang-my">စိတ်ပိုင်း/ရုပ်ပိုင်း မသန်စွမ်းသော ကကလေးသူငယ်များသည် အထူးစောင့်ရှောက်မှု၊ ဂုဏ်သိက္ခာရှိသော လူနေမှုနှင့် လွတ်လပ်စွာ ရှင်သန်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 24 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 24: Health and Healthcare Services</span>
+                                <span class="lang-my">အပိုဒ် (၂၄) ကျန်းမာရေးနှင့် ကျန်းမာရေးစောင့်ရှောက်မှု</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to the highest attainable standard of health and quality medical treatment.</span>
+                                <span class="lang-my">ကလေးသူငယ်တိုင်းသည် ကောင်းမွန်သော ကျန်းမာရေး၊ ကျန်းမာရေး စောင့်ရှောက်မှုနှင့် သန့်ရှင်းသော ပတ်ဝန်းကျင်ကို ရရှိပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 25 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 25: Periodic Review of Placement</span>
+                                <span class="lang-my">အပိုဒ် (၂၅) စောင့်ရှောက်မှု အခြေအနေများကို ပုံမှန် ပြန်လည်သုံးသပ်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children placed away from home for protection, care, or treatment have the right to regular reviews of their situation.</span>
+                                <span class="lang-my">စောင့်ရှောက်ရေး သို့မဟုတ် ဆေးကုသရေး စခန်းများသို့ ပို့ဆောင်ထားသော ကကလေးသူငယ်များ၏ အခြေအနေများကို ပုံမှန် ပြန်လည်သုံးသပ်ရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 26 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 26: Social Security</span>
+                                <span class="lang-my">အပိုဒ် (၂၆) လူမှုဖူလုံရေး ခံစားခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Every child has the right to benefit from social security, including social insurance, according to national law.</span>
+                                <span class="lang-my">နိုင်ငံတော်၏ အကူအညီဖြင့် ကကလေးသူငယ်များအတွက် လူမှုဖူလုံရေး ထောက်ပံ့မှုများကို ရရှိ ခံစားပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 27 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 27: Adequate Standard of Living</span>
+                                <span class="lang-my">အပိုဒ် (၂၇) သင့်တော်သော လူနေမှုအဆင့်အတန်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to a standard of living adequate for their physical, mental, spiritual, moral, and social development.</span>
+                                <span class="lang-my">ကလေးသူငယ်တိုင်းသည် စိတ်ပိုင်း၊ ရုပ်ပိုင်းဆိုင်ရာ ဖွံ့ဖြိုးတိုးတက်မှုအတွက် လုံလောက်သော လူနေမှု အဆင့်အတန်းကို ရရှိပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 28 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 28: Right to Education</span>
+                                <span class="lang-my">အပိုဒ် (၂၈) ပညာသင်ကြားပိုင်ခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Every child has the right to education. Primary education should be free and compulsory for all.</span>
+                                <span class="lang-my">ကလေးသူငယ်တိုင်း အခမဲ့ မူလတန်းပညာ သင်ယူခွင့်နှင့် အထက်တန်း၊ အဆင့်မြင့် ပညာသင်ကြားနိုင်ခွင့်များ ရရှိစေရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 29 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 29: Goals of Education</span>
+                                <span class="lang-my">အပိုဒ် (၂၉) ပညာရေး၏ ရည်ရွယ်ချက်များ</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Education should develop the child's personality, talents, and abilities to their fullest potential, and promote respect for human rights.</span>
+                                <span class="lang-my">ပညာရေးသည် ကကလေးများ၏ ဗဟိုပြု အရည်အချင်း၊ လူ့အခွင့်အရေးနှင့် ယဉ်ကျေးမှုများကို လေးစားတန်ဖိုးထားမှုများ ဖွံ့ဖြိုးစေရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 30 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 30: Children of Minorities or Indigenous Groups</span>
+                                <span class="lang-my">အပိုဒ် (၃၀) တိုင်းရင်းသားနှင့် လူနည်းစု ကကလေးများ</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Minority or indigenous children have the right to enjoy their own culture, practice their religion, and use their own language.</span>
+                                <span class="lang-my">တိုင်းရင်းသား သို့မဟုတ် လူနည်းစု ကကလေးသူငယ်များသည် မိမိတို့၏ ယဉ်ကျေးမှု၊ ဘာသာစကားနှင့် ကိုးကွယ်မှုကို လွတ်လပ်စွာ ကျင့်သုံးပိုင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 31 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 31: Rest, Play, Culture, and Arts</span>
+                                <span class="lang-my">အပိုဒ် (၃၁) အနားယူခွင့်၊ ကစားခွင့်နှင့် အနုပညာ အားကစား ခံစားခွင့်</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to rest, leisure, play, and engage in recreational, cultural, and artistic activities.</span>
+                                <span class="lang-my">ကလေးသူငယ်တိုင်းသည် လွတ်လပ်စွာ အနားယူခွင့်၊ ကစားခွင့်နှင့် အနုပညာ၊ အားကစား၊ ယဉ်ကျေးမှုဆိုင်ရာ လှုပ်ရှားမှုများတွင် ပါဝင်ခွင့် ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 32 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 32: Child Labour</span>
+                                <span class="lang-my">အပိုဒ် (၃၂) ကလေးလုပ်သား မပြုလုပ်ရေး</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children have the right to be protected from economic exploitation and hazardous work that affects their health or education.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအား ကျန်းမာရေးနှင့် ပညာရေးကို ထိခိုက်စေသည့် ခေါင်းပုံဖြတ် စီးပွားရေး အလုပ်ခွင်များမှ ကာကွယ်ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 33 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 33: Protection from Drug Abuse</span>
+                                <span class="lang-my">အပိုဒ် (၃၃) မူးယစ်ဆေးဝါးမှ ကာကွယ်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments must protect children from the illegal use and production of dangerous narcotic drugs and psychotropic substances.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအား မူးယစ်ဆေးဝါး သုံးစွဲခြင်း၊ ထုတ်လုပ်ခြင်းနှင့် ကုန်ကူးခြင်းတို့တွင် အသုံးပြုခြင်းမှ အကာအကွယ် ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 34 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 34: Protection from Sexual Exploitation</span>
+                                <span class="lang-my">အပိုဒ် (၃၄) လိင်ပိုင်းဆိုင်ရာ အမြတ်ထုတ်မှုမှ ကာကွယ်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments shall protect children from sexual abuse, sexual exploitation, prostitution, and pornographic materials.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအား လိင်ပိုင်းဆိုင်ရာ ခေါင်းပုံဖြတ် အမြတ်ထုတ်ခြင်း၊ ပြည့်တန်ဆာ ခိုင်းစေခြင်းမှ သန့်စင်စွာ ကာကွယ်ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 35 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 35: Prevention of Abduction and Sale</span>
+                                <span class="lang-my">အပိုဒ် (၃၅) ပြန်ပေးဆွဲခြင်းနှင့် ရောင်းစားခြင်း မှ တားဆီးခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments must take all measures to prevent the abduction, sale, or trafficking of children for any purpose.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအား ရောင်းချခြင်း၊ ကုန်သွယ်ခြင်းနှင့် ခိုးယူ ပြန်ပေးဆွဲခြင်းတို့မှ ကာကွယ်ရန် တာဝန်ရှိသည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 36 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 36: Protection from Other Forms of Exploitation</span>
+                                <span class="lang-my">အပိုဒ် (၃၆) အခြား ခေါင်းပုံဖြတ်မှုများမှ ကာကွယ်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children must be protected against all other forms of exploitation detrimental to any aspects of their welfare.</span>
+                                <span class="lang-my">ကလေးသူငယ်၏ သာယာဝပြောရေးကို ထိခိုက်စေသည့် အခြား မမည်သည့် ခေါင်းပုံဖြတ်မှု အမျိုးအစားမဆို ကာကွယ်ရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 37 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 37: Detention and Torture Protection</span>
+                                <span class="lang-my">အပိုဒ် (၃၇) ညှဉ်းပန်းနှိပ်စက်မှုနှင့် မတရား ဖမ်းဆီးခြင်းမှ ကာကွယ်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">No child shall be subjected to torture, cruel treatment, illegal arrest, life imprisonment, or capital punishment.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအား ညှဉ်းပန်းနှိပ်စက်ခြင်း၊ သေဒဏ် သို့မဟုတ် တစ်သက်တစ်ကျွန်း ပြစ်ဒဏ် ပေးခြင်းနှင့် မတရား ဖမ်းဆီးချုပ်နှောင်ခြင်း မပြုရ။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 38 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 38: War and Armed Conflict</span>
+                                <span class="lang-my">အပိုဒ် (၃၈) လက်နက်ကိုင် ပဋိပက္ခများမှ ကာကွယ်ခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments must respect rules of international humanitarian law and protect children in armed conflicts from direct involvement.</span>
+                                <span class="lang-my">ကလေးသူငယ်များအား လက်နက်ကိုင် အဖွဲ့အစည်းများတွင် စုဆောင်းခြင်း၊ တိုက်ပွဲဝင်စေခြင်းတို့မှ အထူး အကာအကွယ် ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 39 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 39: Rehabilitation and Reintegration</span>
+                                <span class="lang-my">အပိုဒ် (၃၉) ပြန်လည်ထူထောင်ရေးနှင့် ပေါင်းစည်းရေး</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Child victims of neglect, abuse, exploitation, or war have the right to physical and psychological recovery and social reintegration.</span>
+                                <span class="lang-my">လျစ်လျူရှုခံရခြင်း၊ အကြမ်းဖက်ခံရခြင်း သို့မဟုတ် စစ်ပွဲဒဏ်ခံရသော ကကလေးများအား စိတ်ပိုင်း/ရုပ်ပိုင်း ပြန်လည်ထူထောင်ပေးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 40 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 40: Juvenile Justice</span>
+                                <span class="lang-my">အပိုဒ် (၄၀) ကကလေးသူငယ် တရားစီရင်ရေး</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Children accused of breaking the law have the right to legal defense, fair treatment, and respect for their dignity.</span>
+                                <span class="lang-my">ဥပဒေချိုးဖောက်သည်ဟု စွပ်စွဲခံရသော ကကလေးသူငယ်များသည် တရားမျှတသော ဥပဒေရေးရာ အကာအကွယ်နှင့် သင့်တော်သော ပြုပြင်ရေး တရားစီရင်မှုကို ရရှိစေရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 41 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 41: Respect for Higher Legal Standards</span>
+                                <span class="lang-my">အပိုဒ် (၄၁) ပိုမို အကျိုးရှိသော ဥပဒေများကို ကျင့်သုံးခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">If national laws or other treaties offer better protection to the child than this Convention, those higher standards apply.</span>
+                                <span class="lang-my">အကယ်၍ နိုင်ငံတော် ဥပဒေသည် ဤစာချုပ်ထက် ကကလေးသူငယ်များအတွက် ပိုမို အကာအကွယ် ပေးပါက ထိုဥပဒေကို ဆက်လက်ကျင့်သုံးရမည်။</span>
+                            </div>
+                        </li>
+
+                        <!-- Article 42 -->
+                        <li>
+                            <strong>
+                                <span class="lang-en">Article 42: Public Knowledge of the Convention</span>
+                                <span class="lang-my">အပိုဒ် (၄၂) သဘောတူစာချုပ်ကို အများပြည်သူ သိရှိအောင် အသိပေးခြင်း</span>
+                            </strong>
+                            <div class="convention-details">
+                                <span class="lang-en">Governments must make the principles and provisions of this Convention widely known to both adults and children.</span>
+                                <span class="lang-my">အစိုးရများသည် ဤကလေးသူငယ် အခွင့်အရေးများဆိုင်ရာ သဘောတူစာချုပ်ပါ အချက်များကို အများပြည်သူနှင့် ကလေးသူငယ်များ သိရှိအောင် ကျယ်ပြန့်စွာ အသိပေးရမည်။</span>
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal Container -->
+    <div class="auth-modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+        <div class="auth-overlay" id="auth-overlay"></div>
+        <section class="auth-card">
+            <button class="auth-close-btn" id="auth-close" type="button" aria-label="Close dialog">&times;</button>
+            <h2 class="sr-only" id="auth-title">Account access</h2>
+            <div class="auth-tabs" role="tablist">
+                <button class="tab-btn active" id="tab-signin" type="button" role="tab">Sign in</button>
+                <button class="tab-btn" id="tab-signup" type="button" role="tab">Sign up</button>
+            </div>
+            <p class="auth-message" id="auth-message" role="alert" hidden></p>
+            <form class="auth-form" id="form-signin" novalidate>
+                <div class="form-group">
+                    <label for="signin-email">Email address</label>
+                    <input id="signin-email" type="email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signin-password">Password</label>
+                    <input id="signin-password" type="password" autocomplete="current-password" minlength="6" required>
+                </div>
+                <button class="auth-submit-btn" type="submit">Sign in</button>
+            </form>
+            <form class="auth-form hidden" id="form-signup" novalidate>
+                <div class="form-group">
+                    <label for="signup-name">Full name</label>
+                    <input id="signup-name" type="text" autocomplete="name" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email address</label>
+                    <input id="signup-email" type="email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input id="signup-password" type="password" autocomplete="new-password" minlength="6" required>
+                </div>
+                <button class="auth-submit-btn" type="submit">Create account</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Profile Modal Container -->
+    <div class="profile-modal hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" aria-hidden="true">
+        <div class="profile-overlay" id="profile-overlay"></div>
+        <section class="profile-card">
+            <button class="profile-close" id="profile-close" type="button" aria-label="Close profile">&times;</button>
+            <header class="profile-summary">
+                <div class="profile-avatar profile-avatar--large">
+                    <img id="profile-image" alt="" hidden>
+                    <span id="profile-initials" aria-hidden="true">G</span>
+                </div>
+                <div>
+                    <p class="profile-eyebrow">Your account</p>
+                    <h2 id="profile-title"><span id="profile-display-name">Guest</span></h2>
+                    <p id="profile-email">Not signed in</p>
+                </div>
+            </header>
+            <p class="profile-message" id="profile-message" role="status" hidden></p>
+            <button class="profile-edit-button" id="profile-edit" type="button">Edit profile</button>
+            <form class="profile-form hidden" id="profile-form" novalidate>
+                <div class="profile-field">
+                    <label for="profile-name-input">Display name</label>
+                    <input id="profile-name-input" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+                </div>
+                <div class="profile-field">
+                    <span class="profile-field-label">Profile picture</span>
+                    <div class="profile-drop-zone" id="profile-drop-zone" role="button" tabindex="0">
+                        <div class="profile-avatar profile-avatar--preview">
+                            <img id="profile-preview-image" alt="Selected profile preview" hidden>
+                            <span id="profile-preview-initials" aria-hidden="true">G</span>
+                        </div>
+                        <div class="profile-drop-copy">
+                            <strong>Drop an image here</strong>
+                            <span>or choose a file</span>
+                            <small id="profile-file-status">PNG, JPG or WebP &middot; maximum 10 MB</small>
+                        </div>
+                        <input id="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+                    </div>
+                </div>
+                <div class="profile-form-actions">
+                    <button class="profile-button profile-button--secondary" id="profile-cancel" type="button">Cancel</button>
+                    <button class="profile-button profile-button--primary" id="profile-save" type="submit">
+                        <span>Save changes</span>
+                        <span class="profile-spinner" id="profile-spinner" aria-label="Uploading" hidden></span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+  <script src="footer.js" defer></script>
+</body>
+</html>

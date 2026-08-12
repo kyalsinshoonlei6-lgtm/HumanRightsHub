@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>မြန်မာနိုင်ငံ အမျိုးသားလူ့အခွင့်အရေး ကော်မရှင် (MNHRC)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pyidaungsu:wght@300;400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="mnhrc.css">
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="auth.js" defer></script>
+  <script src="profile.js" defer></script>
+  <script src="mnhrc.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="lang-my page-mnhrc" data-lang="my">
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <div class="nav-brand">
+      <a class="brand-link" href="index.html#home" data-route="home" aria-label="Human Rights Hub home">
+        <span class="brand-mark" aria-hidden="true"><img src="images/humanity.png" alt=""></span>
+        <span class="brand-wordmark"><span class="lang-en">Human Rights Hub</span><span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span></span>
+      </a>
+    </div>
+    <ul class="nav-menu" id="primary-menu">
+      <li>
+        <a href="index.html#home" data-route="home"><span class="lang-en">Home</span><span class="lang-my">ပင်မစာမျက်နှာ</span></a>
+        <ul>
+          <li><a href="index.html#home" data-route="home"><span class="lang-en">What is Human Rights?</span><span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ။</span></a></li>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Human Rights Essentials</span><span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအဓိကအနှစ်ချုပ်</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="essential.html#framework" data-route="essentials"><span class="lang-en">Learn</span><span class="lang-my">လေ့လာရန်</span></a>
+        <ul>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">UDHR</span><span class="lang-my">UDHR ကြေညာစာတမ်း</span></a></li>
+          <li><a href="articles.html#articles" data-route="articles"><span class="lang-en">Articles</span><span class="lang-my">အပိုဒ်များ</span></a></li>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Conventions</span><span class="lang-my">သဘောတူညီချက်များ</span></a></li>
+        </ul>
+      </li>
+      <li class="current">
+        <a href="mnhrc.html#mnhrc" data-route="mnhrc" aria-current="page"><span class="lang-en">MNHRC</span><span class="lang-my">MNHRC</span></a>
+        <ul>
+          <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">What is MNHRC?</span><span class="lang-my">MNHRC ဆိုတာဘာလဲ။</span></a></li>
+          <li><a href="format.html"><span class="lang-en">To collect a complaint letter</span><span class="lang-my">တိုင်ကြားစာရယူရန်</span></a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#action"><span class="lang-en">Take Action</span><span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span></a><ul><li><a href="chat.html"><span class="lang-en">Anonymous Text Box</span><span class="lang-my">အမည်မဖော် ရင်ဖွင့်စာ</span></a></li><li><a href="eme.html"><span class="lang-en">Emergency Support</span><span class="lang-my">အရေးပေါ် အကူအညီ</span></a></li></ul></li>
+      <li><a href="index.html#quiz"><span class="lang-en">Quiz</span><span class="lang-my">ဉာဏ်စမ်း</span></a></li>
+    </ul>
+    <div class="nav-actions">
+      <nav class="account-actions" aria-label="Account">
+        <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false"><span id="opt-en" class="lang-label active">EN</span><span class="divider" aria-hidden="true">|</span><span id="opt-my" class="lang-label">မြန်မာ</span></button>
+        <button class="account-profile" id="profile-open" type="button" aria-label="Guest profile" disabled><span class="nav-profile-avatar" aria-hidden="true"><img id="nav-profile-image" alt="" hidden><span id="nav-profile-initials">G</span></span><span class="account-user" id="user-name" aria-live="polite">Guest</span></button>
+        <a class="account-link" href="form.html?mode=signin">Sign in</a>
+        <a class="account-link account-link--primary" href="form.html?mode=signup">Sign up</a>
+        <button class="account-link account-link--logout" id="logout-button" type="button" hidden>Log out</button>
+      </nav>
+      <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false"><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Open navigation menu</span></button>
+    </div>
+  </nav>
+
+  <div id="page-content" data-page="mnhrc">
+    <main class="mnhrc-original" id="mnhrc">
+<header>
+    <div class="lang-my">
+      <h1>မြန်မာနိုင်ငံ အမျိုးသားလူ့အခွင့်အရေး ကော်မရှင်</h1>
+      <p>MNHRC - လူ့အခွင့်အရေး မြှင့်တင်ရေး၊ ကာကွယ်စောင့်ရှောက်ရေးနှင့် ဥပဒေဆိုင်ရာ လမ်းညွှန်ချက်များ</p>
+    </div>
+    <div class="lang-en">
+      <h1>Myanmar National Human Rights Commission</h1>
+      <p>MNHRC - Promotion, Protection, and Legal Guidelines for Human Rights</p>
+    </div>
+    <div class="mnhrc-source-actions">
+      <div class="mnhrc-source-status">
+        <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+        <span class="lang-my">မတိုင်ကြားမီ လိုအပ်သော အချက်အလက်များကို စစ်ဆေးပါ</span>
+        <span class="lang-en">Check the required details before reporting</span>
+      </div>
+      <div class="mnhrc-source-links">
+        <a class="mnhrc-report-link" href="#complaint-readiness-panel">
+          <span class="lang-my">အသင့်ဖြစ်မှု စစ်ဆေးရန်</span>
+          <span class="lang-en">Check readiness</span>
+          <i class="fa-solid fa-arrow-down" aria-hidden="true"></i>
+        </a>
+        <a class="mnhrc-letter-link" href="format.html">
+          <span class="lang-my">တိုင်ကြားစာ ပြင်ဆင်ရန်</span>
+          <span class="lang-en">Prepare a complaint letter</span>
+          <i class="fa-solid fa-file-pen" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="card" id="overview">
+      <h2><i class="fa-solid fa-scale-balanced"></i> <span class="lang-my">၁။ လူ့အခွင့်အရေး ကော်မရှင် ဆိုတာဘာလဲ?</span><span class="lang-en">1. What is a Human Rights Commission?</span></h2>
+      <p class="lang-my">လူသားအားလုံး၏ အခွင့်အရေးများကို မြှင့်တင်ပေးရန်၊ အသိပညာပေးရန်နှင့် လူ့အခွင့်အရေး ချိုးဖောက်မှုများမှ ကာကွယ်စောင့်ရှောက်ရန် ဥပဒေအရ တာဝန်ပေးအပ်ထားသည့် လွတ်လပ်သော နိုင်ငံတော်အဆင့် အဖွဲ့အစည်း ဖြစ်သည်။</p>
+      <p class="lang-en">It is an independent state-level body established by law, tasked with promoting, educating about, and protecting human rights for all individuals.</p>
+      
+      <div class="grid-2">
+        <div class="sub-card">
+          <h3 class="lang-my">ဖွဲ့စည်းပုံနှင့် ရန်ပုံငွေ</h3>
+          <h3 class="lang-en">Structure and Funding</h3>
+          <p class="lang-my">နိုင်ငံတော်မှ ဖွဲ့စည်းပေးပြီး ရန်ပုံငွေ ထောက်ပံ့ပေးသော်လည်း လုပ်ငန်းများကို လွတ်လပ်စွာ ဆောင်ရွက်ခွင့် ရှိသည်။</p>
+          <p class="lang-en">Although it is established and funded by the state, it has the right to carry out its functions independently.</p>
+        </div>
+        <div class="sub-card">
+          <h3 class="lang-my">ပါရီးအခြေခံမူများ (Paris Principles)</h3>
+          <h3 class="lang-en">Paris Principles</h3>
+          <p class="lang-my">အမျိုးသား လူ့အခွင့်အရေး အဖွဲ့အစည်းများ ဖွဲ့စည်းတည်ထောင်မှုဆိုင်ရာ စံနှုန်းများကို ဖော်ပြထားသည့် နိုင်ငံတကာက ကျယ်ကျယ်ပြန့်ပြန့် လက်ခံထားသော စံချိန်စံညွှန်းများ ဖြစ်သည်။</p>
+          <p class="lang-en">Internationally accepted standards that set out the guidelines for the establishment and functioning of National Human Rights Institutions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fa-solid fa-list-check"></i> <span class="lang-my">၂။ ကော်မရှင်၏ အဓိက တာဝန်ကြီး (၂) ရပ်</span><span class="lang-en">2. Two Main Responsibilities of the Commission</span></h2>
+      <ul>
+        <li><span class="lang-my">လူ့အခွင့်အရေး မြှင့်တင်ပညာပေးခြင်း (Human Rights Promotion)</span><span class="lang-en">Human Rights Promotion</span></li>
+        <li><span class="lang-my">လူ့အခွင့်အရေး ကာကွယ်စောင့်ရှောက်ခြင်း (Human Rights Protection)</span><span class="lang-en">Human Rights Protection</span></li>
+      </ul>
+    </div>
+
+    <div class="grid-2" id="work">
+      <div class="card" style="margin-bottom:0;">
+        <h2><i class="fa-solid fa-graduation-cap"></i> <span class="lang-my">မြှင့်တင်ရေး လုပ်ငန်းများ</span><span class="lang-en">Promotion Activities</span></h2>
+        <ul>
+          <li><strong class="lang-my">အသိပညာပေးခြင်း:</strong><strong class="lang-en">Raising Awareness:</strong> <span class="lang-my">မီဒီယာများနှင့် ပုံနှိပ်ထုတ်ဝေခြင်းများမှတစ်ဆင့် ပြည်သူသို့ အသိပညာ ပြန့်ပွားအောင် လုပ်ဆောင်ခြင်း။</span><span class="lang-en">Disseminating knowledge to the public through media and publications.</span></li>
+          <li><strong class="lang-my">ပူးပေါင်းဆောင်ရွက်ခြင်း:</strong><strong class="lang-en">Collaboration:</strong> <span class="lang-my">အစိုးရမဟုတ်သော အဖွဲ့အစည်းများ (CSOs/NGOs) နှင့် နိုင်ငံတကာ အဖွဲ့အစည်းများနှင့် လက်တွဲလုပ်ဆောင်ခြင်း။</span><span class="lang-en">Working together with civil society organizations (CSOs/NGOs) and international bodies.</span></li>
+          <li><strong class="lang-my">အကြံပြုချက်ပေးခြင်း:</strong><strong class="lang-en">Providing Recommendations:</strong> <span class="lang-my">အစိုးရသို့ ဥပဒေနှင့် မူဝါဒဆိုင်ရာ အကြံပြုချက်များ ပေးပို့ခြင်း။</span><span class="lang-en">Submitting legal and policy recommendations to the government.</span></li>
+          <li><strong class="lang-my">သုတေသနပြုခြင်း:</strong><strong class="lang-en">Conducting Research:</strong> <span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာ လေ့လာဆန်းစစ်မှုများနှင့် သုတေသနများ ပြုလုပ်ခြင်း။</span><span class="lang-en">Conducting studies and research related to human rights.</span></li>
+          <li><strong class="lang-my">သင်တန်းများ ပေးခြင်း:</strong><strong class="lang-en">Conducting Trainings:</strong> <span class="lang-my">အစိုးရဝန်ထမ်းများ၊ တပ်မတော်၊ ရဲတပ်ဖွဲ့နှင့် သက်ဆိုင်ရာ အဖွဲ့အစည်းများအား သင်တန်းများ ပေးခြင်း။</span><span class="lang-en">Providing training programs for government staff, military, police, and relevant organizations.</span></li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-bottom:0;">
+        <h2><i class="fa-solid fa-shield-halved"></i> <span class="lang-my">ကာကွယ်စောင့်ရှောက်ရေး (၇) ချက်</span><span class="lang-en">7 Protection Procedures</span></h2>
+        <ul>
+          <li><span class="lang-my">တိုင်ကြားစာများ လက်ခံခြင်း</span><span class="lang-en">Receiving complaints</span></li>
+          <li><span class="lang-my">စုံစမ်းစစ်ဆေးခြင်း လုပ်ငန်းများ ဆောင်ရွက်ခြင်း</span><span class="lang-en">Conducting investigations</span></li>
+          <li><span class="lang-my">စစ်ဆေးတွေ့ရှိချက်များအပေါ် ထုတ်ပြန်ကြေညာချက်၊ အကြံပြုချက်နှင့် အစီရင်ခံစာများ ပေးပို့ခြင်း</span><span class="lang-en">Issuing declarations, recommendations, and reports</span></li>
+          <li><span class="lang-my">ပြည်သူလူထုအတွင်း ကွင်းဆင်း စုံစမ်းမေးမြန်းခြင်း</span><span class="lang-en">Conducting field inquiries among the public</span></li>
+          <li><span class="lang-my">စိစစ်လေ့လာခြင်း / စောင့်ကြည့်ခြင်း (Monitoring)</span><span class="lang-en">Monitoring and evaluation</span></li>
+          <li><span class="lang-my">နစ်နာသူများအတွက် ပြန်လည်ကုစားမှု သို့မဟုတ် နစ်နာကြေး ရရှိရေး ဆောင်ရွက်ပေးခြင်း</span><span class="lang-en">Securing remedies or compensation for victims</span></li>
+          <li><span class="lang-my">ဥပဒေ၏ အကာအကွယ်နှင့် တရားမျှတမှု ရရှိရေး ဆောင်ရွက်ပေးခြင်း</span><span class="lang-en">Ensuring legal protection and access to justice</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 2rem;">
+      <h2><i class="fa-solid fa-gavel"></i> <span class="lang-my">ဥပဒေအရ ပြဋ္ဌာန်းထားသော တာဝန်နှင့် လုပ်ပိုင်ခွင့်များ</span><span class="lang-en">Statutory Duties and Powers</span></h2>
+      <ul>
+        <li><strong class="lang-my">အသိပညာပေးခြင်း:</strong><strong class="lang-en">Raising Awareness:</strong> <span class="lang-my">လူ့အခွင့်အရေး အသိပညာပေး လုပ်ငန်းများကို ကျယ်ပြန့်စွာ ဆောင်ရွက်ခြင်း။</span><span class="lang-en">Widely conducting human rights awareness activities.</span></li>
+        <li><strong class="lang-my">နိုင်ငံတကာ စာချုပ်များ အကြံပြုခြင်း:</strong><strong class="lang-en">Recommending International Treaties:</strong> <span class="lang-my">နိုင်ငံတော်မှ ပါဝင်ချုပ်ဆိုသင့်သည့် အပြည်ပြည်ဆိုင်ရာ စာချုပ်များကို အစိုးရအဖွဲ့ထံ အကြံပြု တင်ပြခြင်း။</span><span class="lang-en">Proposing international human rights treaties for state accession.</span></li>
+        <li><strong class="lang-my">ဥပဒေများ လေ့လာဆန်းစစ်ခြင်း:</strong><strong class="lang-en">Reviewing Laws:</strong> <span class="lang-my">တည်ဆဲဥပဒေများနှင့် အဆိုပြု ဥပဒေကြမ်းများအား နိုင်ငံတကာ စံချိန်စံညွှန်းများနှင့် ကိုက်ညီမှု ရှိ/မရှိ သုံးသပ်ခြင်း၊ လွှတ်တော်သို့ တင်ပြခြင်း။</span><span class="lang-en">Reviewing existing and draft laws for compliance and proposing recommendations to Parliament.</span></li>
+      </ul>
+    </div>
+
+    <div class="card" id="complaint">
+      <h2><i class="fa-solid fa-file-pen"></i> <span class="lang-my">တိုင်ကြားခြင်းဆိုင်ရာ လမ်းညွှန်ချက်များ</span><span class="lang-en">Complaint Guidelines</span></h2>
+      
+      <h3 class="lang-my">မည်သူတွေ တိုင်ကြားနိုင်သလဲ?</h3>
+      <h3 class="lang-en">Who Can File a Complaint?</h3>
+      <ul>
+        <li><span class="lang-my">နစ်နာသူ ကိုယ်တိုင်ဖြစ်စေ၊ အခြားသူ၏ အခွင့်အရေး ချိုးဖောက်ခံရမှုအတွက် ကိုယ်စားဖြစ်စေ တိုင်ကြားနိုင်သည်။</span><span class="lang-en">The victims themselves, or third parties acting on their behalf.</span></li>
+      </ul>
+
+      <h3 class="lang-my">တိုင်ကြားနိုင်သည့် နည်းလမ်းများနှင့် ရုံးလိပ်စာများ</h3>
+      <h3 class="lang-en">Submission Methods & Office Addresses</h3>
+      <p class="lang-my"><strong style="color:var(--primary)">လိပ်မူရမည့်သူ:</strong> ဥက္ကဋ္ဌ၊ မြန်မာနိုင်ငံ အမျိုးသားလူ့အခွင့်အရေး ကော်မရှင်</p>
+      <p class="lang-en"><strong style="color:var(--primary)">Addressed to:</strong> The Chairman, Myanmar National Human Rights Commission</p>
+      
+      <p class="lang-my"><strong>ဌာနချုပ် (ရန်ကုန်):</strong> အမှတ် (၂၇)၊ ပြည်လမ်း၊ ၆ မိုင်ခွဲ၊ လှိုင်မြို့နယ်၊ ရန်ကုန်မြို့။ (ရုံးခွဲများ: နေပြည်တော်၊ မန္တလေး၊ စစ်တွေ၊ ပုသိမ်)</p>
+      <p class="lang-en"><strong>Headquarters (Yangon):</strong> No. (27), Pyay Road, 6 Mile, Hlaing Township, Yangon. (Branch Offices: Nay Pyi Taw, Mandalay, Sittwe, Pathein)</p>
+
+      <ul>
+        <li><span class="lang-my">စာတိုက်မှတစ်ဆင့် စာပေးပို့၍ တိုင်ကြားခြင်း</span><span class="lang-en">Submitting by postal mail</span></li>
+        <li><span class="lang-my">လူကိုယ်တိုင် သွားရောက် တိုင်ကြားခြင်း</span><span class="lang-en">In-person submission at the office</span></li>
+        <li><span class="lang-my">ဖက်စ် (Fax): ၀၁-၆၅၄၆၇၈ သို့ ပေးပို့တိုင်ကြားခြင်း</span><span class="lang-en">Sending via Fax: 01-654678</span></li>
+        <li><span class="lang-my">Online / QR Code မှတစ်ဆင့် တိုင်ကြားခြင်း</span><span class="lang-en">Online / QR Code submission</span></li>
+      </ul>
+
+      <section class="complaint-readiness" id="complaint-readiness-panel" aria-labelledby="complaint-readiness-title">
+        <div class="complaint-readiness__heading">
+          <div>
+            <span class="lang-my">တိုင်ကြားရန် အသင့်ဖြစ်မှု</span>
+            <span class="lang-en" id="complaint-readiness-title">Complaint readiness</span>
+          </div>
+          <strong id="complaint-readiness-value" aria-live="polite">0%</strong>
+        </div>
+        <div class="complaint-readiness__progress" role="progressbar" aria-label="Complaint readiness" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <span id="complaint-readiness-bar"></span>
+        </div>
+        <div class="complaint-readiness__checks">
+          <label><input type="checkbox" data-readiness-check><span><span class="lang-my">အမည်မှန်နှင့် လိပ်စာမှန် အသင့်ရှိသည်</span><span class="lang-en">I have my correct name and address</span></span></label>
+          <label><input type="checkbox" data-readiness-check><span><span class="lang-my">ဆက်သွယ်ရန် ဖုန်းနံပါတ် အသင့်ရှိသည်</span><span class="lang-en">I have my contact phone number</span></span></label>
+          <label><input type="checkbox" data-readiness-check><span><span class="lang-my">ဖြစ်စဉ်အကြောင်းအရာကို ခိုင်လုံစွာ ရေးသားထားသည်</span><span class="lang-en">I have written a detailed account of the incident</span></span></label>
+          <label><input type="checkbox" data-readiness-check><span><span class="lang-my">သက်သေခံ စာရွက်စာတမ်းများ အသင့်ရှိသည်</span><span class="lang-en">I have supporting documents ready</span></span></label>
+        </div>
+        <a class="complaint-readiness__submit" id="complaint-report-button" href="https://mnhrc.org.mm/complaint" target="_blank" rel="noopener noreferrer" aria-disabled="true" tabindex="-1">
+          <span class="lang-my">တရားဝင်တိုင်ကြားစာမျက်နှာသို့ သွားရန်</span>
+          <span class="lang-en">Continue to the official report page</span>
+          <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </a>
+        <p class="complaint-readiness__note"><span class="lang-my">ဤစစ်ဆေးစာရင်းသည် အချက်အလက်များကို တင်ပြခြင်း သို့မဟုတ် သိမ်းဆည်းခြင်း မပြုပါ။</span><span class="lang-en">This checklist does not submit or store your information.</span></p>
+      </section>
+    </div>
+
+    <div class="card">
+      <h2><i class="fa-solid fa-ban"></i> <span class="lang-my">ကော်မရှင်က လက်မခံသည့် တိုင်ကြားချက်များ</span><span class="lang-en">Complaints Not Accepted by the Commission</span></h2>
+      <ul>
+        <li><span class="lang-my"><strong>တရားရုံးတွင် စစ်ဆေးဆဲ ကိစ္စများ:</strong> တရားရုံးတစ်ခုခုတွင် စစ်ဆေးကြားနာဆဲ သို့မဟုတ် စီရင်ချက်ချမှတ်ပြီးဖြစ်သော အမှုများ။</span><span class="lang-en"><strong>Matters Under Trial in Courts:</strong> Legal cases currently being heard or already adjudicated.</span></li>
+        <li><span class="lang-my"><strong>လွှတ်တော်တွင် ဆွေးနွေးဆဲ ကိစ္စများ:</strong> လွှတ်တော်များတွင် ဆွေးနွေးငြင်းခုံဆဲ ကိစ္စများ။</span><span class="lang-en"><strong>Matters under Discussion in Parliament:</strong> Issues currently under debate in Parliament.</span></li>
+        <li><span class="lang-my"><strong>အမည်/လိပ်စာ မခိုင်လုံခြင်း:</strong> အမည်၊ လိပ်စာ မမှန်ကန်ခြင်း သို့မဟုတ် သက်သေခံ အထောက်အထား အလုံအလောက် မပါရှိခြင်း။</span><span class="lang-en"><strong>Lack of Name, Address, or Evidence:</strong> Anonymous or unverified false complaints.</span></li>
+        <li><span class="lang-my"><strong>အပြီးပြတ်ပြီးသား ကိစ္စများ:</strong> တည်ဆဲဥပဒေများနှင့်အညီ စုံစမ်းစစ်ဆေးပြီး အပြီးသတ် ဆုံးဖြတ်ပြီးသား ကိစ္စများ။</span><span class="lang-en"><strong>Matters Already Resolved:</strong> Issues finalized by relevant departments under existing laws.</span></li>
+        <li><span class="lang-my"><strong>လူ့အခွင့်အရေးနှင့် မသက်ဆိုင်ခြင်း:</strong> ပုဂ္ဂလိကချင်း သာမန် ပဋိပက္ခများ၊ စီးပွားရေးစာချုပ် အငြင်းပွားမှုများ။</span><span class="lang-en"><strong>Matters Unrelated to Human Rights:</strong> Ordinary private disputes or contract disagreements.</span></li>
+      </ul>
+
+      <div class="warning-box">
+        <p class="lang-my"><strong>မှတ်ချက်:</strong> ကော်မရှင်သို့ တိုင်ကြားရာတွင် မိမိ၏ အမည်မှန်၊ လိပ်စာမှန်၊ ဆက်သွယ်ရန် ဖုန်းနံပါတ်နှင့်အတူ ဖြစ်စဉ်ပါ အကြောင်းအရာများကို ခိုင်လုံစွာရေးသား၍ သက်သေခံ စာရွက်စာတမ်း ပူးတွဲပေးပို့မှသာ အကဲဖြတ် လက်ခံမည် ဖြစ်ပါသည်။</p>
+        <p class="lang-en"><strong>Note:</strong> When filing a complaint, it must be submitted with your correct name, address, contact phone number, detailed narrative, and supporting documents to be evaluated for investigation.</p>
+      </div>
+    </div>
+
+  </div>
+  <div class="card">
+    <h2>
+      <span class="lang-my"><i class="fa-solid fa-map-location-dot"></i> ရန်ကုန် ရုံးချုပ် တည်နေရာနှင့် မြေပုံ</span>
+      <span class="lang-en"><i class="fa-solid fa-map-location-dot"></i> Yangon Headquarters Location & Map</span>
+    </h2>
+    <p>
+      <strong><span class="lang-my">လိပ်မူရမည့်သူ:</span><span class="lang-en">Addressed to:</span></strong>
+      <span class="lang-my"> ဥက္ကဋ္ဌ၊ မြန်မာနိုင်ငံ အမျိုးသားလူ့အခွင့်အရေး ကော်မရှင်</span>
+      <span class="lang-en"> The Chairman, Myanmar National Human Rights Commission</span>
+    </p>
+    <p>
+      <strong><span class="lang-my">ဌာနချုပ် (ရန်ကုန်):</span><span class="lang-en">Headquarters (Yangon):</span></strong>
+      <span class="lang-my"> အမှတ် (၂၇)၊ ပြည်လမ်း၊ ၆ မိုင်ခွဲ၊ လှိုင်မြို့နယ်၊ ရန်ကုန်မြို့။</span>
+      <span class="lang-en"> No. (27), Pyay Road, 6 Mile, Hlaing Township, Yangon.</span>
+    </p>
+    <p>
+      <strong><span class="lang-my">ဖုန်းနံပါတ်:</span><span class="lang-en">Phone:</span></strong>
+      <span class="lang-my"> ၀၁-၆၅၄၆၇၈၊ ၀၁-၆၅၄၆၈၄</span>
+      <span class="lang-en"> 01-654678, 01-654684</span>
+    </p>
+    
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3490.4704043767315!2d96.13275857473472!3d16.844489283953063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c1949587797afb%3A0x8e2f4b7f84dea5c8!2zTXlhbm1hciBOYXRpb25hbCBIdW1hbiBSaWdodHMgQ29tbWlzc2lvbiAtIOGAmeGAvOGAlOGAuuGAmeGArOGAlOGAreGAr-GAhOGAuuGAhOGAtiDhgKHhgJnhgLvhgK3hgK_hgLjhgJ7hgKzhgLgg4YCc4YCw4YC34YCh4YCB4YC94YCE4YC34YC64YCh4YCb4YCx4YC4IOGAgOGAseGArOGAuuGAmeGAm-GAvuGAhOGAug!5e1!3m2!1sen!2smm!4v1786115617901!5m2!1sen!2smm"
+      width="600"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+  <div class="card">
+    <h2>
+      <span class="lang-my"><i class="fa-solid fa-map-location-dot"></i> နေပြည်တော် ရုံးခွဲ တည်နေရာမြေပုံ</span>
+      <span class="lang-en"><i class="fa-solid fa-map-location-dot"></i> Nay Pyi Taw Branch Location & Map</span>
+    </h2>
+    <p>
+      <strong><span class="lang-my">နေပြည်တော် ရုံးခွဲ:</span><span class="lang-en">Nay Pyi Taw Branch:</span></strong>
+      <span class="lang-my"> သက်ဆိုင်ရာ ဝန်ကြီးဌာနစခန်းနယ်မြေ</span>
+      <span class="lang-en"> Located within the respective ministry compound</span>
+    </p>
+  
+  <div style="width: 100%; height: 350px; border-radius: 12px; overflow: hidden; margin-top: 1rem;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3432.6795258671305!2d96.12916207481115!3d19.737724381607844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c8bdc55f9b0cd7%3A0xa8d168d8bda6097e!2sMNHRC%20(NPW%20Branch%20Office)!5e1!3m2!1sen!2smm!4v1786115697684!5m2!1sen!2smm"
+      width="600"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+</div>
+<div class="card">
+  <h2>
+    <span class="lang-my"><i class="fa-solid fa-map-location-dot"></i> မန္တလေး ရုံးခွဲ တည်နေရာနှင့် မြေပုံ</span>
+    <span class="lang-en"><i class="fa-solid fa-map-location-dot"></i> Mandalay Branch Location & Map</span>
+  </h2>
+  <p>
+    <strong><span class="lang-my">လိပ်စာ:</span><span class="lang-en">Address:</span></strong>
+    <span class="lang-my"> ကမ်းနားလမ်း၊ ၃၄ × ၃၅ လမ်းကြား၊ ဒေါန်းစမ်းအနောက်ရပ်ကွက်၊ ချမ်းအေးသာစံမြို့နယ်၊ မန္တလေးတိုင်းဒေသကြီး။</span>
+    <span class="lang-en"> Kanna Road, between 34 & 35 Streets, Daungsan West Ward, Chan Aye Thar San Township, Mandalay Region.</span>
+  </p>
+  <p>
+    <strong><span class="lang-my">ဖုန်းနံပါတ်:</span><span class="lang-en">Phone:</span></strong>
+    <span class="lang-my"> ၀၂-၄၀၃၀၄၈၅</span>
+    <span class="lang-en"> 02-4030485</span>
+  </p>
+  
+  <div style="width: 100%; height: 350px; border-radius: 12px; overflow: hidden; margin-top: 1rem;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3382.020370522331!2d96.05496297487815!3d21.973419879922943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30cb13b93bafff95%3A0xd8e74eac2ff79cbe!2sMNHRC%20Office%20(MDY%20Brench)!5e1!3m2!1sen!2smm!4v1786115902552!5m2!1sen!2smm"
+      width="600"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+</div>
+<div class="card">
+  <h2>
+    <span class="lang-my"><i class="fa-solid fa-map-location-dot"></i> စစ်တွေ ရုံးခွဲ တည်နေရာနှင့် မြေပုံ</span>
+    <span class="lang-en"><i class="fa-solid fa-map-location-dot"></i> Sittwe Branch Location & Map</span>
+  </h2>
+  <p>
+    <strong><span class="lang-my">လိပ်စာ:</span><span class="lang-en">Address:</span></strong>
+    <span class="lang-my"> အထွေထွေအုပ်ချုပ်ရေးဦးစီးဌာနရုံး၊ စစ်တွေမြို့၊ ရခိုင်ပြည်နယ်။</span>
+    <span class="lang-en"> General Administration Department office, Sittwe, Rakhine State.</span>
+  </p>
+  
+  <div style="width: 100%; height: 350px; border-radius: 12px; overflow: hidden; margin-top: 1rem;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d109547.0631352011!2d92.77232664009905!3d20.167449023504997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1smnhrc%20sittwe!5e1!3m2!1sen!2smm!4v1786116068206!5m2!1sen!2smm"
+      width="600"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+</div>
+<div class="card">
+  <h2>
+    <span class="lang-my"><i class="fa-solid fa-map-location-dot"></i> ပုသိမ် ရုံးခွဲ တည်နေရာနှင့် မြေပုံ</span>
+    <span class="lang-en"><i class="fa-solid fa-map-location-dot"></i> Pathein Branch Location & Map</span>
+  </h2>
+  <p>
+    <strong><span class="lang-my">လိပ်စာ:</span><span class="lang-en">Address:</span></strong>
+    <span class="lang-my"> မြို့နယ်စည်ပင်သာယာရေးအဖွဲ့၊ မဟာစေတီလမ်းကြီး၊ အမှတ် (၁၃) ရပ်ကွက်၊ ပုသိမ်မြို့၊ ဧရာဝတီတိုင်းဒေသကြီး။</span>
+    <span class="lang-en"> Township Development Committee, Maha Zedi Road, No.13 Ward, Pathein, Ayeyarwady Region.</span>
+  </p>
+  <p>
+    <strong><span class="lang-my">ဖုန်းနံပါတ်:</span><span class="lang-en">Phone:</span></strong>
+    <span class="lang-my"> ၀၄၂-၂၀၂၉၃၇</span>
+    <span class="lang-en"> 042-202937</span>
+  </p>
+  
+  <div style="width: 100%; height: 350px; border-radius: 12px; overflow: hidden; margin-top: 1rem;">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d893925.0379848602!2d93.60313274687499!3d16.767097199999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30bfeba5751222cd%3A0x896d6cb97ef50e79!2sMaha%20Pagoda!5e1!3m2!1sen!2smm!4v1786116195729!5m2!1sen!2smm"
+      width="600"
+      height="450"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  </div>
+</div>
+    </main>
+  </div>
+
+  <div class="auth-modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-message">
+    <div class="auth-overlay" id="auth-overlay"></div><section class="auth-card"><button class="auth-close-btn" id="auth-close" type="button" aria-label="Close authentication dialog">&times;</button><h2 class="sr-only" id="auth-title">Account access</h2><div class="auth-tabs" role="tablist" aria-label="Account access"><button class="tab-btn active" id="tab-signin" type="button" role="tab" aria-selected="true">Sign in</button><button class="tab-btn" id="tab-signup" type="button" role="tab" aria-selected="false">Sign up</button></div><p class="auth-message" id="auth-message" role="alert" hidden></p><form class="auth-form" id="form-signin" novalidate><div class="form-group"><label for="signin-email">Email address</label><input id="signin-email" type="email" autocomplete="email" required></div><div class="form-group"><label for="signin-password">Password</label><input id="signin-password" type="password" autocomplete="current-password" minlength="6" required></div><button class="auth-submit-btn" type="submit">Sign in</button></form><form class="auth-form hidden" id="form-signup" novalidate><div class="form-group"><label for="signup-name">Full name</label><input id="signup-name" type="text" autocomplete="name" maxlength="100" required></div><div class="form-group"><label for="signup-email">Email address</label><input id="signup-email" type="email" autocomplete="email" required></div><div class="form-group"><label for="signup-password">Password</label><input id="signup-password" type="password" autocomplete="new-password" minlength="6" required></div><button class="auth-submit-btn" type="submit">Create account</button></form></section>
+  </div>
+
+  <div class="profile-modal hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" aria-hidden="true">
+    <div class="profile-overlay" id="profile-overlay"></div><section class="profile-card"><button class="profile-close" id="profile-close" type="button" aria-label="Close profile">&times;</button><header class="profile-summary"><div class="profile-avatar profile-avatar--large"><img id="profile-image" alt="" hidden><span id="profile-initials" aria-hidden="true">G</span></div><div><p class="profile-eyebrow">Your account</p><h2 id="profile-title"><span id="profile-display-name">Guest</span></h2><p id="profile-email">Not signed in</p></div></header><p class="profile-message" id="profile-message" role="status" hidden></p><button class="profile-edit-button" id="profile-edit" type="button">Edit profile</button><form class="profile-form hidden" id="profile-form" novalidate><div class="profile-field"><label for="profile-name-input">Display name</label><input id="profile-name-input" type="text" autocomplete="name" minlength="2" maxlength="100" required></div><div class="profile-field"><span class="profile-field-label">Profile picture</span><div class="profile-drop-zone" id="profile-drop-zone" role="button" tabindex="0" aria-label="Choose or drop a profile image"><div class="profile-avatar profile-avatar--preview"><img id="profile-preview-image" alt="Selected profile preview" hidden><span id="profile-preview-initials" aria-hidden="true">G</span></div><div class="profile-drop-copy"><strong>Drop an image here</strong><span>or choose a file</span><small id="profile-file-status">PNG, JPG or WebP &middot; maximum 10 MB</small></div><input id="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden></div></div><div class="profile-form-actions"><button class="profile-button profile-button--secondary" id="profile-cancel" type="button">Cancel</button><button class="profile-button profile-button--primary" id="profile-save" type="submit"><span>Save changes</span><span class="profile-spinner" id="profile-spinner" aria-label="Uploading" hidden></span></button></div></form></section>
+  </div>
+  <script src="footer.js" defer></script>
+</body>
+</html>

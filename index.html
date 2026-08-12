@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Human Rights Hub | လူ့အခွင့်အရေးမဏ္ဍိုင်</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="article.css">
+    <link rel="stylesheet" href="mnhrc.css">
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+    <script src="firebase-config.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="profile.js" defer></script>
+    <script src="article.js" defer></script>
+    <script src="mnhrc.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body class="lang-en">
+
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <div class="nav-brand">
+            <a class="brand-link" href="#home" data-route="home" aria-label="Human Rights Hub home">
+                <span class="brand-mark" aria-hidden="true">
+                    <img src="images/humanity.png" alt="">
+                </span>
+                <span class="brand-wordmark">
+                    <span class="lang-en">Human Rights Hub</span>
+                    <span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span>
+                </span>
+            </a>
+        </div>
+
+        <ul class="nav-menu" id="primary-menu">
+            <li class="current">
+                <a href="#home" data-route="home">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-my">ပင်မစာမျက်နှာ</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="#home" data-route="home">
+                            <span class="lang-en">What is Human Rights?</span>
+                            <span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ။</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="essential.html#framework" data-route="essentials">
+                            <span class="lang-en">Human Rights Essentials</span>
+                            <span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအဓိကအနှစ်ချုပ်</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="essential.html#framework" data-route="essentials">
+                    <span class="lang-en">Learn</span>
+                    <span class="lang-my">လေ့လာရန်</span>
+                </a>
+                <ul>
+                    <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">UDHR</span><span class="lang-my">UDHR ကြေညာစာတမ်း</span></a></li>
+                    <li><a href="articles.html#articles" data-route="articles"><span class="lang-en">Articles</span><span class="lang-my">အပိုဒ်များ</span></a></li>
+                    <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Conventions</span><span class="lang-my">သဘောတူညီချက်များ</span></a></li>
+                </ul>
+            </li>
+            
+            <li>
+                <a href="mnhrc.html#mnhrc" data-route="mnhrc">
+                    <span class="lang-en">MNHRC</span>
+                    <span class="lang-my">MNHRC</span>
+                </a>
+                <ul>
+                    <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">What is MNHRC?</span><span class="lang-my">MNHRC ဆိုတာဘာလဲ။</span></a></li>
+                    <li><a href="format.html"><span class="lang-en">To collect a complaint letter</span><span class="lang-my">တိုင်ကြားစာရယူရန်</span></a></li>
+                    <li><a href="analytics.html"><span class="lang-en">Data Analysis</span><span class="lang-my">ဒေတာခွဲခြမ်းစိတ်ဖြာခြင်း</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#action">
+                    <span class="lang-en">Take Action</span>
+                    <span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span>
+                </a>
+                <ul>
+                    <li><a href="chat.html"><span class="lang-en">Anonymous Text Box</span><span class="lang-my">အမည်မဖော် ရင်ဖွင့်စာ</span></a></li>
+                    <li><a href="eme.html"><span class="lang-en">Emergency Support</span><span class="lang-my">အရေးပေါ် အကူအညီ</span></a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="quiz.html">
+                    <span class="lang-en">Quiz</span>
+                    <span class="lang-my">ဉာဏ်စမ်း</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-actions">
+            <nav class="account-actions" aria-label="Account">
+                <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false">
+                    <span id="opt-en" class="lang-label active">EN</span>
+                    <span class="divider" aria-hidden="true">|</span>
+                    <span id="opt-my" class="lang-label">မြန်မာ</span>
+                </button>
+                <button class="account-profile" id="profile-open" type="button" aria-label="Guest profile" disabled>
+                    <span class="nav-profile-avatar" aria-hidden="true">
+                        <img id="nav-profile-image" alt="" hidden>
+                        <span id="nav-profile-initials">G</span>
+                    </span>
+                    <span class="account-user" id="user-name" aria-live="polite">Guest</span>
+                </button>
+                <a class="account-link" href="form.html?mode=signin">Sign in</a>
+                <a class="account-link account-link--primary" href="form.html?mode=signup">Sign up</a>
+                <button class="account-link account-link--logout" id="logout-button" type="button" hidden>Log out</button>
+            </nav>
+            <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false">
+                <span class="menu-toggle__icon" aria-hidden="true"></span>
+                <span class="sr-only">Open navigation menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <main id="page-content" data-page="home">
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-visual" data-hero-depth>
+                <div class="hero-visual-frame">
+                    <span class="hero-visual-index" aria-hidden="true">01 / DIGNITY</span>
+                    <span class="hero-orbit hero-orbit--one" aria-hidden="true"></span>
+                    <span class="hero-orbit hero-orbit--two" aria-hidden="true"></span>
+                    <img src="images/hero.jpg" alt="Human rights illustration with a dove, scales of justice, equality, and raised hands" class="hero-image" />
+                    <div class="hero-keywords" aria-hidden="true">
+                        <span><span class="lang-en">Dignity</span><span class="lang-my">ဂုဏ်သိက္ခာ</span></span>
+                        <span><span class="lang-en">Freedom</span><span class="lang-my">လွတ်လပ်မှု</span></span>
+                        <span><span class="lang-en">Equality</span><span class="lang-my">တန်းတူညီမျှမှု</span></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <p class="hero-eyebrow"><span aria-hidden="true"></span><span class="lang-en">Start with the human</span><span class="lang-my">လူသားမှ စတင်ပါ</span></p>
+                <h1 class="hero-title">
+                    <span class="lang-en">Human Rights</span>
+                    <span class="lang-my">လူ့အခွင့်အရေး<br></span>
+                </h1>
+                <p class="hero-description">
+                    <span class="lang-en">"Human rights are inherent rights that every human being possesses simply by virtue of being human. They represent dignity and values belonging to everyone, without discrimination based on citizenship, race, religion, gender, or rank."</span>
+                    <span class="lang-my">“လူ့အခွင့်အရေးဆိုသည်မှာ လူသားတစ်ဦးဖြစ်လာသည်နှင့်အမျှ မွေးရာပါ ရရှိလာသော အခွင့်အရေးများ ဖြစ်သည်။ နိုင်ငံသားဖြစ်မှု၊ လူမျိုး၊ ဘာသာ၊ ကျား/မ နှင့် အဆင့် အတန်းတို့အပေါ် မူတည်၍ ခွဲခြားခြင်းမရှိဘဲ လူသားတိုင်းနှင့် သက်ဆိုင်သည့် ဂုဏ်သိက္ခာ နှင့် တန်ဖိုးများဖြစ်သည်။”</span>
+                </p>
+
+                <div class="hero-lens" data-hero-lens hidden>
+                    <div class="hero-lens__heading">
+                        <span class="lang-en">Human rights in everyday life</span>
+                        <span class="lang-my">နေ့စဉ်ဘဝထဲက လူ့အခွင့်အရေး</span>
+                        <span aria-hidden="true">EXPLORE →</span>
+                    </div>
+                    <div class="hero-lens__tabs" role="tablist" aria-label="Human rights in everyday life">
+                        <button class="is-active" type="button" role="tab" aria-selected="true" aria-controls="hero-lens-dignity" id="hero-tab-dignity" data-hero-tab="hero-lens-dignity"><span class="lang-en">Dignity</span><span class="lang-my">ဂုဏ်သိက္ခာ</span></button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="hero-lens-freedom" id="hero-tab-freedom" data-hero-tab="hero-lens-freedom" tabindex="-1"><span class="lang-en">Freedom</span><span class="lang-my">လွတ်လပ်မှု</span></button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="hero-lens-equality" id="hero-tab-equality" data-hero-tab="hero-lens-equality" tabindex="-1"><span class="lang-en">Equality</span><span class="lang-my">တန်းတူညီမျှမှု</span></button>
+                        <button type="button" role="tab" aria-selected="false" aria-controls="hero-lens-protection" id="hero-tab-protection" data-hero-tab="hero-lens-protection" tabindex="-1"><span class="lang-en">Protection</span><span class="lang-my">ကာကွယ်မှု</span></button>
+                    </div>
+                    <div class="hero-lens__panels" aria-live="polite">
+                        <p class="is-active" id="hero-lens-dignity" role="tabpanel" aria-labelledby="hero-tab-dignity"><span class="lang-en">Being treated as a person of equal worth—in school, at work, online, and in public.</span><span class="lang-my">ကျောင်း၊ အလုပ်ခွင်၊ အွန်လိုင်းနှင့် လူမှုအသိုင်းအဝိုင်းအတွင်း တန်းတူတန်ဖိုးရှိသူတစ်ဦးအဖြစ် ဆက်ဆံခံရခြင်း။</span></p>
+                        <p id="hero-lens-freedom" role="tabpanel" aria-labelledby="hero-tab-freedom" hidden><span class="lang-en">Making choices, expressing ideas, moving safely, and practising a belief without unjust interference.</span><span class="lang-my">မတရားတားဆီးမှုမရှိဘဲ ရွေးချယ်ခြင်း၊ အမြင်ဖော်ပြခြင်း၊ ဘေးကင်းစွာ သွားလာခြင်းနှင့် ယုံကြည်ချက်ကို ကျင့်သုံးခြင်း။</span></p>
+                        <p id="hero-lens-equality" role="tabpanel" aria-labelledby="hero-tab-equality" hidden><span class="lang-en">Receiving the same protection and opportunity without discrimination.</span><span class="lang-my">ခွဲခြားဆက်ဆံမှုမရှိဘဲ တူညီသော ကာကွယ်မှုနှင့် အခွင့်အလမ်း ရရှိခြင်း။</span></p>
+                        <p id="hero-lens-protection" role="tabpanel" aria-labelledby="hero-tab-protection" hidden><span class="lang-en">Having safeguards and a path to remedy when rights are violated.</span><span class="lang-my">အခွင့်အရေးချိုးဖောက်ခံရသည့်အခါ ကာကွယ်စောင့်ရှောက်မှုနှင့် ကုစားနိုင်သည့် လမ်းကြောင်းရှိခြင်း။</span></p>
+                    </div>
+                </div>
+
+                <div class="hero-actions">
+                    <a href="#learn" class="btn btn-primary">
+                        <span class="lang-en">Learn More</span>
+                        <span class="lang-my">ပိုမိုလေ့လာရန်</span>
+                    </a>
+                    <a href="#reality" class="btn btn-secondary">
+                        <span class="lang-en">See the Reality</span>
+                        <span class="lang-my">လက်တွေ့အခြေအနေကိုကြည့်ရန်</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="flowchart">
+        <section class="card">
+            <div class="flowchart-wrapper">
+                <div class="main-node">
+                    <h3>
+                        <span class="lang-en">Human Rights</span>
+                        <span class="lang-my">လူ့အခွင့်အရေး</span>
+                    </h3>
+                    <p>
+                        <span class="lang-en">Basic and indispensable rights, inherent from birth, that allow all humans to live with dignity.</span>
+                        <span class="lang-my">လူသားတိုင်း မွေးရာပါ ဂုဏ်သိက္ခာနှင့်အညီ နေထိုင်နိုင်ရန်အတွက် မရှိမဖြစ် လိုအပ်သော အခြေခံအခွင့်အရေးများဖြစ် သည်။ 
+</span>
+                    </p>
+                </div>
+
+                <div class="branches">
+                    <div class="branch-card dignity">
+                        <div class="branch-header">
+                            <span class="lang-en">Human Dignity</span>
+                            <span class="lang-my">လူ့ဂုဏ်သိက္ခာ</span>
+                        </div>
+                        <ul class="branch-list">
+                            <li><span class="lang-en">Life</span><span class="lang-my">အသက်ရှင်သန်ခွင့်
+</span></li>
+                            <li><span class="lang-en">Freedom of Movement</span><span class="lang-my">လွတ်လပ်စွာသွားလာပိုင်ခွင့်
+</span></li>
+                            <li><span class="lang-en">Access to Healthcare</span><span class="lang-my">ကျန်းမာရေး စောင့်ရှောက်မှု ရရှိပိုင်ခွင့်</span></li>
+                            <li><span class="lang-en">Freedom of Expression</span><span class="lang-my">လွတ်လပ်စွာ ထုတ်ဖော်ပြောဆိုပိုင်ခွင့်</span></li>
+                            <li><span class="lang-en">Access to Information</span><span class="lang-my">သတင်းအချက်အလက် ရရှိပိုင်ခွင့်</span></li>
+                            <li><span class="lang-en">Freedom of Belief & Religion</span><span class="lang-my">လွတ်လပ်စွာ ယုံကြည်ကိုးကွယ်ပိုင်ခွင့်</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="branch-card fundamental">
+                        <div class="branch-header">
+                            <span class="lang-en">Fundamental Rights</span>
+                            <span class="lang-my">အခြေခံ အခွင့်အရေးများ</span>
+                        </div>
+                        <ul class="branch-list">
+                            <li><span class="lang-en">Food, Clothing, Shelter & Healthcare</span><span class="lang-my">စားဝတ်နေရေး လက်လှမ်းမီရရှိခြင်း၊ ကျန်းမာရေး
+</span></li>
+                            <li><span class="lang-en">Communications & Transportation</span><span class="lang-my">လမ်းပန်းဆက်သွယ်ရေး (ကန့်သတ်မှုများမရှိခြင်း)
+</span></li>
+                            <li><span class="lang-en">Infrastructure, Housing & Telecommunications</span><span class="lang-my">ဆရာဝန်၊ သူနာပြု၊ ဆေးဝါး၊ ဆေးရုံ၊ ဆေးခန်း...
+</span></li>
+                            <li><span class="lang-en">Freedom to Publish</span><span class="lang-my">လွတ်လပ်စွာ ပုံနှိပ်ထုတ်ဝေပိုင်ခွင့်</span></li>
+                            <li><span class="lang-en">Mass Media (TV, Radio, Social Media)</span><span class="lang-my">ထုတ်ဖော်ခွင့်
+     မီဒီယာ (ရုပ်သံ၊ လူမှုကွန်ယက်).....
+</span></li>
+                            <li><span class="lang-en">Right to Change Nationality & Move Freely</span><span class="lang-my">ကူးပြောင်းခွင့်၊ ဝတ်ပြုရန်နေရာ.....
+</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="section-characteristics">
+        <div class="section-header">
+            <span class="section-tag">
+                <span class="lang-en">KEY PILLARS</span>
+                <span class="lang-my">အဓိကကဏ္ဍများ</span>
+            </span>
+            <h2 class="section-title-dark">
+                <span class="lang-en">4 Fundamental Characteristics</span>
+                <span class="lang-my">လူ့အခွင့်အရေး၏ အခြေခံဝိသေသလက္ခဏာ (၄) ရပ်
+</span>
+            </h2>
+            <h3>
+                <span class="lang-en">How human rights work and apply to everyone in the world.</span>
+                <span class="lang-my">လူ့အခွင့်အရေးများ မည်သို့ အလုပ်လုပ်ပြီး မည်သို့ သက်ရောက်မှုရှိသည်ကို လေ့လာပါ။</span>
+            </h3>
+            <p class="section-subtitle">
+                <span class="lang-en">Hover or tap each card to flip and explore its definition.</span>
+                <span class="lang-my">အဓိပ္ပာယ်ကို ကြည့်ရှုရန် ကတ်တစ်ခုစီပေါ်သို့ မောက်စ်တင်ပါ သို့မဟုတ် နှိပ်ပါ။</span>
+            </p>
+        </div>
+
+        <div class="char-grid">
+            <div class="char-flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <span class="char-num">01</span>
+                        <h3>
+                            <span class="lang-en">Universal</span>
+                            <span class="lang-my">လူသားအားလုံးနှင့် သက်ဆိုင်ခြင်း</span>
+                        </h3>
+                        <span class="flip-hint">
+                            <span class="lang-en">Hover to flip ↺</span>
+                            <span class="lang-en">လှည့်ကြည့်ရန် ↺</span>
+                        </span>
+                    </div>
+                    <div class="flip-back">
+                        <h3>
+                            <span class="lang-en">Universal</span>
+                            <span class="lang-my">လူသားအားလုံးနှင့် သက်ဆိုင်ခြင်း</span>
+                        </h3>
+                        <p>
+                            <span class="lang-en">Applies equally to every human being on the planet without exception, regardless of race, status, or location.</span>
+                            <span class="lang-my">ကမ္ဘာပေါ်ရှိ လူသားတိုင်း တန်းတူညီမျှ ခံစား ခွင့်ရှိသည်။
+</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="char-flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <span class="char-num">02</span>
+                        <h3>
+                            <span class="lang-en">Inherent / Inborn</span>
+                            <span class="lang-my">မွေးရာပါဖြစ်ခြင်း</span>
+                        </h3>
+                        <span class="flip-hint">
+                            <span class="lang-en">Hover to flip ↺</span>
+                            <span class="lang-en">လှည့်ကြည့်ရန် ↺</span>
+                        </span>
+                    </div>
+                    <div class="flip-back">
+                        <h3>
+                            <span class="lang-en">Inherent / Inborn</span>
+                            <span class="lang-my">မွေးရာပါဖြစ်ခြင်း</span>
+                        </h3>
+                        <p>
+                            <span class="lang-en">Possessed automatically from birth simply by virtue of being human. They are not granted by any government.</span>
+                            <span class="lang-my">မွေးဖွားလာကတည်းက ရရှိခံစားခွင့်ရှိသောအရာ ဖြစ် သည်။
+</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="char-flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <span class="char-num">03</span>
+                        <h3>
+                            <span class="lang-en">Inalienable</span>
+                            <span class="lang-my">လွှဲပြောင်းပေး၍မရခြင်း</span>
+                        </h3>
+                        <span class="flip-hint">
+                            <span class="lang-en">Hover to flip ↺</span>
+                            <span class="lang-en">လှည့်ကြည့်ရန် ↺</span>
+                        </span>
+                    </div>
+                    <div class="flip-back">
+                        <h3>
+                            <span class="lang-en">Inalienable</span>
+                            <span class="lang-my">လွှဲပြောင်းပေး၍မရခြင်း</span>
+                        </h3>
+                        <p>
+                            <span class="lang-en">Cannot be given away, sold, surrendered, or forcefully taken away from anyone.</span>
+                            <span class="lang-my">မိမိ၏ အခွင့်အရေးကို သူတစ်ပါးထံ လွှဲ ပြောင်းပေး အပ်မရသကဲ့သို့ သူတစ်ပါးကလည်း အတင်းအဓမ္မ သိမ်းယူ၍ မရပါ။</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="char-flip-card">
+                <div class="flip-inner">
+                    <div class="flip-front">
+                        <span class="char-num">04</span>
+                        <h3>
+                            <span class="lang-en">Indivisible & Interdependent</span>
+                            <span class="lang-my">ခွဲခြား၍မရခြင်းနှင့် အပြန်အလှန်ဆက်နွှယ်နေခြင်း</span>
+                        </h3>
+                        <span class="flip-hint">
+                            <span class="lang-en">Hover to flip ↺</span>
+                            <span class="lang-en">လှည့်ကြည့်ရန် ↺</span>
+                        </span>
+                    </div>
+                    <div class="flip-back">
+                        <h3>
+                            <span class="lang-en">Indivisible & Interdependent</span>
+                            <span class="lang-my">ခွဲခြား၍မရဘဲ အပြန်အလှန် ဆက်နွှယ်နေခြင်း</span>
+                        </h3>
+                        <p>
+                            <span class="lang-en">All rights are connected. Violating or denying one right directly degrades all other rights.</span>
+                            <span class="lang-my">အခွင့် အရေးတစ်ခု ချိုးဖောက်လျှင် အခြားသောအခွင့်အရေးများလဲ ထိခိုက်နိုင်သည်။ ဥပမာ - ကောင်း မွန်သော ကျန်းမာရေးစောင့်ရှောက်မှုရပိုင်ခွင့် မရှိလျှင် အသက်ရှင်သန်ခွင့်ကို ထိခိုင်စေ နိုင်သည်။
+</span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-essences">
+        <div class="section-header">
+            <span class="section-tag">
+                <span class="lang-en">CORE VALUES</span>
+                <span class="lang-my">အဓိက တန်ဖိုးများ</span>
+            </span>
+            <h2 class="section-title-dark">
+                <span class="lang-en">5 Basic Essences</span>
+                <span class="lang-my">အခြေခံ အနှစ်သာရ ၅ ခု</span>
+            </h2>
+            <p class="section-subtitle">
+                <span class="lang-en">Why human rights exist: the core values that protect human dignity.</span>
+                <span class="lang-my">လူ့အခွင့်အရေးများ အဘယ်ကြောင့် ရှိရသနည်း - လူ့ဂုဏ်သိက္ခာကို ကာကွယ်ပေးသည့် အဓိက တန်ဖိုးများ။</span>
+            </p>
+        </div>
+
+        <div class="essence-cloud">
+            <div class="essence-bubble float-1">
+                <span class="essence-badge-num">1</span>
+                <span>
+                    <span class="lang-en">Dignity</span>
+                    <span class="lang-my">ဂုဏ်သိက္ခာ</span>
+                </span>
+            </div>
+            <div class="essence-bubble float-2">
+                <span class="essence-badge-num">2</span>
+                <span>
+                    <span class="lang-en">Freedom / Liberty</span>
+                    <span class="lang-my">လွတ်လပ်ခြင်း </span>
+                </span>
+            </div>
+            <div class="essence-bubble float-3">
+                <span class="essence-badge-num">3</span>
+                <span>
+                    <span class="lang-en">Non-Discrimination</span>
+                    <span class="lang-my">ခွဲခြားမှုမပြုခြင်း</span>
+                </span>
+            </div>
+            <div class="essence-bubble float-4">
+                <span class="essence-badge-num">4</span>
+                <span>
+                    <span class="lang-en">Equality</span>
+                    <span class="lang-my">တန်းတူညီမျှခြင်း</span>
+                </span>
+            </div>
+            <div class="essence-bubble float-5">
+                <span class="essence-badge-num">5</span>
+                <span>
+                    <span class="lang-en">Respect to other’s rights
+</span>
+                    <span class="lang-my">သူတစ်ပါး၏အခွင့်အရေးကိုလေးစားခြင်း</span>
+                </span>
+            </div>
+        </div>
+    </section>
+
+    </main>
+
+    <div class="auth-modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-message">
+        <div class="auth-overlay" id="auth-overlay"></div>
+        <section class="auth-card">
+            <button class="auth-close-btn" id="auth-close" type="button" aria-label="Close authentication dialog">&times;</button>
+            <h2 class="sr-only" id="auth-title">Account access</h2>
+            <div class="auth-tabs" role="tablist" aria-label="Account access">
+                <button class="tab-btn active" id="tab-signin" type="button" role="tab" aria-selected="true">Sign in</button>
+                <button class="tab-btn" id="tab-signup" type="button" role="tab" aria-selected="false">Sign up</button>
+            </div>
+            <p class="auth-message" id="auth-message" role="alert" hidden></p>
+            <form class="auth-form" id="form-signin" novalidate>
+                <div class="form-group">
+                    <label for="signin-email">Email address</label>
+                    <input id="signin-email" type="email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signin-password">Password</label>
+                    <input id="signin-password" type="password" autocomplete="current-password" minlength="6" required>
+                </div>
+                <button class="auth-submit-btn" type="submit">Sign in</button>
+            </form>
+            <form class="auth-form hidden" id="form-signup" novalidate>
+                <div class="form-group">
+                    <label for="signup-name">Full name</label>
+                    <input id="signup-name" type="text" autocomplete="name" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email address</label>
+                    <input id="signup-email" type="email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input id="signup-password" type="password" autocomplete="new-password" minlength="6" required>
+                </div>
+                <button class="auth-submit-btn" type="submit">Create account</button>
+            </form>
+        </section>
+    </div>
+
+    <div class="profile-modal hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" aria-hidden="true">
+        <div class="profile-overlay" id="profile-overlay"></div>
+        <section class="profile-card">
+            <button class="profile-close" id="profile-close" type="button" aria-label="Close profile">&times;</button>
+            <header class="profile-summary">
+                <div class="profile-avatar profile-avatar--large">
+                    <img id="profile-image" alt="" hidden>
+                    <span id="profile-initials" aria-hidden="true">G</span>
+                </div>
+                <div>
+                    <p class="profile-eyebrow">Your account</p>
+                    <h2 id="profile-title"><span id="profile-display-name">Guest</span></h2>
+                    <p id="profile-email">Not signed in</p>
+                </div>
+            </header>
+            <p class="profile-message" id="profile-message" role="status" hidden></p>
+            <button class="profile-edit-button" id="profile-edit" type="button">Edit profile</button>
+            <form class="profile-form hidden" id="profile-form" novalidate>
+                <div class="profile-field">
+                    <label for="profile-name-input">Display name</label>
+                    <input id="profile-name-input" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+                </div>
+                <div class="profile-field">
+                    <span class="profile-field-label">Profile picture</span>
+                    <div class="profile-drop-zone" id="profile-drop-zone" role="button" tabindex="0" aria-label="Choose or drop a profile image">
+                        <div class="profile-avatar profile-avatar--preview">
+                            <img id="profile-preview-image" alt="Selected profile preview" hidden>
+                            <span id="profile-preview-initials" aria-hidden="true">G</span>
+                        </div>
+                        <div class="profile-drop-copy">
+                            <strong>Drop an image here</strong>
+                            <span>or choose a file</span>
+                            <small id="profile-file-status">PNG, JPG or WebP &middot; maximum 10 MB</small>
+                        </div>
+                        <input id="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+                    </div>
+                </div>
+                <div class="profile-form-actions">
+                    <button class="profile-button profile-button--secondary" id="profile-cancel" type="button">Cancel</button>
+                    <button class="profile-button profile-button--primary" id="profile-save" type="submit">
+                        <span>Save changes</span>
+                        <span class="profile-spinner" id="profile-spinner" aria-label="Uploading" hidden></span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+<script src="profile.js" defer></script>
+  <script src="footer.js" defer></script>
+</body>
+</html>

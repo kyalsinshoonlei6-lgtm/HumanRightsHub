@@ -1,0 +1,814 @@
+/* ==========================================================================
+   HUMAN RIGHTS FREEDOM WALL - MODERN GLASS UI SYSTEM
+   ========================================================================== */
+
+/* 1. GLOBAL VARIABLES & THEMING
+   ========================================================================== */
+:root {
+  /* Core Navy Dark Palette */
+  --bg-main: #050d18;
+  --bg-surface: #0a1728;
+  --card-bg: rgba(11, 24, 43, 0.7);
+  --card-border: rgba(120, 180, 220, 0.16);
+  --card-border-hover: rgba(56, 189, 248, 0.45);
+
+  /* Modern Accents */
+  --accent-cyan: #38bdf8;
+  --accent-blue: #0284c7;
+  --accent-glow: rgba(56, 189, 248, 0.28);
+  --accent-rose: #f43f5e;
+  --accent-emerald: #10b981;
+
+  /* Typography */
+  --text-primary: #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+
+  /* Glassmorphism & Shadow Effects */
+  --glass-blur: blur(18px);
+  --glass-shadow: 0 20px 40px rgba(0, 0, 0, 0.45);
+
+  /* Smooth Transitions */
+  --ease-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+  --transition: all 0.3s var(--ease-smooth);
+}
+
+/* Reset & Box Sizing */
+.confession-page .main-container,
+.confession-page .main-container * {
+  box-sizing: border-box;
+}
+
+/* 2. BASE PAGE SETUP
+   ========================================================================== */
+body.confession-page {
+  min-height: 100vh;
+  margin: 0;
+  padding: 0 1rem 4rem;
+  color: var(--text-primary);
+  font-family: "Plus Jakarta Sans", "Inter", "Pyidaungsu", sans-serif;
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(ellipse at 15% 0%, rgba(14, 116, 144, 0.25) 0%, transparent 60%),
+    radial-gradient(ellipse at 85% 100%, rgba(2, 132, 199, 0.18) 0%, transparent 65%);
+  background-attachment: fixed;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Ambient Glowing Background Orbs */
+.ambient-glow {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+.glow-top-left {
+  top: -10rem;
+  left: -10rem;
+  width: 32rem;
+  height: 32rem;
+  background: rgba(56, 189, 248, 0.12);
+}
+.glow-bottom-right {
+  bottom: -10rem;
+  right: -10rem;
+  width: 35rem;
+  height: 35rem;
+  background: rgba(14, 165, 233, 0.1);
+}
+
+/* Main Container */
+.confession-page .main-container {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 48rem);
+  margin: 2rem auto 0;
+}
+
+/* 3. NAVIGATION BAR & LANGUAGE SWITCHER
+   ========================================================================== */
+.site-nav {
+  position: sticky;
+  top: 1rem;
+  z-index: 100;
+  max-width: 68rem;
+  margin: 0 auto 2rem;
+  padding: 0.85rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(8, 19, 36, 0.75);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  border-radius: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.nav-brand .brand-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: var(--text-primary);
+  font-weight: 800;
+}
+
+.brand-mark {
+  width: 2.3rem;
+  height: 2.3rem;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+  border-radius: 0.65rem;
+  color: #fff;
+  box-shadow: 0 0 15px var(--accent-glow);
+}
+
+.nav-menu {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-menu a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  position: relative;
+  padding: 0.3rem 0;
+  transition: var(--transition);
+}
+
+.nav-menu a:hover,
+.nav-menu .current a {
+  color: var(--accent-cyan);
+}
+
+.nav-menu a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent-cyan);
+  border-radius: 2px;
+  transition: var(--transition);
+}
+
+.nav-menu a:hover::after,
+.nav-menu .current a::after {
+  width: 100%;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.account-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+/* Language Toggle Button */
+.lang-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.lang-btn:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--text-primary);
+}
+
+.lang-label {
+  opacity: 0.5;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.lang-label.active {
+  opacity: 1;
+  color: var(--accent-cyan);
+  text-shadow: 0 0 8px rgba(56, 189, 248, 0.5);
+}
+
+.account-link--primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.45rem 0.9rem;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 0.65rem;
+  color: var(--accent-cyan);
+  text-decoration: none;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.account-link--primary:hover {
+  background: var(--accent-cyan);
+  color: #050d18;
+  box-shadow: 0 0 15px rgba(56, 189, 248, 0.4);
+}
+
+/* 4. HERO SECTION
+   ========================================================================== */
+.hero-header {
+  text-align: center;
+  padding: 2.5rem 2rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(145deg, rgba(14, 30, 52, 0.8), rgba(7, 18, 33, 0.9));
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  border-radius: 1.75rem;
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-cyan), transparent);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 1rem;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-radius: 999px;
+  color: var(--accent-cyan);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  margin-bottom: 1.2rem;
+}
+
+.hero-title {
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+}
+
+.hero-icon {
+  color: var(--accent-cyan);
+  filter: drop-shadow(0 0 12px var(--accent-glow));
+}
+
+.subtitle {
+  max-width: 36rem;
+  margin: 0 auto;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+/* 5. CREATE POST / CONFESSION FORM CARD
+   ========================================================================== */
+.create-post-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  margin-bottom: 2.5rem;
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition);
+}
+
+.create-post-card:focus-within {
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(56, 189, 248, 0.12);
+}
+
+.textarea-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.create-post-card textarea {
+  width: 100%;
+  min-height: 8.5rem;
+  padding: 1.2rem;
+  resize: vertical;
+  background: rgba(5, 13, 24, 0.65);
+  border: 1px solid rgba(120, 180, 220, 0.2);
+  border-radius: 1.1rem;
+  color: var(--text-primary);
+  font-family: "Pyidaungsu", "Inter", sans-serif;
+  font-size: 0.98rem;
+  line-height: 1.8;
+  outline: none;
+  transition: var(--transition);
+  box-sizing: border-box;
+}
+
+.create-post-card textarea::placeholder {
+  color: var(--text-muted);
+}
+
+.create-post-card textarea:focus {
+  background: rgba(5, 13, 24, 0.85);
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 4px var(--accent-glow);
+}
+
+/* Form Footer */
+.form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.anon-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.9rem;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+  border-radius: 999px;
+  color: var(--accent-emerald);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  background-color: var(--accent-emerald);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-emerald);
+  animation: pulseAnimation 1.8s infinite;
+}
+
+@keyframes pulseAnimation {
+  0% { transform: scale(0.95); opacity: 0.8; }
+  50% { transform: scale(1.3); opacity: 1; box-shadow: 0 0 12px var(--accent-emerald); }
+  100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+/* Primary Submit Button */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.6rem;
+  background: linear-gradient(135deg, #0284c7, #0369a1);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 0.85rem;
+  color: #fff;
+  font-family: "Pyidaungsu", "Inter", sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
+  transition: var(--transition);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #38bdf8, #0284c7);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(56, 189, 248, 0.45);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 6. FEED & POST CARDS
+   ========================================================================== */
+.feed-section {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0 0.25rem;
+}
+
+.feed-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+}
+
+.feed-title i {
+  color: var(--accent-cyan);
+}
+
+.feed-count-badge {
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  background: rgba(56, 189, 248, 0.1);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  font-weight: 600;
+}
+
+.feed-container {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.post-card {
+  background: var(--card-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--card-border);
+  border-radius: 1.35rem;
+  padding: 1.4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+  transition: var(--transition);
+  animation: cardSlideUp 0.45s var(--ease-smooth) both;
+}
+
+.post-card:hover {
+  border-color: var(--card-border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35), 0 0 15px rgba(56, 189, 248, 0.1);
+}
+
+@keyframes cardSlideUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.anon-avatar {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.95rem;
+  background: linear-gradient(135deg, #075275, #0284c7);
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-size: 1.1rem;
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.post-meta h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.post-meta span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.post-content {
+  color: #cbd5e1;
+  font-size: 0.96rem;
+  line-height: 1.85;
+  white-space: pre-line;
+  margin-bottom: 1.2rem;
+}
+
+.post-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.like-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(244, 63, 94, 0.08);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  padding: 0.4rem 0.85rem;
+  border-radius: 0.65rem;
+  color: #f43f5e;
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.like-btn:hover {
+  background: #f43f5e;
+  color: #fff;
+  box-shadow: 0 0 15px rgba(244, 63, 94, 0.4);
+  transform: scale(1.05);
+}
+
+/* 7. LOADING & EMPTY STATES
+   ========================================================================== */
+.loading-spinner {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-secondary);
+}
+
+.spinner-ring {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 auto 1rem;
+  border: 3px solid rgba(56, 189, 248, 0.15);
+  border-top-color: var(--accent-cyan);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* 8. DYNAMIC LANGUAGE CONVERTER RULES
+   ========================================================================== */
+body.lang-my .lang-en {
+  display: none !important;
+}
+
+body.lang-my .lang-my {
+  display: inline-block;
+}
+
+body.lang-en .lang-my {
+  display: none !important;
+}
+
+body.lang-en .lang-en {
+  display: inline-block;
+}
+
+/* 9. MOBILE RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 640px) {
+  .site-nav {
+    padding: 0.75rem 1rem;
+  }
+  .nav-menu {
+    display: none;
+  }
+  .hero-header {
+    padding: 1.75rem 1.2rem;
+  }
+  .form-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn-primary {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Shared Hub shell and page colour alignment
+   The chat area keeps its distinctive privacy-focused character while using
+   the same blue, light-surface visual language as the rest of the website.
+   -------------------------------------------------------------------------- */
+
+.chat-legacy-nav { display: none !important; }
+
+body.confession-page {
+  --bg-main: #f4f8fb;
+  --bg-surface: #ffffff;
+  --card-bg: rgba(255, 255, 255, .96);
+  --card-border: #d9e7ee;
+  --card-border-hover: #9ecfdf;
+  --accent-cyan: #2497bd;
+  --accent-blue: #075275;
+  --accent-glow: rgba(36, 151, 189, .16);
+  --text-primary: #163d55;
+  --text-secondary: #5e7b8d;
+  --text-muted: #7893a2;
+  --glass-shadow: 0 .9rem 2.2rem rgba(16, 64, 91, .08);
+  color: var(--text-primary);
+  background-color: var(--bg-main);
+  background-image:
+    radial-gradient(circle at 4% 20%, rgba(104, 198, 222, .18), transparent 23rem),
+    radial-gradient(circle at 94% 88%, rgba(23, 112, 153, .10), transparent 28rem);
+}
+
+.confession-page .ambient-glow { filter: blur(110px); opacity: .65; }
+.confession-page .glow-top-left { background: rgba(71, 178, 209, .14); }
+.confession-page .glow-bottom-right { background: rgba(7, 82, 117, .1); }
+
+/* The chat page receives the exact same navigation geometry as the hub. */
+.confession-page .shared-site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: auto;
+  max-width: none;
+  min-height: 72px;
+  margin: 0 -1rem 2rem;
+  padding: 0 5%;
+  border: 0;
+  border-radius: 0;
+  color: var(--nav-text, #fff);
+  background: var(--nav-primary, #0b3c5d);
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.confession-page .shared-site-nav .brand-link { color: #fff; }
+.confession-page .shared-site-nav .brand-mark {
+  width: 2.8rem;
+  height: 2.8rem;
+  padding: .35rem;
+  border-radius: .75rem;
+  color: inherit;
+  background: #fff;
+  box-shadow: 0 7px 16px rgba(2, 21, 35, .3);
+}
+.confession-page .shared-site-nav .brand-mark img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.confession-page .shared-site-nav .nav-menu { display: flex; flex: 1 1 auto; align-items: center; justify-content: flex-end; gap: clamp(.2rem, 1.4vw, 1.35rem); }
+.confession-page .shared-site-nav .nav-menu > li { position: relative; padding: 1.6rem 0; }
+.confession-page .shared-site-nav .nav-menu > li > a { padding: 0; color: rgba(255,255,255,.9); font-size: .88rem; }
+.confession-page .shared-site-nav .nav-menu > li > a::after { display: none; }
+.confession-page .shared-site-nav .nav-menu > li::after { content: ""; position: absolute; right: 0; bottom: 1.1rem; left: 0; height: 2px; border-radius: 2px; background: var(--nav-secondary, #3fa7d6); transform: scaleX(0); transition: transform .2s ease; }
+.confession-page .shared-site-nav .nav-menu > li:hover::after,
+.confession-page .shared-site-nav .nav-menu > li:focus-within::after,
+.confession-page .shared-site-nav .nav-menu > li.current::after { transform: scaleX(1); }
+.confession-page .shared-site-nav .nav-menu > li > ul { position: absolute; top: calc(100% - .65rem); left: -1rem; display: block; min-width: 220px; padding: .55rem; border: 1px solid #cbd5e1; border-radius: .5rem; opacity: 0; visibility: hidden; background: #fff; box-shadow: 0 12px 28px rgba(11, 60, 93, .2); transform: translateY(10px); transition: opacity .2s ease, transform .2s ease, visibility .2s ease; }
+.confession-page .shared-site-nav .nav-menu > li:hover > ul,
+.confession-page .shared-site-nav .nav-menu > li:focus-within > ul { opacity: 1; visibility: visible; transform: translateY(0); }
+.confession-page .shared-site-nav .nav-menu > li > ul li { padding: .7rem .8rem; border-radius: .3rem; color: #172a3a; font-size: .85rem; line-height: 1.3; }
+.confession-page .shared-site-nav .nav-menu > li > ul li:hover { background: #f1f5f9; }
+.confession-page .shared-site-nav .nav-menu > li > ul a,
+.confession-page .shared-site-nav .nav-menu > li > ul span { color: #172a3a; font-size: inherit; }
+
+/* Light content surfaces, matching the main hub's editorial panels. */
+.confession-page .hero-header {
+  border-color: rgba(93, 172, 199, .42);
+  background: linear-gradient(122deg, #0a3857 0%, #075275 55%, #177d9d 100%);
+  box-shadow: 0 1.15rem 2.8rem rgba(10, 56, 87, .18);
+}
+.confession-page .hero-header::before { background: linear-gradient(90deg, transparent, rgba(213, 244, 255, .9), transparent); }
+.confession-page .hero-badge { color: #d8f7ff; border-color: rgba(213, 244, 255, .32); background: rgba(255,255,255,.1); }
+.confession-page .hero-title { color: #fff; }
+.confession-page .subtitle { color: rgba(255,255,255,.84); font-family: "Pyidaungsu", "Plus Jakarta Sans", sans-serif; }
+
+.confession-page .create-post-card,
+.confession-page .post-card {
+  border-color: #d8e7ee;
+  background: rgba(255,255,255,.96);
+  box-shadow: var(--glass-shadow);
+}
+.confession-page .create-post-card:focus-within { border-color: #87c7da; box-shadow: 0 .9rem 2.3rem rgba(16,64,91,.12), 0 0 0 .22rem rgba(36,151,189,.1); }
+.confession-page .create-post-card textarea { color: #173f58; background: #fbfdfe; border-color: #c8dce6; }
+.confession-page .create-post-card textarea:focus { background: #fff; border-color: #2497bd; box-shadow: 0 0 0 4px rgba(36,151,189,.13); }
+.confession-page .btn-primary { border-color: #075275; background: #075275; box-shadow: 0 .5rem 1.1rem rgba(7,82,117,.2); }
+.confession-page .btn-primary:hover { background: #117fa5; box-shadow: 0 .75rem 1.35rem rgba(7,82,117,.25); }
+.confession-page .feed-title { color: #173f58; }
+.confession-page .feed-count-badge { color: #176b88; border-color: #cbe9f1; background: #edf9fc; }
+.confession-page .post-card:hover { border-color: #a6d3e1; box-shadow: 0 1rem 2rem rgba(16,64,91,.12); }
+.confession-page .anon-avatar { background: linear-gradient(135deg, #075275, #2497bd); box-shadow: .25rem .25rem 0 #d6eff5; }
+.confession-page .post-meta h4 { color: #173f58; }
+.confession-page .post-content { color: #315468; }
+.confession-page .post-actions { border-color: #e4eef2; }
+
+/* Compact composer and on-demand reply thread. */
+.confession-page .create-post-card {
+  padding: 1rem;
+  margin-bottom: 1.45rem;
+  border-radius: 1.1rem;
+}
+.confession-page .create-post-card textarea {
+  min-height: 0;
+  height: 7rem;
+  padding: .85rem 1rem;
+  border-radius: .85rem;
+  line-height: 1.65;
+}
+.confession-page .form-footer { margin-top: .75rem; }
+.confession-page .anon-badge { padding: .4rem .72rem; }
+.confession-page .btn-primary { min-height: 2.55rem; padding: .62rem 1rem; }
+
+.confession-page .reply-toggle,
+.confession-page .reply-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .38rem;
+  border: 1px solid #c8dfe8;
+  border-radius: .62rem;
+  color: #176b88;
+  background: #f3fafc;
+  font: 700 .8rem/1 "Plus Jakarta Sans", "Pyidaungsu", sans-serif;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+}
+.confession-page .reply-toggle { padding: .42rem .72rem; }
+.confession-page .reply-toggle:hover { border-color: #92c9da; color: #075275; background: #e8f7fb; transform: translateY(-1px); }
+.confession-page .reply-composer { margin-top: .85rem; padding: .8rem; border: 1px solid #d9e7ee; border-radius: .8rem; background: #f8fcfd; }
+.confession-page .reply-composer[hidden] { display: none; }
+.confession-page .reply-form { display: flex; align-items: flex-end; gap: .65rem; }
+.confession-page .reply-input { width: 100%; min-height: 2.65rem; padding: .62rem .72rem; resize: vertical; border: 1px solid #c8dce6; border-radius: .62rem; outline: 0; color: #173f58; background: #fff; font: 400 .84rem/1.55 "Pyidaungsu", "Plus Jakarta Sans", sans-serif; }
+.confession-page .reply-input:focus { border-color: #2497bd; box-shadow: 0 0 0 3px rgba(36,151,189,.11); }
+.confession-page .reply-submit { min-height: 2.65rem; flex: 0 0 auto; padding: .62rem .8rem; border-color: #075275; color: #fff; background: #075275; }
+.confession-page .reply-submit:hover { background: #117fa5; }
+.confession-page .reply-submit:disabled { opacity: .6; cursor: not-allowed; }
+.confession-page .reply-list { display: grid; gap: .55rem; margin-top: .8rem; }
+.confession-page .reply-list:empty { display: none; }
+.confession-page .reply-item { display: flex; gap: .55rem; padding: .7rem; border-left: 2px solid #b7dfe9; border-radius: 0 .65rem .65rem 0; background: #f5fafc; }
+.confession-page .reply-avatar { display: grid; width: 1.8rem; height: 1.8rem; flex: 0 0 1.8rem; place-items: center; border-radius: 50%; color: #176b88; background: #dff2f7; font-size: .72rem; }
+.confession-page .reply-body { min-width: 0; color: #527083; font: 400 .78rem/1.5 "Pyidaungsu", "Plus Jakarta Sans", sans-serif; }
+.confession-page .reply-body strong { display: inline-block; margin-right: .45rem; color: #173f58; font-size: .78rem; }
+.confession-page .reply-time { color: #7893a2; font-size: .7rem; }
+.confession-page .reply-body p { margin: .2rem 0 0; white-space: pre-line; }
+
+/* Submitted posts stay information-dense instead of becoming oversized panels. */
+.confession-page .post-card { padding: 1rem 1.1rem; border-radius: 1rem; }
+.confession-page .post-header { gap: .65rem; margin-bottom: .65rem; }
+.confession-page .anon-avatar { width: 2.25rem; height: 2.25rem; font-size: .9rem; }
+.confession-page .post-content { margin-bottom: .7rem; font-size: .9rem; line-height: 1.65; }
+.confession-page .post-actions { gap: .7rem; padding-top: .65rem; }
+.confession-page .like-btn { padding: .36rem .65rem; }
+
+/* A wider editorial canvas prevents the anonymous space from feeling isolated
+   on desktop while retaining a comfortable reading measure on smaller screens. */
+.confession-page .main-container {
+  width: min(100%, 60rem);
+}
+
+@media (min-width: 1180px) {
+  .confession-page .main-container {
+    width: min(100%, 64rem);
+  }
+}
+
+@media (max-width: 860px) {
+  .confession-page .shared-site-nav { margin-bottom: 1.2rem; }
+  .confession-page .shared-site-nav .nav-menu { display: none; }
+  .confession-page .shared-site-nav.menu-open .nav-menu { position: absolute; top: 100%; right: 0; left: 0; display: flex; align-items: stretch; flex-direction: column; gap: 0; padding: .5rem 1rem 1rem; background: #0b3c5d; box-shadow: 0 .8rem 1.5rem rgba(11,60,93,.18); }
+  .confession-page .shared-site-nav .nav-menu > li { width: 100%; padding: .7rem 0; }
+  .confession-page .shared-site-nav .nav-menu > li > ul { position: static; display: none; min-width: 0; margin-top: .55rem; opacity: 1; visibility: visible; transform: none; box-shadow: none; }
+  .confession-page .shared-site-nav .nav-menu > li:hover > ul,
+  .confession-page .shared-site-nav .nav-menu > li:focus-within > ul { display: block; }
+}
+
+@media (max-width: 560px) {
+  .confession-page .reply-form { align-items: stretch; flex-direction: column; }
+  .confession-page .reply-submit { width: 100%; }
+}

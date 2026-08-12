@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="my">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Rights Hub | Account access</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Pyidaungsu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="form.css">
+
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="form.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="auth-page lang-my" data-lang="my">
+
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <div class="nav-brand">
+      <a class="brand-link" href="index.html#home" data-route="home" aria-label="Human Rights Hub home">
+        <span class="brand-mark" aria-hidden="true"><img src="images/humanity.png" alt=""></span>
+        <span class="brand-wordmark"><span class="lang-en">Human Rights Hub</span><span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span></span>
+      </a>
+    </div>
+    <ul class="nav-menu" id="primary-menu">
+      <li><a href="index.html#home" data-route="home"><span class="lang-en">Home</span><span class="lang-my">ပင်မစာမျက်နှာ</span></a><ul>
+        <li><a href="index.html#home" data-route="home"><span class="lang-en">What is Human Rights?</span><span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ?</span></a></li>
+        <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Human Rights Essentials</span><span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအခြေခံအနှစ်ချုပ်</span></a></li>
+      </ul></li>
+      <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Learn</span><span class="lang-my">လေ့လာရန်</span></a><ul>
+        <li><a href="ud.html" data-route="udhr"><span class="lang-en">UDHR</span><span class="lang-my">UDHR ကြေညာစာတမ်း</span></a></li>
+        <li><a href="articles.html#articles" data-route="articles"><span class="lang-en">Articles</span><span class="lang-my">အပိုဒ်များ</span></a></li>
+        <li><a href="convention.html" data-route="conventions"><span class="lang-en">Conventions</span><span class="lang-my">သဘောတူညီချက်များ</span></a></li>
+      </ul></li>
+      <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">MNHRC</span><span class="lang-my">MNHRC</span></a><ul>
+        <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">What is MNHRC?</span><span class="lang-my">MNHRC ဆိုတာဘာလဲ?</span></a></li>
+        <li><a href="format.html"><span class="lang-en">To collect a complaint letter</span><span class="lang-my">တိုင်ကြားစာရေးရန်</span></a></li>
+      </ul></li>
+      <li><a href="index.html#action"><span class="lang-en">Take Action</span><span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span></a><ul>
+        <li><a href="chat.html"><span class="lang-en">Anonymous Text Box</span><span class="lang-my">အမည်မဖော် ရင်ဖွင့်စာ</span></a></li>
+        <li><a href="eme.html"><span class="lang-en">Emergency Support</span><span class="lang-my">အရေးပေါ် အကူအညီ</span></a></li>
+      </ul></li>
+      <li><a href="index.html#quiz"><span class="lang-en">Quiz</span><span class="lang-my">ဉာဏ်စမ်း</span></a></li>
+    </ul>
+    <div class="nav-actions">
+      <nav class="account-actions" aria-label="Account">
+        <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false"><span id="opt-en" class="lang-label active">EN</span><span class="divider" aria-hidden="true">|</span><span id="opt-my" class="lang-label">မြန်မာ</span></button>
+        <a class="account-link" href="form.html?mode=signin" aria-current="page">Sign in</a>
+        <a class="account-link account-link--primary" href="form.html?mode=signup">Sign up</a>
+      </nav>
+      <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false"><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Open navigation menu</span></button>
+    </div>
+  </nav>
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      
+      <div class="auth-header">
+        <div class="auth-logo-circle">⚖️</div>
+        <p class="auth-kicker" id="txt-kicker">လုံခြုံသော အကောင့်ဝင်ရောက်မှု</p>
+        <h1 id="txt-title">လူ့အခွင့်အရေး မဏ္ဍိုင်</h1>
+      </div>
+
+      <div id="auth-forms-container">
+        <div class="auth-tabs">
+          <button class="tab-btn active" id="tab-signin" type="button">အကောင့်ဝင်ရန်</button>
+          <button class="tab-btn" id="tab-signup" type="button">အကောင့်သစ်ဖွင့်ရန်</button>
+        </div>
+
+        <div class="auth-message hidden" id="auth-message" role="alert" aria-live="polite"></div>
+
+        <form class="auth-form" id="form-signin" novalidate>
+          <div class="form-group icon-input">
+            <span class="input-icon">✉️</span>
+            <label class="sr-only" for="signin-email">Email address</label>
+            <input id="signin-email" type="email" placeholder="အီးမေးလ် လိပ်စာ" autocomplete="email" required>
+          </div>
+          <div class="form-group icon-input password-field">
+            <span class="input-icon">🔒</span>
+            <label class="sr-only" for="signin-password">Password</label>
+            <input id="signin-password" type="password" placeholder="စကားဝှက်" autocomplete="current-password" minlength="6" required>
+            <button type="button" class="password-toggle" aria-label="Show password" aria-pressed="false">👁️</button>
+          </div>
+          
+          <div class="form-options">
+            <label class="remember-me">
+              <input type="checkbox" id="remember-me" checked> <span id="txt-remember">မှတ်ထားမည်</span>
+            </label>
+            <a href="#" class="forgot-password" id="txt-forgot">စကားဝှက်မေ့နေသလား?</a>
+          </div>
+
+          <button class="auth-submit-btn" id="btn-signin" type="submit">အကောင့်ဝင်မည်</button>
+        </form>
+
+        <form class="auth-form hidden" id="form-signup" novalidate>
+          <div class="form-group icon-input">
+            <span class="input-icon">👤</span>
+            <label class="sr-only" for="signup-name">Full name</label>
+            <input id="signup-name" type="text" placeholder="အမည်အပြည့်အစုံ" autocomplete="name" minlength="2" maxlength="100" required>
+          </div>
+          <div class="form-group icon-input">
+            <span class="input-icon">✉️</span>
+            <label class="sr-only" for="signup-email">Email address</label>
+            <input id="signup-email" type="email" placeholder="အီးမေးလ် လိပ်စာ" autocomplete="email" required>
+          </div>
+          <div class="form-group icon-input password-field">
+            <span class="input-icon">🔒</span>
+            <label class="sr-only" for="signup-password">Password</label>
+            <input id="signup-password" type="password" placeholder="စကားဝှက်" autocomplete="new-password" minlength="6" required>
+            <button type="button" class="password-toggle" aria-label="Show password" aria-pressed="false">👁️</button>
+          </div>
+          <div class="form-group icon-input password-field">
+            <span class="input-icon">🔒</span>
+            <label class="sr-only" for="signup-confirm-password">Confirm password</label>
+            <input id="signup-confirm-password" type="password" placeholder="စကားဝှက် အတည်ပြုပါ" autocomplete="new-password" minlength="6" required>
+            <button type="button" class="password-toggle" aria-label="Show password" aria-pressed="false">👁️</button>
+          </div>
+
+          <button class="auth-submit-btn" id="btn-signup" type="submit">အကောင့်သစ်ပြုလုပ်မည်</button>
+        </form>
+
+        <div class="social-login">
+          <p id="txt-social">သို့မဟုတ် အခြားအကောင့်ဖြင့် ဝင်မည်</p>
+          <div class="social-icons">
+            <button type="button" class="social-btn" data-provider="Google" title="Google" aria-label="Google sign in">G</button>
+            <button type="button" class="social-btn" data-provider="Facebook" title="Facebook" aria-label="Facebook sign in">F</button>
+            <button type="button" class="social-btn" data-provider="Apple" title="Apple" aria-label="Apple sign in">A</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="user-profile-container" class="user-profile hidden">
+        <div class="user-avatar-circle" id="user-avatar">G</div>
+        <h2 id="user-display-name">User Name</h2>
+        <p id="user-display-email" class="user-email-txt">email@domain.com</p>
+        
+        <div class="profile-actions">
+          <button type="button" class="auth-submit-btn logout-btn" id="btn-logout">အကောင့်မှ ထွက်မည်</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="footer.js" defer></script>
+</body>
+</html>

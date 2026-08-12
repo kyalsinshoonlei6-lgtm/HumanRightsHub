@@ -1,0 +1,650 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Human Rights Essentials | Human Rights Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="article.css" />
+  <link rel="stylesheet" href="mnhrc.css" />
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="auth.js" defer></script>
+  <script src="profile.js" defer></script>
+  <script src="article.js" defer></script>
+  <script src="mnhrc.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="lang-en page-essentials">
+
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <div class="nav-brand">
+      <a class="brand-link" href="index.html#home" data-route="home" aria-label="Human Rights Hub home">
+        <span class="brand-mark" aria-hidden="true">
+          <img src="images/humanity.png" alt="">
+        </span>
+        <span class="brand-wordmark">
+          <span class="lang-en">Human Rights Hub</span>
+          <span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span>
+        </span>
+      </a>
+    </div>
+
+    <ul class="nav-menu" id="primary-menu">
+      <li class="current">
+        <a href="index.html#home" data-route="home">
+          <span class="lang-en">Home</span>
+          <span class="lang-my">ပင်မစာမျက်နှာ</span>
+        </a>
+        <ul>
+          <li>
+            <a href="index.html#home" data-route="home">
+              <span class="lang-en">What is Human Rights?</span>
+              <span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ။</span>
+            </a>
+          </li>
+          <li>
+            <a href="#framework" data-route="essentials">
+              <span class="lang-en">Human Rights Essentials</span>
+              <span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအဓိကအနှစ်ချုပ်</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#framework" data-route="essentials">
+          <span class="lang-en">Learn</span>
+          <span class="lang-my">လေ့လာရန်</span>
+        </a>
+        <ul>
+          <li><a href="#framework" data-route="essentials"><span class="lang-en">UDHR</span><span class="lang-my">UDHR ကြေညာစာတမ်း</span></a></li>
+          <li><a href="articles.html#articles" data-route="articles"><span class="lang-en">Articles</span><span class="lang-my">အပိုဒ်များ</span></a></li>
+          <li><a href="#framework" data-route="essentials"><span class="lang-en">Conventions</span><span class="lang-my">သဘောတူညီချက်များ</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="mnhrc.html#mnhrc" data-route="mnhrc">
+          <span class="lang-en">MNHRC</span>
+          <span class="lang-my">MNHRC</span>
+        </a>
+        <ul>
+            <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">What is MNHRC?</span><span class="lang-my">MNHRC ဆိုတာဘာလဲ။</span></a></li>
+            <li><a href="format.html"><span class="lang-en">To collect a complaint letter</span><span class="lang-my">တိုင်ကြားစာရယူရန်</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="index.html#action">
+          <span class="lang-en">Take Action</span>
+          <span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span>
+        </a>
+        <ul>
+          <li><a href="chat.html"><span class="lang-en">Anonymous Text Box</span><span class="lang-my">အမည်မဖော် ရင်ဖွင့်စာ</span></a></li>
+          <li><a href="eme.html"><span class="lang-en">Emergency Support</span><span class="lang-my">အရေးပေါ် အကူအညီ</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="index.html#quiz">
+          <span class="lang-en">Quiz</span>
+          <span class="lang-my">ဉာဏ်စမ်း</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="nav-actions">
+      <nav class="account-actions" aria-label="Account">
+        <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false">
+          <span id="opt-en" class="lang-label active">EN</span>
+          <span class="divider" aria-hidden="true">|</span>
+          <span id="opt-my" class="lang-label">မြန်မာ</span>
+        </button>
+        <button class="account-profile" id="profile-open" type="button" aria-label="Guest profile" disabled>
+          <span class="nav-profile-avatar" aria-hidden="true">
+            <img id="nav-profile-image" alt="" hidden>
+            <span id="nav-profile-initials">G</span>
+          </span>
+          <span class="account-user" id="user-name" aria-live="polite">Guest</span>
+        </button>
+        <a class="account-link" href="form.html?mode=signin">Sign in</a>
+        <a class="account-link account-link--primary" href="form.html?mode=signup">Sign up</a>
+        <button class="account-link account-link--logout" id="logout-button" type="button" hidden>Log out</button>
+      </nav>
+      <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false">
+        <span class="menu-toggle__icon" aria-hidden="true"></span>
+        <span class="sr-only">Open navigation menu</span>
+      </button>
+    </div>
+  </nav>
+
+  <div id="page-content" data-page="essentials">
+  <main class="categories-page" id="framework">
+
+    <header class="page-header">
+      <span class="category-badge">UDHR Framework</span>
+      <h1 class="lang-en">Five Categories of Human Rights</h1>
+      <h1 class="lang-my">လူ့အခွင့်အရေးအမျိုးအစား (၅) မျိုး</h1>
+      <p class="lang-en">Classification based on the Universal Declaration of Human Rights</p>
+      <p class="lang-my">ကမ္ဘာ့လူ့အခွင့်အရေး ကြေညာစာတမ်းပါ အမျိုးအစားခွဲခြားမှုများ</p>
+    </header>
+
+    <div class="categories-container">
+
+      <div class="udhr-group">
+        <div class="group-header">
+          <h2>
+            <span class="lang-en">Civil & Political Freedoms</span>
+            <span class="lang-my">နိုင်ငံသားနှင့် နိုင်ငံရေးဆိုင်ရာ လွတ်လပ်ခွင့်များ</span>
+          </h2>
+          <span class="udhr-tag">UDHR 3–21</span>
+        </div>
+
+        <div class="cards-grid">
+          <article class="rights-card">
+            <div class="card-number">01</div>
+            <h3>
+              <span class="lang-en">Civil Rights</span>
+              <span class="lang-my">ပြည်သူ့ရေးရာ အခွင့်အရေး</span>
+            </h3>
+            <ul class="rights-list">
+              <li>
+                <span class="lang-en">Right to life & personal security</span>
+                <span class="lang-my">အသက်ရှင်သန်ခွင့် နှင့် လုံခြုံမှု</span>
+              </li>
+              <li>
+                <span class="lang-en">Freedom from slavery & torture</span>
+                <span class="lang-my">ကျေးကျွန်မပြုရ၊ မညှင်းပန်းရ</span>
+              </li>
+              <li>
+                <span class="lang-en">Equality before the law</span>
+                <span class="lang-my">ဥပဒေအရာတွင် ညီမျှခွင့်</span>
+              </li>
+              <li>
+                <span class="lang-en">Dignity, liberty & non-discrimination</span>
+                <span class="lang-my">ဂုဏ်သိက္ခာ၊ လွတ်လပ်ခွင့် နှင့် ခွဲခြားမှုမရှိရေး</span>
+              </li>
+              <li>
+                <span class="lang-en">Right to nationality</span>
+                <span class="lang-my">နိုင်ငံသားဖြစ်ခွင့်</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="rights-card">
+            <div class="card-number">02</div>
+            <h3>
+              <span class="lang-en">Political Rights</span>
+              <span class="lang-my">နိုင်ငံရေးအခွင့်အရေး</span>
+            </h3>
+            <ul class="rights-list">
+              <li>
+                <span class="lang-en">Freedom of thought & opinion</span>
+                <span class="lang-my">လွတ်လပ်စွာ တွေးခေါ်ခွင့်</span>
+              </li>
+              <li>
+                <span class="lang-en">Right to elect & vote</span>
+                <span class="lang-my">မဲပေးခွင့် နှင့် ရွေးချယ်ခွင့်</span>
+              </li>
+              <li>
+                <span class="lang-en">Freedom of assembly & association</span>
+                <span class="lang-my">စုဝေးခွင့် နှင့် ဖွဲ့စည်းခွင့်</span>
+              </li>
+              <li>
+                <span class="lang-en">Right to enter public service</span>
+                <span class="lang-my">ပြည်သူ့ဝန်ထမ်းဖြစ်ခွင့် </span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+      <div class="udhr-group">
+        <div class="group-header">
+          <h2>
+            <span class="lang-en">Economic, Social & Cultural Welfare</span>
+            <span class="lang-my">စီးပွားရေး၊ လူမှုရေးနှင့် ယဉ်ကျေးမှုဆိုင်ရာ ရပိုင်ခွင့်များ</span>
+          </h2>
+          <span class="udhr-tag">UDHR 22–27</span>
+        </div>
+
+        <div class="cards-grid three-col">
+          <article class="rights-card">
+            <div class="card-number">03</div>
+            <h3>
+              <span class="lang-en">Economic Rights</span>
+              <span class="lang-my">စီးပွားရေး အခွင့်အရေး</span>
+            </h3>
+            <ul class="rights-list">
+              <li>
+                <span class="lang-en">Right to fair work & employment</span>
+                <span class="lang-my">အလုပ်လုပ်ခွင့်</span>
+              </li>
+              <li>
+                <span class="lang-en">Equal pay & shared benefits</span>
+                <span class="lang-my">အကျိုးအမြတ်မျှဝေခံစားခွင့်</span>
+              </li>
+              <li>
+                <span class="lang-en">Right to form trade unions</span>
+                <span class="lang-my">အလုပ်သမားသမဂ္ဂ ဖွဲ့စည်းခွင့်</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="rights-card">
+            <div class="card-number">04</div>
+            <h3>
+              <span class="lang-en">Social Rights</span>
+              <span class="lang-my">လူမှုရေး အခွင့်အရေး</span>
+            </h3>
+            <ul class="rights-list">
+              <li>
+                <span class="lang-en">Right to education & healthcare</span>
+                <span class="lang-my">ပညာရေး နှင့် ကျန်းမာရေး</span>
+              </li>
+              <li>
+                <span class="lang-en">Adequate standard of living</span>
+                <span class="lang-my">သင့်တော်သော လူနေမှု အဆင့်အတန်း</span>
+              </li>
+              <li>
+                <span class="lang-en">Social Protection (Mothers, children, elderly & disabled)</span>
+                <span class="lang-my">မိခင်၊ ကလေး၊ မသန်စွမ်း နှင့် ဘိုးဘွားစောင့်ရှောက်ရေး (Social Protection)</span>
+              </li>
+            </ul>
+          </article>
+
+          <article class="rights-card">
+            <div class="card-number">05</div>
+            <h3>
+              <span class="lang-en">Cultural Rights</span>
+              <span class="lang-my">ယဉ်ကျေးမှု အခွင့်အရေး</span>
+            </h3>
+            <ul class="rights-list">
+              <li>
+                <span class="lang-en">Free participation in cultural life</span>
+                <span class="lang-my">ယဉ်ကျေးမှုတွင် လွတ်လပ်စွာ ပါဝင်ခွင့်</span>
+              </li>
+              <li>
+                <span class="lang-en">Enjoying artistic & scientific benefits</span>
+                <span class="lang-my">အနုပညာ နှင့် သိပ္ပံ အကျိုးရလဒ် ခံစားခွင့်</span>
+              </li>
+              <li>
+                <span class="lang-en">Preservation of language, literature & ethnic culture</span>
+                <span class="lang-my">တိုင်းရင်းသားယဉ်ကျေးမှု၊ ဘာသာစကား၊ စာပေ ထိန်းသိမ်းပြန့်ပွားခွင့်</span>
+              </li>
+            </ul>
+          </article>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <section class="generations-page" id="four-generations" aria-labelledby="generations-title">
+
+    <header class="page-header text-center">
+      <span class="category-badge">Historical Context</span>
+      <h1 class="lang-en" id="generations-title">Four Generations of Rights</h1>
+      <h1 class="lang-my">လူ့အခွင့်အရေး မျိုးဆက် (၄) ခု</h1>
+      <p class="lang-en">Understanding the evolution of human rights through history</p>
+      <p class="lang-my">လူ့အခွင့်အရေးများ၏ သမိုင်းကြောင်းအလိုက် ဖွံ့ဖြိုးတိုးတက်မှုများကို နားလည်ခြင်း</p>
+    </header>
+
+    <section class="generations-grid container">
+
+      <article class="generation-card">
+        <div class="card-number">01</div>
+        <div class="card-title-group">
+          <h2>
+            <span class="lang-en">First Generation</span>
+            <span class="lang-my">ပထမမျိုးဆက်</span>
+          </h2>
+          <span class="rights-category">
+            <span class="lang-en">Civil & Political Rights — Liberty</span>
+            <span class="lang-my">နိုင်ငံသားနှင့် နိုင်ငံရေးအခွင့်အရေး — Liberty</span>
+          </span>
+        </div>
+        <div class="card-body-content">
+          <p>
+            <span class="lang-en">Focuses on individual liberties and protection against state power. Includes freedom of speech, religion, and freedom from arbitrary arrest.</span>
+            <span class="lang-my">လွတ်လပ်စွာ ပြောဆိုခွင့်၊ ကိုးကွယ်ခွင့်၊ မတရားဖမ်းဆီးခြင်းမှ ကင်းလွတ်ခွင့် စသည်တို့ ပါဝင်ပါသည်။</span>
+          </p>
+          <p class="historical-context">
+            <span class="lang-en">Origins: Early 18th Century (Age of Enlightenment).</span>
+            <span class="lang-my">စတင်မှု: ၁၈ ရာစု အစပိုင်း ဉာဏ်အလင်း ပွင့်ခေတ်မှ စတင်ခဲ့သည်။</span>
+          </p>
+        </div>
+      </article>
+
+      <article class="generation-card">
+        <div class="card-number">02</div>
+        <div class="card-title-group">
+          <h2>
+            <span class="lang-en">Second Generation</span>
+            <span class="lang-my">ဒုတိယမျိုးဆက်</span>
+          </h2>
+          <span class="rights-category">
+            <span class="lang-en">Economic, Social & Cultural Rights — Equality</span>
+            <span class="lang-my">စီးပွားရေး၊ လူမှုရေးနှင့် ယဉ်ကျေးမှုအခွင့်အရေး — Equality</span>
+          </span>
+        </div>
+        <div class="card-body-content">
+          <p>
+            <span class="lang-en">Focuses on social welfare and equal opportunities. Includes the right to employment, education, healthcare, and social protection.</span>
+            <span class="lang-my">အလုပ်လုပ်ကိုင်ခွင့်၊ ပညာသင်ကြားခွင့်၊ ကျန်းမာရေးစောင့်ရှောက်ခွင့် နှင့် မိခင်/ကလေး/မသန်စွမ်း စောင့်ရှောက်ရေးတို့ ပါဝင်ပါသည်။</span>
+          </p>
+          <p class="historical-context">
+            <span class="lang-en">Origins: Late 18th / Early 19th Century (Post-Industrial Revolution).</span>
+            <span class="lang-my">ဖွံ့ဖြိုးမှု: ၁၇၇၉ ခုနှစ် စက်မှု တော်လှန်ရေးနောက်ပိုင်း ဖွံ့ဖြိုးလာခဲ့သည်။</span>
+          </p>
+        </div>
+      </article>
+
+      <article class="generation-card">
+        <div class="card-number">03</div>
+        <div class="card-title-group">
+          <h2>
+            <span class="lang-en">Third Generation</span>
+            <span class="lang-my">တတိယမျိုးဆက်</span>
+          </h2>
+          <span class="rights-category">
+            <span class="lang-en">Collective / Group Rights — Solidarity</span>
+            <span class="lang-my">စုပေါင်းအခွင့်အရေး — Solidarity</span>
+          </span>
+        </div>
+        <div class="card-body-content">
+          <p>
+            <span class="lang-en">Focuses on global community and collective rights. Includes the right to peace, a clean environment, and self-determination.</span>
+            <span class="lang-my">ငြိမ်းချမ်းစွာ နေထိုင်ခွင့်၊ သန့်ရှင်းသော ပတ်ဝန်းကျင် ရရှိခွင့် နှင့် ကိုယ်ပိုင်ပြဋ္ဌာန်းခွင့် စသည်တို့ ပါဝင်ပါသည်။</span>
+          </p>
+          <p class="historical-context">
+            <span class="lang-en">Origins: Mid-20th Century (Post-World War II).</span>
+            <span class="lang-my">ပေါ်ပေါက်မှု: ဒုတိယကမ္ဘာစစ်နောက်ပိုင်း ပေါ်ပေါက်လာခဲ့သည်။</span>
+          </p>
+        </div>
+      </article>
+
+      <article class="generation-card">
+        <div class="card-number">04</div>
+        <div class="card-title-group">
+          <h2>
+            <span class="lang-en">Fourth Generation</span>
+            <span class="lang-my">စတုတ္ထမျိုးဆက်</span>
+          </h2>
+          <span class="rights-category">
+            <span class="lang-en">Digital & Technological Rights — Digital</span>
+            <span class="lang-my">ဒီဂျစ်တယ်အခွင့်အရေး — Digital</span>
+          </span>
+        </div>
+        <div class="card-body-content">
+          <p>
+            <span class="lang-en">Focuses on rights arising from technological advancement. Includes data privacy, cybersecurity, digital access, and information rights.</span>
+            <span class="lang-my">သိပ္ပံနှင့် နည်းပညာ တိုးတက်မှုများကြောင့် ပေါ်ပေါက်လာသည့် ဒီဂျစ်တယ် နယ်ပယ်ဆိုင်ရာ အခွင့်အရေးများ ပါဝင်ပါသည်။</span>
+          </p>
+          <p class="historical-context">
+            <span class="lang-en">Origins: Late 20th / 21st Century (Digital Age).</span>
+            <span class="lang-my">ပေါ်ပေါက်မှု: ၂၁ ရာစု နောက်ပိုင်း ဒီဂျစ်တယ်ခေတ်တွင် ပေါ်ပေါက်လာခဲ့သည်။</span>
+          </p>
+        </div>
+      </article>
+
+    </section>
+  </section>
+  <section class="framework-section framework-section--actors">
+  <div class="section-title">
+    <h2>
+      <span class="lang-en">Two Key Actors in Human Rights</span>
+      <span class="lang-my">လူ့အခွင့်အရေးနယ်ပယ်အတွင်းရှိ လူ (၂) မျိုး</span>
+    </h2>
+  </div>
+
+  <div class="actors-grid">
+    <article class="actor-card">
+      <div class="actor-icon">👤</div>
+      <h3>
+        <span class="lang-en">Right-holders</span>
+        <span class="lang-my">အခွင့်အရေး ပိုင်ရှင်များ (Right-holders)</span>
+      </h3>
+      <p class="actor-desc">
+        <span class="lang-en">Individual citizens who possess fundamental rights by nature.</span>
+        <span class="lang-my">လူတစ်ဦးတစ်ယောက်ချင်းစီ နှင့် ပြည်သူပြည်သားများ ဖြစ်ကြပါသည်။</span>
+      </p>
+    </article>
+
+    <article class="actor-card">
+      <div class="actor-icon">🏛️</div>
+      <h3>
+        <span class="lang-en">Duty-bearers</span>
+        <span class="lang-my">အခွင့်အရေး ရရှိအောင် ဆောင်ရွက်ပေးရသူများ (Duty-bearers)</span>
+      </h3>
+      <p class="actor-desc">
+        <span class="lang-en">State actors, government institutions, and officials responsible for upholding rights.</span>
+        <span class="lang-my">နိုင်ငံတော်အစိုးရများ၊ အဖွဲ့အစည်းများနှင့် ဝန်ထမ်းများ ဖြစ်ကြပါသည်။</span>
+      </p>
+    </article>
+  </div>
+</section>
+
+<section class="framework-section framework-section--obligations">
+  <div class="section-title">
+    <h2>
+      <span class="lang-en">Three Obligations of the State</span>
+      <span class="lang-my">နိုင်ငံတော်၏ လူ့အခွင့်အရေးဆိုင်ရာ တာဝန် (၃) ရပ်</span>
+    </h2>
+  </div>
+
+  <div class="obligations-grid">
+    <article class="obligation-card">
+      <div class="step-num">01</div>
+      <h3>
+        <span class="lang-en">Obligation to Respect</span>
+        <span class="lang-my">လူ့အခွင့်အရေးကို လေးစားရန် တာဝန်</span>
+      </h3>
+      <p>
+        <span class="lang-en">The obligation to respect human rights.</span>
+        <span class="lang-my">လူ့အခွင့်အရေးများကို ဝင်ရောက်စွက်ဖက်ခြင်း သို့မဟုတ် ပိတ်ပင်တားဆီးခြင်း မပြုရန် တာဝန်။</span>
+      </p>
+    </article>
+
+    <article class="obligation-card">
+      <div class="step-num">02</div>
+      <h3>
+        <span class="lang-en">Obligation to Protect</span>
+        <span class="lang-my">လူ့အခွင့်အရေးကို ကာကွယ်ရန် တာဝန်</span>
+      </h3>
+      <p>
+        <span class="lang-en">The obligation to protect human rights.</span>
+        <span class="lang-my">အခြားသူများ သို့မဟုတ် အဖွဲ့အစည်းများ၏ လူ့အခွင့်အရေး ချိုးဖောက်မှုမှ ကာကွယ်ပေးရန် တာဝန်။</span>
+      </p>
+    </article>
+
+    <article class="obligation-card">
+      <div class="step-num">03</div>
+      <h3>
+        <span class="lang-en">Obligation to Fulfill</span>
+        <span class="lang-my">လူ့အခွင့်အရေးကို ဖြည့်ဆည်းရန် တာဝန်</span>
+      </h3>
+      <p>
+        <span class="lang-en">The obligation to fulfill human rights.</span>
+        <span class="lang-my">လူ့အခွင့်အရေးများကို ပြည်သူများ အပြည့်အဝ ခံစားနိုင်စေရန် ဖြည့်ဆည်းပေးရန် တာဝန်။</span>
+      </p>
+    </article>
+  </div>
+</section>
+
+<section class="framework-section framework-section--hrba">
+  <div class="section-title">
+    <h2>
+      <span class="lang-en">Human Rights-Based Approach (HRBA)</span>
+      <span class="lang-my">လူ့အခွင့်အရေးအခြေပြု ချဉ်းကပ်မှု (HRBA)</span>
+    </h2>
+    <p class="section-subtitle">PANEL Principles</p>
+  </div>
+
+  <div class="panel-grid">
+    <div class="panel-card">
+      <div class="panel-letter">P</div>
+      <div class="panel-content">
+        <h4>
+          <span class="lang-en">Participation</span>
+          <span class="lang-my">ပါဝင်ခွင့်</span>
+        </h4>
+        <p>
+          <span class="lang-en">Everyone has the right to participate in decisions and activities that affect their lives.</span>
+          <span class="lang-my">ဆုံးဖြတ်ချက်ချရာမှာ သက်ဆိုင်သူအားလုံး ပါဝင်ခွင့်ရှိရမည်။</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <div class="panel-letter">A</div>
+      <div class="panel-content">
+        <h4>
+          <span class="lang-en">Accountability</span>
+          <span class="lang-my">တာဝန်ယူမှု/တာဝန်ခံမှု</span>
+        </h4>
+        <p>
+          <span class="lang-en">Those responsible for human rights must be accountable for their actions.</span>
+          <span class="lang-my">တာဝန်ရှိသူတွေက တာဝန် ယူမှု၊ တာဝန်ခံမှု ရှိရမည်။</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <div class="panel-letter">N</div>
+      <div class="panel-content">
+        <h4>
+          <span class="lang-en">Non-discrimination</span>
+          <span class="lang-my">ခွဲခြားမှုမရှိရေး</span>
+        </h4>
+        <p>
+          <span class="lang-en">Everyone is entitled to equal rights without discrimination.</span>
+          <span class="lang-my">မည်သူ့ကိုမျှ ခွဲခြားဆက်ဆံမှု မရှိစေရ။</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <div class="panel-letter">E</div>
+      <div class="panel-content">
+        <h4>
+          <span class="lang-en">Empowerment</span>
+          <span class="lang-my">စွမ်းဆောင်ရည်မြှင့်တင်ခြင်း</span>
+        </h4>
+        <p>
+          <span class="lang-en">People should be empowered to know and claim their rights.</span>
+          <span class="lang-my">လူတွေက သူတို့ရဲ့ အခွင့်အရေးကို သိရှိလာစေရန် ဆောင်ရွက်ပေးရမည်။</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="panel-card">
+      <div class="panel-letter">L</div>
+      <div class="panel-content">
+        <h4>
+          <span class="lang-en">Legality</span>
+          <span class="lang-my">ဥပဒေနှင့်ညီညွတ်မှု</span>
+        </h4>
+        <p>
+          <span class="lang-en">All actions and decisions must comply with national and international human rights laws and standards.</span>
+          <span class="lang-my">လုပ်ဆောင်ချက်အားလုံးဟာ လူ့အခွင့်အရေး စံနှုန်းများနှင့် ကိုက်ညီရမည်။</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+  </div>
+
+  <div class="auth-modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-message">
+      <div class="auth-overlay" id="auth-overlay"></div>
+      <section class="auth-card">
+          <button class="auth-close-btn" id="auth-close" type="button" aria-label="Close authentication dialog">&times;</button>
+          <h2 class="sr-only" id="auth-title">Account access</h2>
+          <div class="auth-tabs" role="tablist" aria-label="Account access">
+              <button class="tab-btn active" id="tab-signin" type="button" role="tab" aria-selected="true">Sign in</button>
+              <button class="tab-btn" id="tab-signup" type="button" role="tab" aria-selected="false">Sign up</button>
+          </div>
+          <p class="auth-message" id="auth-message" role="alert" hidden></p>
+          <form class="auth-form" id="form-signin" novalidate>
+              <div class="form-group">
+                  <label for="signin-email">Email address</label>
+                  <input id="signin-email" type="email" autocomplete="email" required>
+              </div>
+              <div class="form-group">
+                  <label for="signin-password">Password</label>
+                  <input id="signin-password" type="password" autocomplete="current-password" minlength="6" required>
+              </div>
+              <button class="auth-submit-btn" type="submit">Sign in</button>
+          </form>
+          <form class="auth-form hidden" id="form-signup" novalidate>
+              <div class="form-group">
+                  <label for="signup-name">Full name</label>
+                  <input id="signup-name" type="text" autocomplete="name" maxlength="100" required>
+              </div>
+              <div class="form-group">
+                  <label for="signup-email">Email address</label>
+                  <input id="signup-email" type="email" autocomplete="email" required>
+              </div>
+              <div class="form-group">
+                  <label for="signup-password">Password</label>
+                  <input id="signup-password" type="password" autocomplete="new-password" minlength="6" required>
+              </div>
+              <button class="auth-submit-btn" type="submit">Create account</button>
+          </form>
+      </section>
+  </div>
+
+  <div class="profile-modal hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" aria-hidden="true">
+    <div class="profile-overlay" id="profile-overlay"></div>
+    <section class="profile-card">
+      <button class="profile-close" id="profile-close" type="button" aria-label="Close profile">&times;</button>
+      <header class="profile-summary">
+        <div class="profile-avatar profile-avatar--large">
+          <img id="profile-image" alt="" hidden>
+          <span id="profile-initials" aria-hidden="true">G</span>
+        </div>
+        <div>
+          <p class="profile-eyebrow">Your account</p>
+          <h2 id="profile-title"><span id="profile-display-name">Guest</span></h2>
+          <p id="profile-email">Not signed in</p>
+        </div>
+      </header>
+      <p class="profile-message" id="profile-message" role="status" hidden></p>
+      <button class="profile-edit-button" id="profile-edit" type="button">Edit profile</button>
+      <form class="profile-form hidden" id="profile-form" novalidate>
+        <div class="profile-field">
+          <label for="profile-name-input">Display name</label>
+          <input id="profile-name-input" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+        </div>
+        <div class="profile-field">
+          <span class="profile-field-label">Profile picture</span>
+          <div class="profile-drop-zone" id="profile-drop-zone" role="button" tabindex="0" aria-label="Choose or drop a profile image">
+            <div class="profile-avatar profile-avatar--preview">
+              <img id="profile-preview-image" alt="Selected profile preview" hidden>
+              <span id="profile-preview-initials" aria-hidden="true">G</span>
+            </div>
+            <div class="profile-drop-copy">
+              <strong>Drop an image here</strong>
+              <span>or choose a file</span>
+              <small id="profile-file-status">PNG, JPG or WebP &middot; maximum 10 MB</small>
+            </div>
+            <input id="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+          </div>
+        </div>
+        <div class="profile-form-actions">
+          <button class="profile-button profile-button--secondary" id="profile-cancel" type="button">Cancel</button>
+          <button class="profile-button profile-button--primary" id="profile-save" type="submit">
+            <span>Save changes</span>
+            <span class="profile-spinner" id="profile-spinner" aria-label="Uploading" hidden></span>
+          </button>
+        </div>
+      </form>
+    </section>
+  </div>
+  <script src="footer.js" defer></script>
+</body>
+</html>

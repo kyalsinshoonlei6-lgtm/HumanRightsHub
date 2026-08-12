@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UDHR Articles | Human Rights Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="article.css">
+  <link rel="stylesheet" href="mnhrc.css">
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="auth.js" defer></script>
+  <script src="profile.js" defer></script>
+  <script src="article.js" defer></script>
+  <script src="mnhrc.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="lang-en page-articles">
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <div class="nav-brand">
+      <a class="brand-link" href="index.html#home" data-route="home" aria-label="Human Rights Hub home">
+        <span class="brand-mark" aria-hidden="true"><img src="images/humanity.png" alt=""></span>
+        <span class="brand-wordmark">
+          <span class="lang-en">Human Rights Hub</span>
+          <span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span>
+        </span>
+      </a>
+    </div>
+
+    <ul class="nav-menu" id="primary-menu">
+      <li>
+        <a href="index.html#home" data-route="home">
+          <span class="lang-en">Home</span><span class="lang-my">ပင်မစာမျက်နှာ</span>
+        </a>
+        <ul>
+          <li><a href="index.html#home" data-route="home"><span class="lang-en">What is Human Rights?</span><span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ။</span></a></li>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Human Rights Essentials</span><span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအဓိကအနှစ်ချုပ်</span></a></li>
+        </ul>
+      </li>
+      <li class="current">
+        <a href="essential.html#framework" data-route="essentials"><span class="lang-en">Learn</span><span class="lang-my">လေ့လာရန်</span></a>
+        <ul>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">UDHR</span><span class="lang-my">UDHR ကြေညာစာတမ်း</span></a></li>
+          <li><a href="articles.html#articles" data-route="articles" aria-current="page"><span class="lang-en">Articles</span><span class="lang-my">အပိုဒ်များ</span></a></li>
+          <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Conventions</span><span class="lang-my">သဘောတူညီချက်များ</span></a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="mnhrc.html#mnhrc" data-route="mnhrc">
+          <span class="lang-en">MNHRC</span>
+          <span class="lang-my">MNHRC</span>
+        </a>
+        <ul>
+            <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">What is MNHRC?</span><span class="lang-my">MNHRC ဆိုတာဘာလဲ။</span></a></li>
+            <li><a href="format.html"><span class="lang-en">To collect a complaint letter</span><span class="lang-my">တိုင်ကြားစာရယူရန်</span></a></li>
+        </ul>
+      </li>
+      <li><a href="index.html#action"><span class="lang-en">Take Action</span><span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span></a><ul><li><a href="chat.html"><span class="lang-en">Anonymous Text Box</span><span class="lang-my">အမည်မဖော် ရင်ဖွင့်စာ</span></a></li><li><a href="eme.html"><span class="lang-en">Emergency Support</span><span class="lang-my">အရေးပေါ် အကူအညီ</span></a></li></ul></li>
+      <li><a href="index.html#quiz"><span class="lang-en">Quiz</span><span class="lang-my">ဉာဏ်စမ်း</span></a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <nav class="account-actions" aria-label="Account">
+        <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false">
+          <span id="opt-en" class="lang-label active">EN</span><span class="divider" aria-hidden="true">|</span><span id="opt-my" class="lang-label">မြန်မာ</span>
+        </button>
+        <button class="account-profile" id="profile-open" type="button" aria-label="Guest profile" disabled>
+          <span class="nav-profile-avatar" aria-hidden="true"><img id="nav-profile-image" alt="" hidden><span id="nav-profile-initials">G</span></span>
+          <span class="account-user" id="user-name" aria-live="polite">Guest</span>
+        </button>
+        <a class="account-link" href="form.html?mode=signin">Sign in</a>
+        <a class="account-link account-link--primary" href="form.html?mode=signup">Sign up</a>
+        <button class="account-link account-link--logout" id="logout-button" type="button" hidden>Log out</button>
+      </nav>
+      <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false"><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Open navigation menu</span></button>
+    </div>
+  </nav>
+
+  <div id="page-content" data-page="articles">
+    <main class="articles-page" id="articles">
+      <header class="articles-hero" data-motion="fade-up">
+        <div class="articles-hero__copy">
+          <p class="articles-eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span class="lang-en">UDHR Learning Library</span><span class="lang-my">UDHR လေ့လာရေး စာကြည့်တိုက်</span></p>
+          <h1><span class="lang-en">"30 articles" ONE SHARED STANDARD OF DIGNITY</span><span class="lang-my">"အပိုဒ် ၃၀" လူတိုင်းအတွက် တူညီသော ဂုဏ်သိက္ခာ</span></h1>
+          <p class="articles-intro lang-en">Explore the Universal Declaration of Human Rights as a clear, visual learning journey—one principle at a time.</p>
+          <p class="articles-intro lang-my">ကမ္ဘာ့လူ့အခွင့်အရေး ကြေညာစာတမ်းကို အခြေခံမူတစ်ခုချင်းစီအလိုက် ရှင်းလင်းစွာ လေ့လာကြပါစို့!</p>
+        </div>
+        <div class="articles-progress-card" aria-label="Article learning progress">
+          <span class="progress-label lang-en">Currently exploring</span><span class="progress-label lang-my">လက်ရှိလေ့လာနေသည်</span>
+          <strong><span id="article-progress-current">01</span><span class="progress-divider">/</span>30</strong>
+          <div class="article-progress-track" aria-hidden="true"><span id="article-progress-bar"></span></div>
+        </div>
+      </header>
+
+      <section class="article-explorer" aria-label="UDHR article explorer">
+        <aside class="article-navigator" aria-label="Choose an article" data-motion="fade-up">
+          <div class="article-navigator__header">
+            <div>
+              <span class="navigator-kicker lang-en">Navigate</span><span class="navigator-kicker lang-my">ရွေးချယ်ရန်</span>
+              <h2 class="lang-en">The 30 rights</h2><h2 class="lang-my">အခွင့်အရေး ၃၀</h2>
+            </div>
+            <label class="article-select-wrap" for="article-select">
+              <span class="sr-only">Select an article</span>
+              <select id="article-select" aria-label="Select an article"></select>
+            </label>
+          </div>
+          <nav class="article-stepper" aria-label="Article navigation">
+            <button class="article-step" id="article-previous" type="button"><span aria-hidden="true">←</span><span><small class="lang-en">Previous</small><small class="lang-my">ယခင်</small><strong id="previous-label">Article 30</strong></span></button>
+            <button class="article-step article-step--next" id="article-next" type="button"><span><small class="lang-en">Next</small><small class="lang-my">နောက်တစ်ခု</small><strong id="next-label">Article 02</strong></span><span aria-hidden="true">→</span></button>
+          </nav>
+          <div class="article-groups" id="article-groups"></div>
+        </aside>
+
+        <article class="article-reader" id="article-reader" aria-live="polite" data-motion="fade-up">
+          <div class="article-reader__body">
+            <button class="article-reader__visual" id="article-image-open" type="button" aria-label="Open Article 1 illustration">
+              <img id="article-image" src="images/Article-1.jpg" alt="Illustration for UDHR Article 1">
+              <span class="article-visual-number" id="article-visual-number" aria-hidden="true">01</span>
+              <span class="article-image-hint"><span aria-hidden="true">↗</span><span class="lang-en">View image</span><span class="lang-my">ပုံကိုကြည့်ရန်</span></span>
+            </button>
+            <div class="article-meta">
+              <span class="article-number" id="article-number">Article 01</span>
+              <span class="article-category" id="article-category">Foundations</span>
+            </div>
+            <h2 id="article-title">Dignity and equality</h2>
+            <p class="article-summary-label lang-en">Plain-language overview</p><p class="article-summary-label lang-my">အလွယ်တကူ နားလည်နိုင်သော အနှစ်ချုပ်</p>
+            <p class="article-copy lang-en" id="article-copy-en"></p>
+            <p class="article-copy lang-my" id="article-copy-my"></p>
+            <div class="article-source-note">
+              <span aria-hidden="true">↗</span>
+              <p class="lang-en">This learning summary is not a substitute for the legal text. <a href="https://myanmar.un.org/en/21886-universal-declaration-human-rights" target="_blank" rel="noopener noreferrer">Read the official UN edition</a>.</p>
+              <p class="lang-my">ဤအနှစ်ချုပ်သည် တရားဝင်စာတမ်းကိုအစားထိုးခြင်းမဟုတ်ပါ။ <a href="https://myanmar.un.org/en/21886-universal-declaration-human-rights" target="_blank" rel="noopener noreferrer">ကုလသမဂ္ဂ တရားဝင်စာမူကို ဖတ်ရှုပါ</a>။</p>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <div class="article-lightbox hidden" id="article-lightbox" role="dialog" aria-modal="true" aria-labelledby="article-lightbox-caption" aria-hidden="true" tabindex="-1">
+      <button class="article-lightbox__backdrop" type="button" data-lightbox-close aria-label="Close enlarged illustration"></button>
+      <figure class="article-lightbox__figure">
+        <button class="article-lightbox__close" id="article-lightbox-close" type="button" aria-label="Close enlarged illustration">&times;</button>
+        <img id="article-lightbox-image" src="images/Article-1.jpg" alt="">
+        <figcaption id="article-lightbox-caption">UDHR Article 1 illustration</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="auth-modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-message">
+    <div class="auth-overlay" id="auth-overlay"></div>
+    <section class="auth-card">
+      <button class="auth-close-btn" id="auth-close" type="button" aria-label="Close authentication dialog">&times;</button>
+      <h2 class="sr-only" id="auth-title">Account access</h2>
+      <div class="auth-tabs" role="tablist" aria-label="Account access"><button class="tab-btn active" id="tab-signin" type="button" role="tab" aria-selected="true">Sign in</button><button class="tab-btn" id="tab-signup" type="button" role="tab" aria-selected="false">Sign up</button></div>
+      <p class="auth-message" id="auth-message" role="alert" hidden></p>
+      <form class="auth-form" id="form-signin" novalidate>
+        <div class="form-group"><label for="signin-email">Email address</label><input id="signin-email" type="email" autocomplete="email" required></div>
+        <div class="form-group"><label for="signin-password">Password</label><input id="signin-password" type="password" autocomplete="current-password" minlength="6" required></div>
+        <button class="auth-submit-btn" type="submit">Sign in</button>
+      </form>
+      <form class="auth-form hidden" id="form-signup" novalidate>
+        <div class="form-group"><label for="signup-name">Full name</label><input id="signup-name" type="text" autocomplete="name" maxlength="100" required></div>
+        <div class="form-group"><label for="signup-email">Email address</label><input id="signup-email" type="email" autocomplete="email" required></div>
+        <div class="form-group"><label for="signup-password">Password</label><input id="signup-password" type="password" autocomplete="new-password" minlength="6" required></div>
+        <button class="auth-submit-btn" type="submit">Create account</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="profile-modal hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" aria-hidden="true">
+    <div class="profile-overlay" id="profile-overlay"></div>
+    <section class="profile-card">
+      <button class="profile-close" id="profile-close" type="button" aria-label="Close profile">&times;</button>
+      <header class="profile-summary"><div class="profile-avatar profile-avatar--large"><img id="profile-image" alt="" hidden><span id="profile-initials" aria-hidden="true">G</span></div><div><p class="profile-eyebrow">Your account</p><h2 id="profile-title"><span id="profile-display-name">Guest</span></h2><p id="profile-email">Not signed in</p></div></header>
+      <p class="profile-message" id="profile-message" role="status" hidden></p>
+      <button class="profile-edit-button" id="profile-edit" type="button">Edit profile</button>
+      <form class="profile-form hidden" id="profile-form" novalidate>
+        <div class="profile-field"><label for="profile-name-input">Display name</label><input id="profile-name-input" type="text" autocomplete="name" minlength="2" maxlength="100" required></div>
+        <div class="profile-field"><span class="profile-field-label">Profile picture</span><div class="profile-drop-zone" id="profile-drop-zone" role="button" tabindex="0" aria-label="Choose or drop a profile image"><div class="profile-avatar profile-avatar--preview"><img id="profile-preview-image" alt="Selected profile preview" hidden><span id="profile-preview-initials" aria-hidden="true">G</span></div><div class="profile-drop-copy"><strong>Drop an image here</strong><span>or choose a file</span><small id="profile-file-status">PNG, JPG or WebP &middot; maximum 10 MB</small></div><input id="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden></div></div>
+        <div class="profile-form-actions"><button class="profile-button profile-button--secondary" id="profile-cancel" type="button">Cancel</button><button class="profile-button profile-button--primary" id="profile-save" type="submit"><span>Save changes</span><span class="profile-spinner" id="profile-spinner" aria-label="Uploading" hidden></span></button></div>
+      </form>
+    </section>
+  </div>
+  <script src="footer.js" defer></script>
+</body>
+</html>

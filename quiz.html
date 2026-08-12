@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Rights Quiz | Human Rights Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Pyidaungsu:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="quiz.css">
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+  <script src="firebase-config.js" defer></script>
+  <script src="auth.js" defer></script>
+  <script src="profile.js" defer></script>
+  <script src="script.js" defer></script>
+  <script src="quiz.js" defer></script>
+  <script src="footer.js" defer></script>
+</head>
+<body class="lang-en quiz-page">
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <div class="nav-brand"><a class="brand-link" href="index.html#home" data-route="home" aria-label="Human Rights Hub home"><span class="brand-mark" aria-hidden="true"><img src="images/humanity.png" alt=""></span><span class="brand-wordmark"><span class="lang-en">Human Rights Hub</span><span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span></span></a></div>
+    <ul class="nav-menu" id="primary-menu">
+      <li><a href="index.html#home" data-route="home"><span class="lang-en">Home</span><span class="lang-my">ပင်မစာမျက်နှာ</span></a><ul>
+        <li><a href="index.html#home" data-route="home"><span class="lang-en">What is Human Rights?</span><span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ?</span></a></li>
+        <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Human Rights Essentials</span><span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအခြေခံအနှစ်ချုပ်</span></a></li>
+      </ul></li>
+      <li><a href="essential.html#framework" data-route="essentials"><span class="lang-en">Learn</span><span class="lang-my">လေ့လာရန်</span></a><ul>
+        <li><a href="ud.html" data-route="udhr"><span class="lang-en">UDHR</span><span class="lang-my">UDHR ကြေညာစာတမ်း</span></a></li>
+        <li><a href="articles.html#articles" data-route="articles"><span class="lang-en">Articles</span><span class="lang-my">အပိုဒ်များ</span></a></li>
+        <li><a href="convention.html" data-route="conventions"><span class="lang-en">Conventions</span><span class="lang-my">သဘောတူညီချက်များ</span></a></li>
+      </ul></li>
+      <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">MNHRC</span><span class="lang-my">MNHRC</span></a><ul>
+        <li><a href="mnhrc.html#mnhrc" data-route="mnhrc"><span class="lang-en">What is MNHRC?</span><span class="lang-my">MNHRC ဆိုတာဘာလဲ?</span></a></li>
+        <li><a href="format.html"><span class="lang-en">To collect a complaint letter</span><span class="lang-my">တိုင်ကြားစာရေးရန်</span></a></li>
+        <li><a href="analytics.html"><span class="lang-en">Data Analysis</span><span class="lang-my">ဒေတာခွဲခြမ်းစိတ်ဖြာခြင်း</span></a></li>
+      </ul></li>
+      <li><a href="index.html#action"><span class="lang-en">Take Action</span><span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span></a><ul>
+        <li><a href="chat.html"><span class="lang-en">Anonymous Text Box</span><span class="lang-my">အမည်မဖော် ရင်ဖွင့်စာ</span></a></li>
+        <li><a href="eme.html"><span class="lang-en">Emergency Support</span><span class="lang-my">အရေးပေါ် အကူအညီ</span></a></li>
+      </ul></li>
+      <li class="current"><a href="quiz.html" aria-current="page"><span class="lang-en">Quiz</span><span class="lang-my">ဉာဏ်စမ်း</span></a></li>
+    </ul>
+    <div class="nav-actions"><nav class="account-actions" aria-label="Account">
+      <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false"><span id="opt-en" class="lang-label active">EN</span><span class="divider" aria-hidden="true">|</span><span id="opt-my" class="lang-label">မြန်မာ</span></button>
+      <button class="account-profile" id="profile-open" type="button" aria-label="Guest profile" disabled><span class="nav-profile-avatar" aria-hidden="true"><img id="nav-profile-image" alt="" hidden><span id="nav-profile-initials">G</span></span><span class="account-user" id="user-name" aria-live="polite">Guest</span></button>
+      <a class="account-link" href="form.html?mode=signin">Sign in</a><a class="account-link account-link--primary" href="form.html?mode=signup">Sign up</a><button class="account-link account-link--logout" id="logout-button" type="button" hidden>Log out</button>
+    </nav><button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false"><span class="menu-toggle__icon" aria-hidden="true"></span><span class="sr-only">Open navigation menu</span></button></div>
+  </nav>
+
+  <main id="page-content" data-page="quiz" class="quiz-main">
+    <section class="quiz-hero" aria-labelledby="quiz-title">
+      <div class="quiz-hero__copy">
+        <p class="quiz-eyebrow"><i class="fa-solid fa-compass"></i><span class="lang-en">Knowledge check</span><span class="lang-my">အသိပညာ စစ်ဆေးရန်</span></p>
+        <h1 id="quiz-title"><span class="lang-en">Human Rights Quiz</span><span class="lang-my">လူ့အခွင့်အရေး ဉာဏ်စမ်း</span></h1>
+        <p><span class="lang-en">A focused challenge drawn from the Universal Declaration of Human Rights—choose the level that suits you.</span><span class="lang-my">အပြည်ပြည်ဆိုင်ရာ လူ့အခွင့်အရေးကြေညာစာတမ်းကို အခြေခံထားသော ဉာဏ်စမ်းဖြစ်ပြီး သင့်အတွက် သင့်တော်သောအဆင့်ကို ရွေးချယ်နိုင်ပါသည်။</span></p>
+      </div>
+      <div class="quiz-hero__score" aria-label="Best score">
+        <span class="quiz-hero__score-label"><span class="lang-en">Best score</span><span class="lang-my">အကောင်းဆုံးရမှတ်</span></span>
+        <strong id="best-score">—</strong>
+        <span class="quiz-hero__score-note"><span class="lang-en">Saved on this device</span><span class="lang-my">ဤစက်တွင် သိမ်းဆည်းထားသည်</span></span>
+      </div>
+    </section>
+
+    <section class="quiz-stage" aria-live="polite">
+      <section class="quiz-panel quiz-intro" id="quiz-intro">
+        <div class="quiz-panel__heading"><span class="quiz-panel__icon"><i class="fa-solid fa-scale-balanced"></i></span><div><p class="quiz-kicker"><span class="lang-en">Ready when you are</span><span class="lang-my">အဆင်သင့်ဖြစ်ပါက စတင်နိုင်ပါသည်</span></p><h2><span class="lang-en">Build your rights knowledge</span></h2></div></div>
+        <p class="quiz-intro__text"><span class="lang-en">Choose a level. Every attempt draws a new random set of questions and answer order, while your achievements stay on this device.</span><span class="lang-my">အဆင့်ကို ရွေးချယ်ပါ။ ဖြေဆိုမှုတိုင်းတွင် မေးခွန်းများနှင့် အဖြေစဉ်များကို ကျပန်းအသစ် ရွေးချယ်ပေးပြီး သင့်အောင်မြင်မှုတံဆိပ်များကို ဤစက်တွင် ဆက်လက်သိမ်းဆည်းထားမည်ဖြစ်သည်။</span></p>
+        <div class="difficulty-picker" role="group" aria-label="Quiz difficulty">
+          <p class="difficulty-picker__label"><span class="lang-en">Choose a difficulty</span><span class="lang-my">အခက်အခဲအဆင့် ရွေးချယ်ပါ</span></p>
+          <div class="difficulty-picker__options">
+            <button class="difficulty-option is-selected" type="button" data-difficulty="guided" aria-pressed="true"><i class="fa-solid fa-seedling"></i><span><strong><span class="lang-en">Guided</span><span class="lang-my">အခြေခံ</span></strong><small><span class="lang-en">Core concepts · 6 questions</span><span class="lang-my">အခြေခံအချက်များ · ၆ မေးခွန်း</span></small></span></button>
+            <button class="difficulty-option" type="button" data-difficulty="standard" aria-pressed="false"><i class="fa-solid fa-compass"></i><span><strong><span class="lang-en">Standard</span><span class="lang-my">ပုံမှန်</span></strong><small><span class="lang-en">Apply your knowledge · 8 questions</span><span class="lang-my">အသိပညာ အသုံးချရန် · ၈ မေးခွန်း</span></small></span></button>
+            <button class="difficulty-option" type="button" data-difficulty="challenge" aria-pressed="false"><i class="fa-solid fa-mountain-sun"></i><span><strong><span class="lang-en">Challenge</span><span class="lang-my">စိန်ခေါ်မှု</span></strong><small><span class="lang-en">Deeper articles · 10 questions</span><span class="lang-my">ပိုမိုနက်ရှိုင်းသော အပိုဒ်များ · ၁၀ မေးခွန်း</span></small></span></button>
+          </div>
+        </div>
+        <section class="achievement-cabinet" aria-labelledby="achievement-title">
+          <div class="achievement-cabinet__heading"><div><p class="quiz-kicker"><span class="lang-en">Your collection</span><span class="lang-my">သင့်တံဆိပ်စုစည်းမှု</span></p><h3 id="achievement-title"><span class="lang-en">Achievements</span><span class="lang-my">အောင်မြင်မှုတံဆိပ်များ</span></h3></div><span id="achievement-count" class="achievement-count"></span></div>
+          <div class="achievement-cabinet__grid">
+            <article class="achievement-card" data-achievement="explorer"><span class="achievement-card__seal"><i class="fa-solid fa-flag"></i></span><div><strong><span class="lang-en">First Step</span><span class="lang-my">ပထမခြေလှမ်း</span></strong><small><span class="lang-en">Complete any quiz round</span><span class="lang-my">ဉာဏ်စမ်းတစ်ကြိမ် ပြီးဆုံးအောင် ဖြေဆိုပါ</span></small></div><span class="achievement-card__state"></span></article>
+            <article class="achievement-card" data-achievement="foundation"><span class="achievement-card__seal"><i class="fa-solid fa-book-open"></i></span><div><strong><span class="lang-en">Foundation</span><span class="lang-my">အခြေခံ</span></strong><small><span class="lang-en">Earn 70% in a round</span><span class="lang-my">တစ်ကြိမ်တွင် ၇၀% ရယူပါ</span></small></div><span class="achievement-card__state"></span></article>
+            <article class="achievement-card" data-achievement="advocate"><span class="achievement-card__seal"><i class="fa-solid fa-scale-balanced"></i></span><div><strong><span class="lang-en">Advocate</span><span class="lang-my">ထောက်ခံသူ</span></strong><small><span class="lang-en">Earn 90% in a round</span><span class="lang-my">တစ်ကြိမ်တွင် ၉၀% ရယူပါ</span></small></div><span class="achievement-card__state"></span></article>
+            <article class="achievement-card" data-achievement="guardian"><span class="achievement-card__seal"><i class="fa-solid fa-medal"></i></span><div><strong><span class="lang-en">Guardian</span><span class="lang-my">ကာကွယ်သူ</span></strong><small><span class="lang-en">Complete every difficulty</span><span class="lang-my">အခက်အခဲအဆင့်အားလုံး ပြီးဆုံးအောင် ဖြေဆိုပါ</span></small></div><span class="achievement-card__state"></span></article>
+          </div>
+        </section>
+        <button id="start-quiz" class="quiz-button quiz-button--primary" type="button"><i class="fa-solid fa-play"></i><span class="lang-en">Start the quiz</span><span class="lang-my">ဉာဏ်စမ်း စတင်ရန်</span></button>
+      </section>
+
+      <section class="quiz-panel quiz-question" id="quiz-question" hidden>
+        <header class="quiz-progress"><span id="question-count"></span><span id="question-topic" class="quiz-topic"></span></header>
+        <div class="quiz-progress__track" aria-hidden="true"><span id="progress-fill"></span></div>
+        <div class="question-card"><div class="question-card__icon"><i id="question-icon" class="fa-solid fa-scale-balanced"></i></div><h2 id="question-text"></h2></div>
+        <div id="answer-options" class="answer-options" role="group" aria-label="Answer choices"></div>
+        <aside id="answer-feedback" class="answer-feedback" hidden></aside>
+        <div class="quiz-controls"><button id="previous-question" class="quiz-button quiz-button--quiet" type="button"><i class="fa-solid fa-arrow-left"></i><span class="lang-en">Previous</span><span class="lang-my">နောက်သို့</span></button><button id="next-question" class="quiz-button quiz-button--primary" type="button" disabled><span id="next-label"><span class="lang-en">Next question</span><span class="lang-my">နောက်မေးခွန်း</span></span><i class="fa-solid fa-arrow-right"></i></button></div>
+      </section>
+
+      <section class="quiz-panel quiz-result" id="quiz-result" hidden>
+        <div class="result-medallion" id="result-medallion" aria-hidden="true"><i class="fa-solid fa-award"></i></div>
+        <p class="quiz-kicker"><span class="lang-en">Round complete</span><span class="lang-my">ဉာဏ်စမ်း ပြီးဆုံးပါပြီ</span></p>
+        <h2 id="result-title"></h2>
+        <p id="result-score" class="result-score"></p>
+        <div class="earned-badge" id="earned-badge"></div>
+        <p class="achievement-unlock" id="achievement-unlock" hidden></p>
+        <div class="quiz-controls quiz-controls--center"><button id="restart-quiz" class="quiz-button quiz-button--primary" type="button"><i class="fa-solid fa-rotate-right"></i><span class="lang-en">Try another round</span><span class="lang-my">နောက်တစ်ကြိမ် ဖြေဆိုရန်</span></button><a class="quiz-button quiz-button--quiet" href="index.html#home"><i class="fa-solid fa-house"></i><span class="lang-en">Return home</span><span class="lang-my">ပင်မစာမျက်နှာသို့</span></a></div>
+      </section>
+    </section>
+  </main>
+  <div class="achievement-popover" id="achievement-popover" role="dialog" aria-modal="true" aria-labelledby="achievement-popover-title" hidden>
+    <div class="achievement-popover__backdrop" data-close-achievement></div>
+    <section class="achievement-popover__card" role="document">
+      <button class="achievement-popover__close" type="button" data-close-achievement aria-label="Close achievement notification"><i class="fa-solid fa-xmark"></i></button>
+      <span class="achievement-popover__spark achievement-popover__spark--one" aria-hidden="true">✦</span><span class="achievement-popover__spark achievement-popover__spark--two" aria-hidden="true">✦</span><span class="achievement-popover__spark achievement-popover__spark--three" aria-hidden="true">✦</span>
+      <div class="achievement-popover__medal"><i class="fa-solid fa-award"></i></div>
+      <p class="achievement-popover__eyebrow"><i class="fa-solid fa-sparkles"></i><span class="lang-en">Achievement unlocked</span><span class="lang-my">အောင်မြင်မှုတံဆိပ် အသစ်ရရှိပါသည်</span></p>
+      <h2 id="achievement-popover-title"></h2>
+      <p id="achievement-popover-description" class="achievement-popover__description"></p>
+      <button class="quiz-button quiz-button--primary achievement-popover__button" type="button" data-close-achievement><span class="lang-en">Continue</span><span class="lang-my">ဆက်လက်ရန်</span><i class="fa-solid fa-arrow-right"></i></button>
+    </section>
+  </div>
+</body>
+</html>

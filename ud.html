@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Universal Declaration of Human Rights | Human Rights Hub</title>
+    <meta name="description" content="Explore the history, principles, structure, and key articles of the Universal Declaration of Human Rights in English and Myanmar language.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Padauk:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style1.css.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Custom Page Styles -->
+    <style>
+        /* Modern Container & Base Card Styling */
+        .content-container {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            padding: 20px 0 60px 0;
+        }
+
+        .udhr-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            border-left: 5px solid #0056b3;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .udhr-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+        }
+
+        .udhr-card h2 {
+            font-size: 1.3rem;
+            color: #0056b3;
+            margin-bottom: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .udhr-card h2::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 18px;
+            background-color: #d97706;
+            border-radius: 4px;
+        }
+
+        .udhr-card p {
+            line-height: 1.75;
+            color: #334155;
+            margin-bottom: 12px;
+        }
+
+        .udhr-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* List Styling */
+        .udhr-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0;
+        }
+
+        .udhr-list li {
+            position: relative;
+            padding-left: 24px;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .udhr-list li::before {
+            content: "•";
+            color: #0056b3;
+            font-weight: bold;
+            font-size: 1.3rem;
+            position: absolute;
+            left: 4px;
+            top: -2px;
+        }
+
+        .udhr-list li strong {
+            color: #0f172a;
+        }
+
+        /* Quote Box */
+        blockquote.udhr-quote {
+            background-color: #f0f9ff;
+            border-left: 4px solid #0284c7;
+            padding: 16px 20px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+            color: #0369a1;
+        }
+
+        /* Table Design */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            margin-top: 12px;
+        }
+
+        .udhr-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        .udhr-table th, .udhr-table td {
+            padding: 14px 18px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .udhr-table th {
+            background-color: #0056b3;
+            color: #ffffff;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .udhr-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .udhr-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Alert / Note Box */
+        .alert-card {
+            background-color: #fffbe3;
+            border: 1px solid #fef08a;
+            border-left: 4px solid #d97706;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 16px;
+            font-size: 0.95rem;
+            color: #78350f;
+        }
+
+        .image-placeholder {
+            background-color: #f1f5f9;
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 24px;
+            text-align: center;
+            color: #64748b;
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        @media (max-width: 640px) {
+            .udhr-card {
+                padding: 20px;
+            }
+        }
+
+        /* UDHR page experience */
+        html { scroll-behavior: smooth; }
+        .page-udhr { background: #f4f8fb; }
+        .page-udhr .categories-page { padding-top: 0; }
+        .udhr-hero {
+            position: relative;
+            overflow: hidden;
+            padding: clamp(3.5rem, 8vw, 6.5rem) clamp(1.25rem, 5vw, 4rem);
+            background: linear-gradient(135deg, #071d35 0%, #0b4f72 62%, #087f8c 100%);
+            color: #fff;
+            text-align: left;
+        }
+        .udhr-hero::after {
+            position: absolute;
+            right: -8rem;
+            bottom: -12rem;
+            width: 30rem;
+            height: 30rem;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 50%;
+            box-shadow: 0 0 0 4rem rgba(255,255,255,.035), 0 0 0 8rem rgba(255,255,255,.025);
+            content: "";
+        }
+        .udhr-hero__inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+        .udhr-breadcrumb { display: flex; flex-wrap: wrap; gap: .55rem; margin: 0 0 2.2rem; font-size: .88rem; color: #c9e5ee; }
+        .udhr-breadcrumb a { color: #fff; text-decoration: none; }
+        .udhr-breadcrumb a:hover { text-decoration: underline; }
+        .udhr-hero .category-badge { display: inline-flex; margin-bottom: 1rem; border: 1px solid rgba(255,255,255,.35); background: rgba(255,255,255,.1); color: #eafaff; }
+        .udhr-hero h1 { max-width: 850px; margin: 0 0 1.2rem; color: #fff; font-size: clamp(2.15rem, 5vw, 4.35rem); line-height: 1.08; letter-spacing: -.035em; }
+        .udhr-hero > .udhr-hero__inner > p { max-width: 760px; margin: 0; color: #d9edf3; font-size: clamp(1rem, 1.8vw, 1.2rem); line-height: 1.75; }
+        .udhr-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; max-width: 1100px; margin: -2rem auto 0; position: relative; z-index: 3; border: 1px solid #cfdee7; border-radius: 1rem; overflow: hidden; background: #cfdee7; box-shadow: 0 16px 38px rgba(7,29,53,.12); }
+        .udhr-fact { padding: 1.35rem 1.5rem; background: #fff; }
+        .udhr-fact strong { display: block; color: #0b4f72; font-size: 1.35rem; }
+        .udhr-fact span { color: #526a79; font-size: .9rem; }
+        .udhr-jump-wrap { position: sticky; top: var(--nav-height, 72px); z-index: 20; border-bottom: 1px solid #d8e4eb; background: rgba(244,248,251,.94); backdrop-filter: blur(12px); }
+        .udhr-jump { display: flex; gap: .5rem; max-width: 1100px; margin: 0 auto; padding: .8rem 1.25rem; overflow-x: auto; scrollbar-width: thin; }
+        .udhr-jump a { flex: 0 0 auto; padding: .55rem .9rem; border: 1px solid #c5d8e3; border-radius: 999px; background: #fff; color: #17465f; font-size: .85rem; font-weight: 600; text-decoration: none; }
+        .udhr-jump a:hover, .udhr-jump a:focus-visible { border-color: #087f8c; background: #e8f7f7; color: #075f69; }
+        .page-udhr .content-container { max-width: 1100px; padding: 3rem 1.25rem 5rem; gap: 1.35rem; }
+        .page-udhr .udhr-card { border: 1px solid #d3e0e7; border-left: 0; border-top: 4px solid #0b6b8c; border-radius: 1rem; padding: clamp(1.4rem, 3vw, 2.35rem); box-shadow: 0 8px 24px rgba(20,55,75,.055); scroll-margin-top: 145px; }
+        .page-udhr .udhr-card:hover { transform: translateY(-3px); box-shadow: 0 16px 35px rgba(20,55,75,.1); }
+        .page-udhr .udhr-card h2 { color: #123f58; font-size: clamp(1.25rem, 2.3vw, 1.65rem); }
+        .page-udhr .udhr-card h2::before { width: 2rem; height: 3px; background: #d99b2b; }
+        .page-udhr .image-placeholder { padding: 0; overflow: hidden; border: 0; background: #eaf1f5; }
+        .page-udhr .image-placeholder img { display: block; width: 100%; max-height: 420px; margin: 0 !important; object-fit: cover; }
+        .udhr-next { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: .5rem; padding: 1.4rem 1.6rem; border-radius: 1rem; background: #0b4f72; color: #fff; text-decoration: none; }
+        .udhr-next span { color: #d5ebf2; font-size: .92rem; }
+        .udhr-next strong { display: block; margin-top: .2rem; font-size: 1.08rem; }
+        .udhr-next b { font-size: 1.6rem; }
+
+        /* Purposeful motion and reading feedback */
+        .reading-progress { position: fixed; z-index: 1200; top: 0; left: 0; width: 0; height: 3px; background: linear-gradient(90deg, #f2b84b, #51d0cf); box-shadow: 0 0 12px rgba(81,208,207,.65); pointer-events: none; }
+        .motion-enabled .udhr-hero__inner > * { opacity: 0; transform: translateY(22px); animation: udhrHeroIn 720ms cubic-bezier(.22,1,.36,1) forwards; }
+        .motion-enabled .udhr-hero__inner > :nth-child(2) { animation-delay: 90ms; }
+        .motion-enabled .udhr-hero__inner > :nth-child(3) { animation-delay: 170ms; }
+        .motion-enabled .udhr-hero__inner > :nth-child(4) { animation-delay: 250ms; }
+        .motion-enabled .udhr-fact { opacity: 0; transform: translateY(18px); animation: udhrFactIn 600ms cubic-bezier(.22,1,.36,1) forwards; }
+        .motion-enabled .udhr-fact:nth-child(1) { animation-delay: 260ms; }
+        .motion-enabled .udhr-fact:nth-child(2) { animation-delay: 340ms; }
+        .motion-enabled .udhr-fact:nth-child(3) { animation-delay: 420ms; }
+        .motion-enabled .udhr-card { opacity: 0; transform: translateY(28px); transition: opacity 700ms cubic-bezier(.22,1,.36,1), transform 700ms cubic-bezier(.22,1,.36,1), box-shadow 260ms ease, border-color 260ms ease; }
+        .motion-enabled .udhr-card.is-visible { opacity: 1; transform: translateY(0); }
+        .udhr-jump a.is-active { border-color: #087f8c; background: #087f8c; color: #fff; box-shadow: 0 5px 14px rgba(8,127,140,.22); }
+        .page-udhr .udhr-card { position: relative; overflow: hidden; }
+        .page-udhr .udhr-card::after { position: absolute; inset: 0 auto 0 0; width: 4px; border-radius: 1rem 0 0 1rem; background: linear-gradient(#0b84b8, #51b9a9); content: ""; opacity: 0; transform: scaleY(.3); transition: opacity 250ms ease, transform 400ms cubic-bezier(.22,1,.36,1); }
+        .page-udhr .udhr-card:hover::after, .page-udhr .udhr-card:focus-within::after { opacity: 1; transform: scaleY(1); }
+        @keyframes udhrHeroIn { to { opacity: 1; transform: translateY(0); } }
+        @keyframes udhrFactIn { to { opacity: 1; transform: translateY(0); } }
+        @media (max-width: 700px) {
+            .udhr-facts { grid-template-columns: 1fr; margin: 0; border-radius: 0; }
+            .udhr-hero { padding-top: 2.5rem; }
+            .udhr-jump-wrap { top: 0; }
+            .page-udhr .content-container { padding-top: 2rem; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            .motion-enabled .udhr-hero__inner > *, .motion-enabled .udhr-fact, .motion-enabled .udhr-card { opacity: 1; transform: none; animation: none; transition: none; }
+            .reading-progress { display: none; }
+        }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-storage-compat.js" defer></script>
+    <script src="firebase-config.js" defer></script>
+    <script src="auth.js" defer></script>
+    <script src="profile.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+<body class="lang-en page-essentials page-udhr">
+    <div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+
+    <!-- Global Navigation Bar -->
+    <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+        <div class="nav-brand">
+            <a class="brand-link" href="index.html#home" data-route="home" aria-label="Human Rights Hub home">
+                <span class="brand-mark" aria-hidden="true">
+                    <img src="images/humanity.png" alt="">
+                </span>
+                <span class="brand-wordmark">
+                    <span class="lang-en">Human Rights Hub</span>
+                    <span class="lang-my">လူ့အခွင့်အရေး မဏ္ဍိုင်</span>
+                </span>
+            </a>
+        </div>
+
+        <ul class="nav-menu" id="primary-menu">
+            <li>
+                <a href="index.html#home" data-route="home">
+                    <span class="lang-en">Home</span>
+                    <span class="lang-my">ပင်မစာမျက်နှာ</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="index.html#home" data-route="home">
+                            <span class="lang-en">What is Human Rights?</span>
+                            <span class="lang-my">လူ့အခွင့်အရေးဆိုတာဘာလဲ။</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="essential.html#framework" data-route="essentials">
+                            <span class="lang-en">Human Rights Essentials</span>
+                            <span class="lang-my">လူ့အခွင့်အရေးဆိုင်ရာအဓိကအနှစ်ချုပ်</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="current">
+                <a href="#learn" data-route="essentials">
+                    <span class="lang-en">Learn</span>
+                    <span class="lang-my">လေ့လာရန်</span>
+                </a>
+                <ul>
+                    <li>
+                        <a href="ud.html" aria-current="page">
+                            <span class="lang-en">UDHR</span>
+                            <span class="lang-my">UDHR ကြေညာစာတမ်း</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="ud.html#articles">
+                            <span class="lang-en">Articles</span>
+                            <span class="lang-my">အပိုဒ်များ</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="convention.html">
+                            <span class="lang-en">Conventions</span>
+                            <span class="lang-my">သဘောတူညီချက်များ</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="index.html#mnhrc">
+                    <span class="lang-en">MNHRC</span>
+                    <span class="lang-my">MNHRC</span>
+                </a>
+            </li>
+            <li>
+                <a href="index.html#action">
+                    <span class="lang-en">Take Action</span>
+                    <span class="lang-my">ပါဝင်လှုပ်ရှားရန်</span>
+                </a>
+            </li>
+            <li>
+                <a href="index.html#quiz">
+                    <span class="lang-en">Quiz</span>
+                    <span class="lang-my">ဉာဏ်စမ်း</span>
+                </a>
+            </li>
+        </ul>
+
+        <div class="nav-actions">
+            <nav class="account-actions" aria-label="Account">
+                <button id="lang-toggle" class="lang-btn" type="button" aria-label="Switch site language" aria-pressed="false">
+                    <span id="opt-en" class="lang-label active">EN</span>
+                    <span class="divider" aria-hidden="true">|</span>
+                    <span id="opt-my" class="lang-label">မြန်မာ</span>
+                </button>
+                <button class="account-profile" id="profile-open" type="button" aria-label="Guest profile" disabled>
+                    <span class="nav-profile-avatar" aria-hidden="true">
+                        <img id="nav-profile-image" alt="" hidden>
+                        <span id="nav-profile-initials">G</span>
+                    </span>
+                    <span class="account-user" id="user-name" aria-live="polite">Guest</span>
+                </button>
+                <a class="account-link" href="#auth-modal" data-auth-open="signin">Sign in</a>
+                <a class="account-link account-link--primary" href="#auth-modal" data-auth-open="signup">Sign up</a>
+                <button class="account-link account-link--logout" id="logout-button" type="button" hidden>Log out</button>
+            </nav>
+            <button class="menu-toggle" type="button" aria-controls="primary-menu" aria-expanded="false">
+                <span class="menu-toggle__icon" aria-hidden="true"></span>
+                <span class="sr-only">Open navigation menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="page-content" data-page="udhr">
+        <section class="categories-page">
+            <!-- Header Section -->
+            <header class="page-header udhr-hero" id="overview">
+              <div class="udhr-hero__inner">
+                <nav class="udhr-breadcrumb" aria-label="Breadcrumb">
+                    <a href="index.html#home">Home</a><span aria-hidden="true">/</span>
+                    <a href="essential.html#framework">Human Rights Essentials</a><span aria-hidden="true">/</span>
+                    <span aria-current="page">UDHR</span>
+                </nav>
+                <span class="category-badge">
+                    <span class="lang-en">United Nations Declaration</span>
+                    <span class="lang-my">ကုလသမဂ္ဂ ကြေညာစာတမ်း</span>
+                </span>
+                <h1>
+                    <span class="lang-en">Universal Declaration of Human Rights (UDHR)</span>
+                    <span class="lang-my">ကမ္ဘာလုံးဆိုင်ရာ လူ့အခွင့်အရေး ကြေညာစာတမ်း</span>
+                </h1>
+                <p>
+                    <span class="lang-en">Adopted by the UN General Assembly in 1948, the UDHR establishes fundamental human rights to be universally protected for all individuals.</span>
+                    <span class="lang-my">၁၉၄၈ ခုနှစ်တွင် ကုလသမဂ္ဂ အထွေထွေညီလာခံမှ အတည်ပြုခဲ့သော UDHR သည် လူသားအားလုံးအတွက် အခြေခံကျသော လူ့အခွင့်အရေးများကို ကမ္ဘာလုံးဆိုင်ရာ ကာကွယ်ပေးရန် သတ်မှတ်ထားသည်။</span>
+                </p>
+              </div>
+            </header>
+
+            <div class="udhr-facts" aria-label="UDHR key facts">
+                <div class="udhr-fact"><strong>10 December 1948</strong><span><span class="lang-en">Date adopted</span><span class="lang-my">အတည်ပြုသည့်နေ့</span></span></div>
+                <div class="udhr-fact"><strong>30</strong><span><span class="lang-en">Universal articles</span><span class="lang-my">အခွင့်အရေး အပိုဒ်များ</span></span></div>
+                <div class="udhr-fact"><strong>48–0</strong><span><span class="lang-en">Votes in favour vs. against</span><span class="lang-my">ထောက်ခံမဲနှင့် ကန့်ကွက်မဲ</span></span></div>
+            </div>
+
+            <div class="udhr-jump-wrap">
+                <nav class="udhr-jump" aria-label="On this page">
+                    <a href="#overview">Overview</a>
+                    <a href="#objectives">Objectives</a>
+                    <a href="#history">History</a>
+                    <a href="#creation">Creation</a>
+                    <a href="#articles">Articles</a>
+                    <a href="#highlights">Highlights</a>
+                </nav>
+            </div>
+
+            <div class="content-container">
+
+                <!-- Objectives -->
+                <article class="udhr-card" id="objectives">
+                    <h2>
+                        <span class="lang-en">Objectives</span>
+                        <span class="lang-my">ရည်ရွယ်ချက်</span>
+                    </h2>
+                    <ul class="udhr-list">
+                        <li>
+                            <span class="lang-en">To understand the fundamental nature of the Universal Declaration of Human Rights.</span>
+                            <span class="lang-my">ကမ္ဘာ့လူ့အခွင့်အရေးကြေညာစာတမ်း၏ သဘောသဘာဝကို သိရှိစေရန်</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">To learn about the historical background and origin of the UDHR.</span>
+                            <span class="lang-my">ကမ္ဘာ့လူ့အခွင့်အရေး ကြေညာစာတမ်း ပေါ်ပေါက်လာပုံအား သိရှိစေရန်</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">To comprehend the fundamental rights enshrined in the UDHR.</span>
+                            <span class="lang-my">ကမ္ဘာ့လူ့အခွင့်အရေး ကြေညာစာတမ်းပါ အခွင့်အရေးများကို သိရှိနားလည်စေရန်</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- Religious Background -->
+                <article class="udhr-card">
+                    <h2>
+                        <span class="lang-en">Religious Perspectives on Human Rights</span>
+                        <span class="lang-my">ဘာသာရေးဆိုင်ရာ အယူအဆများ</span>
+                    </h2>
+                    <ul class="udhr-list">
+                        <li>
+                            <strong><span class="lang-en">Buddhism:</span><span class="lang-my">ဗုဒ္ဓဘာသာ:</span></strong> 
+                            <span class="lang-en">The Five Precepts and principles of compassion.</span>
+                            <span class="lang-my">ငါးပါးသီလ စသဖြင့် …</span>
+                        </li>
+                        <li>
+                            <strong><span class="lang-en">Christianity:</span><span class="lang-my">ခရစ်ယာန်ဘာသာ:</span></strong> 
+                            <span class="lang-en">The Ten Commandments and loving one's neighbor.</span>
+                            <span class="lang-my">ပညတ်တော်ဆယ်ပါး စသဖြင့် …</span>
+                        </li>
+                        <li>
+                            <strong><span class="lang-en">Islam:</span><span class="lang-my">အစ္စလာမ်ဘာသာ:</span></strong> 
+                            <span class="lang-en">Teachings against arrogance, vanity, and pride.</span>
+                            <span class="lang-my">မဝါကြွားရ၊ မမော်ကြွားရ၊ မမောက်မာရ စသဖြင့်…</span>
+                        </li>
+                        <li>
+                            <strong><span class="lang-en">Hinduism:</span><span class="lang-my">ဟိန္ဒူဘာသာ:</span></strong> 
+                            <span class="lang-en">Assisting and caring for the oppressed and helpless.</span>
+                            <span class="lang-my">အဖိနှိပ်ခံ ခိုကိုးရာမဲ့ များကို ကူညီဆောင်မကြကုန်လော့ စသဖြင့်..</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- Historical Timeline -->
+                <article class="udhr-card" id="history">
+                    <h2>
+                        <span class="lang-en">Historical Timeline of Human Rights</span>
+                        <span class="lang-my">လူ့အခွင့်အရေး သမိုင်းကြောင်း</span>
+                    </h2>
+                    <ul class="udhr-list">
+                        <li><strong>Code of Hammurabi</strong> (1755-1750 BC)</li>
+                        <li><strong>The Cyrus Cylinder</strong> (549-539 BC)</li>
+                        <li><strong>The Magna Carta</strong> (1215 AD)</li>
+                        <li><strong>The United States Declaration of Independence</strong> (1776)</li>
+                        <li><strong>The Declaration of the Rights of Man and of the Citizen</strong> (1789) - <em>French Revolution</em></li>
+                    </ul>
+                </article>
+
+                <!-- UDHR Background -->
+                <article class="udhr-card">
+                    <h2>
+                        <span class="lang-en">History & Context of the UDHR</span>
+                        <span class="lang-my">ကမ္ဘာ့လူ့အခွင့်အရေးကြေညာစာတမ်း သမိုင်းကြောင်း</span>
+                    </h2>
+                    <ul class="udhr-list">
+                        <li>
+                            <span class="lang-en">Following WWI in 1919, the League of Nations was established, but its failure eventually led to the outbreak of World War II.</span>
+                            <span class="lang-my">ပထမကမ္ဘာစစ်အပြီး ၁၉၁၉ တွင် နိုင်ငံပေါင်းချုပ်အသင်းကြီးကို တည်ထောင်ခဲ့သော်လည်း မအောင်မြင်ဘဲ ဒုတိယကမ္ဘာစစ် ထပ်မံဖြစ်ပွားခဲ့သည်။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">During WWII, the Nazi regime systematically targeted and killed over 6 million Jews, alongside Romani people, individuals with disabilities, the elderly, and children.</span>
+                            <span class="lang-my">စစ်အတွင်းတွင် ဟစ်တလာဦးဆောင်သော နာဇီပါတီသည် ဂျူးလူမျိုး ၆ သန်းကျော်အပါအဝင် ဂျစ်ပစီများ၊ မသန်စွမ်းများ၊ သက်ကြီးရွယ်အိုများ နှင့် ကလေးသူငယ်များအား လူသားမဆန်စွာ နှိပ်စက်ညှင်းပန်းသတ်ဖြတ်ခဲ့သည်။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Following the war, Nazi leaders and responsible officials were tried and sentenced at the Nuremberg and Tokyo Tribunals.</span>
+                            <span class="lang-my">စစ်အပြီးတွင် နာဇီခေါင်းဆောင်များနှင့် အခြားတာဝန်ရှိသူများကို နျူရင်ဘတ်မြို့နှင့် တိုကျိုမြို့တို့တွင် ခုံရုံးဖွဲ့ကာ အပြစ်ပေးခဲ့ကြသည်။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Exhausted by atrocities of war, nations sought pathways to prevent future conflicts and establish a modern global human rights framework.</span>
+                            <span class="lang-my">စစ်၏ အနိဋ္ဌာရုံများကို ငြီးငွေ့လာကြပြီး စစ်ပွဲများ၊ ပဋိပက္ခများ၊ လူသားချင်း ညှင်းပန်းနှိပ်စက်သတ်ဖြတ်မှုများ ထပ်မံမပေါ်ပေါက်စေရန် နည်းလမ်းရှာဖွေလာကြပြီး ခေတ်သစ်လူနေမှုပုံစံသစ်ကို စတင်ထူထောင်လာကြသည်။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">On October 24, 1945, the United Nations was officially founded to promote international cooperation and safeguard universal rights.</span>
+                            <span class="lang-my">၁၉၄၅ ခုနှစ် အောက်တိုဘာ (၂၄) တွင် စစ်၏ အနိဋ္ဌာရုံများ ထပ်မံမပေါ်ပေါက်ရန်၊ နိုင်ငံတကာပူးပေါင်းဆောင်ရွက်ရန်နှင့် လူ့အခွင့်အရေးများ ကာကွယ်စောင့်ရှောက်ရန် ကုလသမဂ္ဂကို ဖွဲ့စည်းခဲ့ကြသည်။</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- United Nations -->
+                <article class="udhr-card">
+                    <h2>
+                        <span class="lang-en">The United Nations (UN)</span>
+                        <span class="lang-my">ကုလသမဂ္ဂ (United Nations)</span>
+                    </h2>
+                    <div class="image-placeholder">
+                        <!-- <span class="lang-en">[United Nations Logo & Headquarters Photo Placeholder]</span>
+                        <span class="lang-my">[ကုလသမဂ္ဂ အမှတ်တံဆိပ်နှင့် ဌာနချုပ် ဓာတ်ပုံ]</span> -->
+                        <img src="udhr/Picture1.jpg" alt="United Nations Logo" style="max-width: 100%; margin-bottom: 12px;">
+                    </div>
+                    <ul class="udhr-list">
+                        <li>
+                            <strong><span class="lang-en">Established Date:</span><span class="lang-my">စတင်တည်ထောင်သည့်နေ့:</span></strong> 
+                            <span class="lang-en">October 24, 1945</span>
+                            <span class="lang-my">၁၉၄၅ ခုနှစ်၊ အောက်တိုဘာလ ၂၄ ရက်</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- UN Preamble Quote -->
+                <article class="udhr-card">
+                    <h2>
+                        <span class="lang-en">Preamble to the United Nations Charter</span>
+                        <span class="lang-my">ကုလသမဂ္ဂ စာချုပ်၏ နိဒါန်း</span>
+                    </h2>
+                    <p>
+                        <span class="lang-en">When the United Nations was established on October 24, 1945, the preamble of the UN Charter declared:</span>
+                        <span class="lang-my">၁၉၄၅ ခုနှစ် အောက်တိုဘာလ (၂၄) ရက်နေ့တွင် ကမ္ဘာ့ကုလသမဂ္ဂ အဖွဲ့ ပေါ်ပေါက်လာပြီး United Nations Charter ရေးဆွဲရာတွင် ဒုတိယအပိုဒ်၌-</span>
+                    </p>
+                    <blockquote class="udhr-quote">
+                        "to reaffirm faith in fundamental human rights, in the dignity and worth of the human person, in the equal rights of men and women and of nations large and small..."
+                    </blockquote>
+                    <p>
+                        <span class="lang-en">Although fundamental rights were recognized, member states believed a more comprehensive, explicit document was required, leading to the creation of the UDHR.</span>
+                        <span class="lang-my">လူတို့၏ အခြေခံ လူ့အခွင့်အရေးများ၊ လူတို့၏ ဂုဏ်သိက္ခာနှင့် တန်ဖိုးများ၊ အမျိုးသမီးနှင့် အမျိုးသား၊ နိုင်ငံကြီးနှင့်နိုင်ငံငယ်တို့တွင် တူညီသော အခွင့်အရေးများရှိသည်ကို သက်ဝင်ယုံကြည်မှုရှိကြောင်း ထပ်လောင်းအတည်ပြုရန်ဟု ဖော်ပြထားသော်လည်း ဤအချက်မျှနှင့် မလုံလောက်ဟု လက်ခံယုံကြည်ကြသဖြင့် ကမ္ဘာ့လူ့အခွင့်အရေးကြေညာစာတမ်းကို ရေးဆွဲရန် စတင်ဖြစ်ပေါ်ခဲ့ခြင်းဖြစ်ပါသည်။</span>
+                    </p>
+                </article>
+
+                <!-- Core Rationale -->
+                <article class="udhr-card">
+                    <h2>
+                        <span class="lang-en">Core Rationale of the UDHR</span>
+                        <span class="lang-my">UDHR - အခြေခံအကြောင်းရင်းများ</span>
+                    </h2>
+                    <ul class="udhr-list">
+                        <li>
+                            <span class="lang-en">Recognition of the inherent dignity and of the equal and inalienable rights of all humans is the foundation of freedom, justice, and peace in the world.</span>
+                            <span class="lang-my">လူသားအားလုံး၏ မွေးရာပါဂုဏ်သိက္ခာ နှင့် တန်းတူညီမျှမှုရှိပြီး ဖယ်ရှားထုတ်ပစ်၍ မရသော အခွင့်အရေးများကို အသိအမှတ်ပြုခြင်းသည် ဤကမ္ဘာပေါ်တွင် လွတ်လပ်မှု၊ တရားမျှတမှုနှင့် ငြိမ်းချမ်းမှုတို့အတွက် အခြေခံအုတ်မြစ် ဖြစ်ခြင်း။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Human rights must be protected by the rule of law.</span>
+                            <span class="lang-my">လူ့အခွင့်အရေးကို ဥပဒေစိုးမိုးမှုဖြင့် ကာကွယ်ပေးရန် မဖြစ်မနေလိုအပ်ခြင်း။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">The development of friendly relations between nations is essential.</span>
+                            <span class="lang-my">နိုင်ငံချင်း ချစ်ကြည်ရင်းနှီးစွာ ဆက်ဆံမှု ဖွံ့ဖြိုးရေးကို မဖြစ်မနေ လိုအပ်ခြင်း။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">Member states pledged to achieve the promotion of universal respect for and observance of human rights in cooperation with the UN.</span>
+                            <span class="lang-my">ကုလသမဂ္ဂအဖွဲ့ဝင်နိုင်ငံများသည် ကုလသမဂ္ဂအဖွဲ့နှင့်ပူးပေါင်း၍ လူ့အခွင့်အရေး နှင့် အခြေခံလွတ်လပ်ခွင့်များကို ကမ္ဘာတစ်ဝန်းလုံးက ပိုမိုမြှင့်တင်လေးစား လိုက်နာကျင့်သုံးကြမည်ဟု ကတိပြုပြီးဖြစ်ခြင်း။</span>
+                        </li>
+                    </ul>
+                </article>
+
+                <!-- Adoption & Voting -->
+                <article class="udhr-card" id="creation">
+                    <h2>
+                        <span class="lang-en">Adoption and Drafting Process</span>
+                        <span class="lang-my">ကမ္ဘာ့လူ့အခွင့်အရေးကြေညာစာတမ်း ပေါ်ပေါက်လာပုံ</span>
+                    </h2>
+                    <ul class="udhr-list">
+                        <li>
+                            <span class="lang-en">In 1946, the UN Commission on Human Rights was established and spent two years drafting the UDHR (1946–1948).</span>
+                            <span class="lang-my">၁၉၄၆ ခုနှစ်တွင် ကုလသမဂ္ဂ လူ့အခွင့်အရေး ကော်မရှင် ဖွဲ့စည်း၍ ၁၉၄၆ ခုနှစ် မှ ၁၉၄၈ ခုနှစ်အထိ (၂) နှစ်ကြာ UDHR ကို ရေးဆွဲခဲ့သည်။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">The draft underwent three major revisions during commission sessions in December 1947, May 1948, and June 1948.</span>
+                            <span class="lang-my">မူကြမ်းအား လူ့အခွင့်အရေးကော်မရှင် အစည်းအဝေးများတွင် ၁၉၄၇ ခုနှစ် ဒီဇင်ဘာလ၊ ၁၉၄၈ ခုနှစ် မေလနှင့် ဇွန်လတို့တွင် (၃) ကြိမ် ပြင်ဆင်ခဲ့သည်။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">On December 10, 1948, the UN General Assembly adopted the declaration with <strong>48 votes in favor</strong>, <strong>8 abstentions</strong>, and 0 against (Myanmar voted in favor).</span>
+                            <span class="lang-my">၁၉၄၈ ခုနှစ်၊ ဒီဇင်ဘာလ (၁၀) ရက်နေ့တွင် ကမ္ဘာ့ကုလသမဂ္ဂအထွေထွေညီလာခံ (UNGA) မှ <strong>ထောက်ခံမဲ (၄၈) မဲ</strong>၊ <strong>ကြားနေမဲ (၈) မဲ</strong> ဖြင့် အတည်ပြုခဲ့ပြီး မြန်မာနိုင်ငံမှလည်း ထောက်ခံမဲပေးခဲ့သည်။</span>
+                        </li>
+                        <li>
+                            <span class="lang-en">In 1950, the UN General Assembly officially designated December 10 as <strong>Human Rights Day</strong>.</span>
+                            <span class="lang-my">အတည်ပြုခဲ့သည့် ဒီဇင်ဘာလ (၁၀) ရက်နေ့ကို <strong>လူ့အခွင့်အရေးနေ့ (Human Rights Day)</strong> အဖြစ် ၁၉၅၀ ကုလသမဂ္ဂအထွေထွေညီလာခံမှ သတ်မှတ်ခဲ့သည်။</span>
+                        </li>
+                    </ul>
+                    <div class="alert-card">
+                        <p style="margin-bottom: 6px;">
+                            <strong><span class="lang-en">8 Abstentions:</span><span class="lang-my">ကြားနေမဲ (၈) မဲ:</span></strong> 
+                            Czechoslovakia, Poland, Saudi Arabia, Soviet Union, Byelorussian SSR, Ukrainian SSR, South Africa, Yugoslavia
+                        </p>
+                        <p>
+                            <strong><span class="lang-en">2 Non-Voting:</span><span class="lang-my">မဲမပေး (၂) မဲ:</span></strong> 
+                            Honduras, Yemen
+                        </p>
+                    </div>
+                </article>
+
+                <!-- UDHR Structure Table -->
+                <article class="udhr-card" id="articles">
+                    <h2>
+                        <span class="lang-en">Structure of the UDHR</span>
+                        <span class="lang-my">UDHR ကြေညာစာတမ်း ဖွဲ့စည်းပုံ</span>
+                    </h2>
+                    <div class="table-responsive">
+                        <table class="udhr-table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <span class="lang-en">Section / Articles</span>
+                                        <span class="lang-my">အပိုင်း / အပိုဒ်</span>
+                                    </th>
+                                    <th>
+                                        <span class="lang-en">Description</span>
+                                        <span class="lang-my">ဖော်ပြချက်</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong><span class="lang-en">Preamble</span><span class="lang-my">နိဒါန်း</span></strong></td>
+                                    <td>
+                                        <span class="lang-en">States the fundamental reasons and historical context for creating the Declaration.</span>
+                                        <span class="lang-my">ကြေညာစာတမ်းရေးဆွဲရခြင်း၏ လေးနက်သောအကြောင်းရင်း ဖော်ပြချက်များ</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="lang-en">Article 1</span><span class="lang-my">အပိုဒ် (၁)</span></strong></td>
+                                    <td>
+                                        <span class="lang-en">All human beings are born free and equal in dignity and rights.</span>
+                                        <span class="lang-my">လူသားဖြစ်ခြင်း/ လူသားအဖြစ်မွေးဖွားခြင်းဆိုင်ရာ ဖော်ပြချက်</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="lang-en">Article 2</span><span class="lang-my">အပိုဒ် (၂)</span></strong></td>
+                                    <td>
+                                        <span class="lang-en">Entitlement to all rights without distinction of any kind.</span>
+                                        <span class="lang-my">မည်သည့်နေရာ၌မဆို ခွဲခြားမှုမရှိဘဲ အခွင့်အရေးနှင့် လွတ်လပ်ခွင့် အားလုံး ခံစားခွင့်ရှိကြောင်း ဖော်ပြချက်</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="lang-en">Articles 3 – 21</span><span class="lang-my">အပိုဒ် (၃) မှ (၂၁)</span></strong></td>
+                                    <td>
+                                        <span class="lang-en">Civil and Political Rights (Right to life, liberty, fair trial, freedom of speech).</span>
+                                        <span class="lang-my">ပြည်သူ့ရေးရာ နှင့် နိုင်ငံရေးအခွင့်အရေးများ</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="lang-en">Articles 22 – 27</span><span class="lang-my">အပိုဒ် (၂၂) မှ (၂၇)</span></strong></td>
+                                    <td>
+                                        <span class="lang-en">Economic, Social, and Cultural Rights (Right to work, education, culture).</span>
+                                        <span class="lang-my">စီးပွားရေး၊ လူမှုရေးနှင့် ယဉ်ကျေးမှုဆိုင်ရာ အခွင့်အရေးများ</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="lang-en">Article 28</span><span class="lang-my">အပိုဒ် (၂၈)</span></strong></td>
+                                    <td>
+                                        <span class="lang-en">Entitlement to a social and international order where rights can be realized.</span>
+                                        <span class="lang-my">ကြေညာစာတမ်းပါ အခွင့်အရေးနှင့် လွတ်လပ်ခွင့်များ လူတိုင်း ခံစားပိုင်ခွင့်ရှိကြောင်း ဖော်ပြချက်</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="lang-en">Article 29</span><span class="lang-my">အပိုဒ် (၂၉)</span></strong></td>
+                                    <td>
+                                        <span class="lang-en">Duties and responsibilities of the individual to the community.</span>
+                                        <span class="lang-my">လူသားများ၏ တာဝန်ရှိကြောင်း ဖော်ပြချက်</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span class="lang-en">Article 30</span><span class="lang-my">အပိုဒ် (၃၀)</span></strong></td>
+                                    <td>
+                                        <span class="lang-en">Freedom from state or personal interference in destroying these rights.</span>
+                                        <span class="lang-my">အခွင့်အရေးနှင့် လွတ်လပ်ခွင့်ကို လွဲမှားစွာ အဓိပ္ပာယ်ကောက်ယူခြင်း မရှိစေရန် တားမြစ်ကန့်သတ်ကြောင်း ဖော်ပြချက်</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+
+                
+                <a class="udhr-next" href="essential.html#framework">
+                    <span><span class="lang-en">Continue learning</span><span class="lang-my">ဆက်လက်လေ့လာရန်</span><strong><span class="lang-en">Explore Human Rights Essentials</span><span class="lang-my">လူ့အခွင့်အရေး အနှစ်ချုပ်ကို လေ့လာပါ</span></strong></span>
+                    <b aria-hidden="true">→</b>
+                </a>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Auth Modal Container -->
+    <div class="auth-modal hidden" id="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+        <div class="auth-overlay" id="auth-overlay"></div>
+        <section class="auth-card">
+            <button class="auth-close-btn" id="auth-close" type="button" aria-label="Close dialog">&times;</button>
+            <h2 class="sr-only" id="auth-title">Account access</h2>
+            <div class="auth-tabs" role="tablist">
+                <button class="tab-btn active" id="tab-signin" type="button" role="tab">Sign in</button>
+                <button class="tab-btn" id="tab-signup" type="button" role="tab">Sign up</button>
+            </div>
+            <p class="auth-message" id="auth-message" role="alert" hidden></p>
+            <form class="auth-form" id="form-signin" novalidate>
+                <div class="form-group">
+                    <label for="signin-email">Email address</label>
+                    <input id="signin-email" type="email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signin-password">Password</label>
+                    <input id="signin-password" type="password" autocomplete="current-password" minlength="6" required>
+                </div>
+                <button class="auth-submit-btn" type="submit">Sign in</button>
+            </form>
+            <form class="auth-form hidden" id="form-signup" novalidate>
+                <div class="form-group">
+                    <label for="signup-name">Full name</label>
+                    <input id="signup-name" type="text" autocomplete="name" maxlength="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Email address</label>
+                    <input id="signup-email" type="email" autocomplete="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input id="signup-password" type="password" autocomplete="new-password" minlength="6" required>
+                </div>
+                <button class="auth-submit-btn" type="submit">Create account</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Profile Modal Container -->
+    <div class="profile-modal hidden" id="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-title" aria-hidden="true">
+        <div class="profile-overlay" id="profile-overlay"></div>
+        <section class="profile-card">
+            <button class="profile-close" id="profile-close" type="button" aria-label="Close profile">&times;</button>
+            <header class="profile-summary">
+                <div class="profile-avatar profile-avatar--large">
+                    <img id="profile-image" alt="" hidden>
+                    <span id="profile-initials" aria-hidden="true">G</span>
+                </div>
+                <div>
+                    <p class="profile-eyebrow">Your account</p>
+                    <h2 id="profile-title"><span id="profile-display-name">Guest</span></h2>
+                    <p id="profile-email">Not signed in</p>
+                </div>
+            </header>
+            <p class="profile-message" id="profile-message" role="status" hidden></p>
+            <button class="profile-edit-button" id="profile-edit" type="button">Edit profile</button>
+            <form class="profile-form hidden" id="profile-form" novalidate>
+                <div class="profile-field">
+                    <label for="profile-name-input">Display name</label>
+                    <input id="profile-name-input" type="text" autocomplete="name" minlength="2" maxlength="100" required>
+                </div>
+                <div class="profile-field">
+                    <span class="profile-field-label">Profile picture</span>
+                    <div class="profile-drop-zone" id="profile-drop-zone" role="button" tabindex="0">
+                        <div class="profile-avatar profile-avatar--preview">
+                            <img id="profile-preview-image" alt="Selected profile preview" hidden>
+                            <span id="profile-preview-initials" aria-hidden="true">G</span>
+                        </div>
+                        <div class="profile-drop-copy">
+                            <strong>Drop an image here</strong>
+                            <span>or choose a file</span>
+                            <small id="profile-file-status">PNG, JPG or WebP &middot; maximum 10 MB</small>
+                        </div>
+                        <input id="profile-photo-input" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+                    </div>
+                </div>
+                <div class="profile-form-actions">
+                    <button class="profile-button profile-button--secondary" id="profile-cancel" type="button">Cancel</button>
+                    <button class="profile-button profile-button--primary" id="profile-save" type="submit">
+                        <span>Save changes</span>
+                        <span class="profile-spinner" id="profile-spinner" aria-label="Uploading" hidden></span>
+                    </button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        (() => {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!reduceMotion) document.body.classList.add('motion-enabled');
+
+            const cards = [...document.querySelectorAll('.udhr-card')];
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                cards.forEach(card => card.classList.add('is-visible'));
+            } else {
+                const revealObserver = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+                cards.forEach(card => revealObserver.observe(card));
+            }
+
+            const progress = document.getElementById('reading-progress');
+            const updateProgress = () => {
+                const available = document.documentElement.scrollHeight - window.innerHeight;
+                const value = available > 0 ? Math.min(100, Math.max(0, window.scrollY / available * 100)) : 0;
+                if (progress) progress.style.width = `${value}%`;
+            };
+            updateProgress();
+            window.addEventListener('scroll', updateProgress, { passive: true });
+
+            const jumpLinks = [...document.querySelectorAll('.udhr-jump a[href^="#"]')];
+            const sections = jumpLinks.map(link => document.querySelector(link.getAttribute('href'))).filter(Boolean);
+            if ('IntersectionObserver' in window) {
+                const sectionObserver = new IntersectionObserver(entries => {
+                    const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                    if (!visible) return;
+                    jumpLinks.forEach(link => {
+                        const active = link.getAttribute('href') === `#${visible.target.id}`;
+                        link.classList.toggle('is-active', active);
+                        if (active) link.setAttribute('aria-current', 'location');
+                        else link.removeAttribute('aria-current');
+                    });
+                }, { rootMargin: '-25% 0px -60% 0px', threshold: [0, .25, .5] });
+                sections.forEach(section => sectionObserver.observe(section));
+            }
+        })();
+    </script>
+  <script src="footer.js" defer></script>
+</body>
+</html>
