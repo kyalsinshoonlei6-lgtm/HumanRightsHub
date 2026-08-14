@@ -16,6 +16,24 @@
   <script src="firebase-config.js" defer></script>
   <script src="auth.js" defer></script>
   <script src="profile.js" defer></script>
+  <script>
+    (() => {
+      const redirectToSignIn = () => {
+        const currentPage = `${location.pathname.split('/').pop() || 'index.html'}${location.search}${location.hash}`;
+        location.replace(`form.html?mode=signin&returnTo=${encodeURIComponent(currentPage)}`);
+      };
+      window.addEventListener('DOMContentLoaded', () => {
+        try {
+          if (!window.firebase || !window.FIREBASE_CONFIG?.apiKey) return redirectToSignIn();
+          if (!firebase.apps.length) firebase.initializeApp(window.FIREBASE_CONFIG);
+          firebase.auth().onAuthStateChanged((user) => { if (!user) redirectToSignIn(); });
+        } catch (error) {
+          console.error('Complaint generator access check failed:', error);
+          redirectToSignIn();
+        }
+      }, { once: true });
+    })();
+  </script>
 </head>
 <body class="lang-my page-complaint-format" data-lang="my">
 
