@@ -251,6 +251,19 @@
             .motion-enabled .udhr-hero__inner > *, .motion-enabled .udhr-fact, .motion-enabled .udhr-card { opacity: 1; transform: none; animation: none; transition: none; }
             .reading-progress { display: none; }
         }
+        /* Target links inside the breadcrumb navigation */
+    .conventions-breadcrumb a,
+    .conventions-breadcrumb a:visited {
+      color: #ffffff;
+      text-decoration: none; /* Optional: removes default link underline */
+    }
+
+    /* Optional: style for hover/active state */
+    .conventions-breadcrumb a:hover,
+    .conventions-breadcrumb a:focus {
+      color: #ffffff;
+      text-decoration: underline;
+    }
     </style>
 
     <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js" defer></script>
@@ -388,11 +401,13 @@
           <span class="lang-my">လေ့လာရန်</span>
             </a>
             <span aria-hidden="true">/</span>
-    
-            <span aria-current="page">
+    <!-- 
+            <span aria-current="page"> -->
+            <a href="convention.html#framework">
           <span class="lang-en">Conventions</span>
           <span class="lang-my">သဘောတူညီချက်များ</span>
-            </span>
+            <!-- </span> -->
+            <span aria-hidden="true">/</span>
           </nav>
 
                 <span class="category-badge">
