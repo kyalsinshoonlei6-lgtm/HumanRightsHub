@@ -569,4 +569,5 @@
   .article-reader.is-changing .article-reader__body,
   .article-reader.is-entering .article-reader__body { animation: none; }
 }
+.article-visual-number { display: none !important; }
 
