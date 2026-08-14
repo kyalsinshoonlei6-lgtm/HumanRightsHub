@@ -72,6 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   const achievementKey = 'hrhQuizAchievements';
   const questionHistoryKey = 'hrhQuizQuestionHistoryV2';
+  let authenticatedUser = null;
 
   const labels = {
     en: { question: 'Question', of: 'of', next: 'Next question', finish: 'See my result', explanation: 'Why this is correct', correct: 'Correct answer', incorrect: 'Not quite', best: 'Best score', result: 'Your result', foundation: 'Foundation badge', advocate: 'Advocate badge', guardian: 'Guardian badge', foundationNote: 'A strong starting point—keep exploring the essentials.', advocateNote: 'You know the core rights. Keep building your knowledge.', guardianNote: 'Excellent work. You have demonstrated strong rights knowledge.' },
@@ -96,24 +97,31 @@ document.addEventListener('DOMContentLoaded', () => {
     }).format(Number(value) || 0);
     return language === 'my' ? formatted.replace(/\d/g, (digit) => myanmarDigits[digit]) : formatted;
   };
-  const bestScore = () => Number(localStorage.getItem('hrhQuizBest') || 0);
-  const updateBest = (percent) => { if (percent > bestScore()) localStorage.setItem('hrhQuizBest', String(percent)); };
+  const accountStorageKey = (key) => authenticatedUser ? `${key}:${authenticatedUser.uid}` : key;
+  const bestScore = () => Number(localStorage.getItem(accountStorageKey('hrhQuizBest')) || 0);
+  const updateBest = (percent) => { if (percent > bestScore()) localStorage.setItem(accountStorageKey('hrhQuizBest'), String(percent)); };
   const show = (element, visible) => { element.hidden = !visible; };
   const getQuestionHistory = () => {
     try {
-      const history = JSON.parse(localStorage.getItem(questionHistoryKey));
+      const history = JSON.parse(localStorage.getItem(accountStorageKey(questionHistoryKey)));
       return history && typeof history === 'object' ? history : {};
     } catch (_) { return {}; }
   };
-  const saveQuestionHistory = (history) => localStorage.setItem(questionHistoryKey, JSON.stringify(history));
+  const saveQuestionHistory = (history) => localStorage.setItem(accountStorageKey(questionHistoryKey), JSON.stringify(history));
 
+  const achievementStorageKey = () => authenticatedUser ? `${achievementKey}:${authenticatedUser.uid}` : null;
   const getAchievements = () => {
+    const storageKey = achievementStorageKey();
+    if (!storageKey) return { unlocked: [], completedLevels: [] };
     try {
-      const saved = JSON.parse(localStorage.getItem(achievementKey));
+      const saved = JSON.parse(localStorage.getItem(storageKey));
       return { unlocked: Array.isArray(saved?.unlocked) ? saved.unlocked : [], completedLevels: Array.isArray(saved?.completedLevels) ? saved.completedLevels : [] };
     } catch (_) { return { unlocked: [], completedLevels: [] }; }
   };
-  const saveAchievements = (progress) => localStorage.setItem(achievementKey, JSON.stringify(progress));
+  const saveAchievements = (progress) => {
+    const storageKey = achievementStorageKey();
+    if (storageKey) localStorage.setItem(storageKey, JSON.stringify(progress));
+  };
   const achievementNames = {
     en: { explorer: 'First Step', foundation: 'Foundation', advocate: 'Advocate', guardian: 'Guardian', unlocked: 'Unlocked', locked: 'Locked', count: 'unlocked' },
     my: { explorer: 'ပထမခြေလှမ်း', foundation: 'အခြေခံ', advocate: 'ထောက်ခံသူ', guardian: 'ကာကွယ်သူ', unlocked: 'ရရှိပြီး', locked: 'မရရှိသေး', count: 'ရရှိပြီး' }
@@ -130,9 +138,19 @@ document.addEventListener('DOMContentLoaded', () => {
       const state = card.querySelector('.achievement-card__state');
       state.textContent = achievementNames[language][unlocked ? 'unlocked' : 'locked'];
     });
-    el('achievement-count').textContent = `${progress.unlocked.length} / 4 ${achievementNames[language].count}`;
+    el('achievement-count').textContent = authenticatedUser
+      ? `${progress.unlocked.length} / 4 ${achievementNames[language].count}`
+      : (language === 'my' ? 'အကောင့်ဝင်ရန် လိုအပ်သည်' : 'Sign in to save');
+    const accessNote = el('achievement-login-note');
+    if (accessNote) {
+      accessNote.hidden = Boolean(authenticatedUser);
+      accessNote.innerHTML = language === 'my'
+        ? 'တံဆိပ်များနှင့် အောင်မြင်မှုမှတ်တမ်းကို သိမ်းဆည်းရန် <a href="form.html?mode=signin&amp;returnTo=quiz.html">အကောင့်ဝင်ပါ</a>။'
+        : 'Sign in to save badges and achievement history to your account.';
+    }
   };
   const recordAchievements = (percent) => {
+    if (!authenticatedUser) return [];
     const progress = getAchievements();
     const unlockedNow = [];
     const unlock = (key) => { if (!progress.unlocked.includes(key)) { progress.unlocked.push(key); unlockedNow.push(key); } };
@@ -251,7 +269,12 @@ document.addEventListener('DOMContentLoaded', () => {
     el('earned-badge').className = `earned-badge earned-badge--${tier}`;
     el('earned-badge').innerHTML = `<span class="earned-badge__seal">${tier === 'guardian' ? 'III' : tier === 'advocate' ? 'II' : 'I'}</span><span class="earned-badge__copy"><strong>${tierTitle}</strong><small>${tierNote}</small></span>`;
     const unlockedNotice = el('achievement-unlock');
-    if (unlockedNow.length) {
+    if (!authenticatedUser) {
+      unlockedNotice.hidden = false;
+      unlockedNotice.innerHTML = language === 'my'
+        ? '<i class="fa-solid fa-lock"></i> တံဆိပ်များကို သင့်အကောင့်တွင် သိမ်းဆည်းရန် <a href="form.html?mode=signin&amp;returnTo=quiz.html">အကောင့်ဝင်ပါ</a>။'
+        : '<i class="fa-solid fa-lock"></i> <a href="form.html?mode=signin&amp;returnTo=quiz.html">Sign in</a> to save badges to your account.';
+    } else if (unlockedNow.length) {
       unlockedNotice.hidden = false;
       unlockedNotice.innerHTML = `<i class="fa-solid fa-sparkles"></i> ${language === 'my' ? 'တံဆိပ်အသစ် ရရှိပါသည် — ' : 'New achievement unlocked — '}${unlockedNow.map((key) => achievementNames[language][key]).join(', ')}`;
     } else unlockedNotice.hidden = true;
@@ -272,6 +295,16 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('[data-close-achievement]').forEach((button) => button.addEventListener('click', closeAchievementPopover));
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && !el('achievement-popover').hidden) closeAchievementPopover(); });
   document.addEventListener('hrh:languagechange', (event) => { language = event.detail?.language === 'my' ? 'my' : 'en'; renderBest(); renderAchievements(); if (round.length && !el('quiz-question').hidden) renderQuestion(); if (round.length && !el('quiz-result').hidden) showResult(); });
+  const syncAuthenticatedUser = (user) => {
+    authenticatedUser = user || null;
+    renderBest();
+    renderAchievements();
+    if (round.length && !el('quiz-result').hidden) showResult();
+  };
+  document.addEventListener('hrh:auth-state', (event) => {
+    syncAuthenticatedUser(event.detail?.user);
+  });
+  if (window.firebase?.apps?.length) firebase.auth().onAuthStateChanged(syncAuthenticatedUser);
   renderBest();
   renderAchievements();
 });
