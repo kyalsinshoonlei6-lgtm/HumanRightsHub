@@ -480,9 +480,19 @@ document.addEventListener('DOMContentLoaded', () => {
       db = firebase.firestore();
       auth.onAuthStateChanged((user) => {
         if (user) {
-          // This page is only the account gateway; authenticated visitors
-          // continue to their dedicated profile workspace.
-          window.location.replace('profile.html');
+          const requestedPage = new URLSearchParams(window.location.search).get('returnTo');
+          let destination = 'profile.html';
+          if (requestedPage) {
+            try {
+              const requestedUrl = new URL(requestedPage, window.location.origin);
+              if (requestedUrl.origin === window.location.origin && !requestedUrl.pathname.endsWith('/form.html')) {
+                destination = `${requestedUrl.pathname.split('/').pop() || 'index.html'}${requestedUrl.search}${requestedUrl.hash}`;
+              }
+            } catch (_) {
+              // Invalid return URL: keep the safe profile fallback.
+            }
+          }
+          window.location.replace(destination);
           return;
         }
         renderUser(null);
