@@ -15,6 +15,35 @@ document.addEventListener('DOMContentLoaded', () => {
   // Keep the selector broad for UI state, but only intercept modal triggers.
   const modalAuthLinks = document.querySelectorAll('[data-auth-open]');
   const authLinks = document.querySelectorAll('[data-auth-open], .account-link[href^="form.html?mode="]');
+  const navbarAuthLinks = document.querySelectorAll('.account-link[href^="form.html?mode="]');
+
+  const accountCopy = {
+    en: {
+      signIn: 'Sign in',
+      signUp: 'Sign up',
+      logOut: 'Log out',
+      openProfile: 'Open your profile',
+      guestProfile: 'Guest profile',
+    },
+    my: {
+      signIn: 'အကောင့်ဝင်ရန်',
+      signUp: 'အကောင့်သစ်ဖွင့်ရန်',
+      logOut: 'အကောင့်မှထွက်ရန်',
+      openProfile: 'ပရိုဖိုင်ဖွင့်ရန်',
+      guestProfile: 'ဧည့်သည် ပရိုဖိုင်',
+    },
+  };
+
+  const activeLanguage = () => document.body.classList.contains('lang-my') ? 'my' : 'en';
+  const applyAccountLanguage = () => {
+    const copy = accountCopy[activeLanguage()];
+    navbarAuthLinks.forEach((link) => {
+      const href = link.getAttribute('href') || '';
+      link.textContent = href.includes('mode=signup') ? copy.signUp : copy.signIn;
+    });
+    if (logoutButton) logoutButton.textContent = copy.logOut;
+    if (profileButton) profileButton.setAttribute('aria-label', auth?.currentUser ? copy.openProfile : copy.guestProfile);
+  };
 
   const showAuthMessage = (message, type = 'error') => {
     if (!authMessage) return window.alert(message);
@@ -138,7 +167,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if (profileButton) {
       profileButton.disabled = !user;
-      profileButton.setAttribute('aria-label', user ? 'Open your profile' : 'Guest profile');
+      profileButton.setAttribute('aria-label', user
+        ? accountCopy[activeLanguage()].openProfile
+        : accountCopy[activeLanguage()].guestProfile);
     }
     if (logoutButton) logoutButton.hidden = !user;
     authLinks.forEach((link) => { link.hidden = Boolean(user); });
@@ -228,4 +259,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     document.dispatchEvent(new CustomEvent('hrh:auth-state', { detail: { user } }));
   });
+
+  document.addEventListener('hrh:languagechange', applyAccountLanguage);
+  new MutationObserver(applyAccountLanguage).observe(document.body, {
+    attributes: true,
+    attributeFilter: ['class'],
+  });
+  applyAccountLanguage();
 });
