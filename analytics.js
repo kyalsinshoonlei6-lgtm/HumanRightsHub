@@ -58,6 +58,19 @@ const yearlyTotals = {
 
 let trendChart, regionalChart, categoryChart;
 
+// Keep every generated number in the same numeral system as the page language.
+// Myanmar's Unicode digits are supplied by the browser's Intl formatter.
+const numberLocale = () => currentLang === 'my' ? 'my-MM-u-nu-mymr' : 'en-US';
+const formatNumber = (value, maximumFractionDigits = 0) => new Intl.NumberFormat(numberLocale(), {
+  maximumFractionDigits,
+  minimumFractionDigits: maximumFractionDigits > 0 ? maximumFractionDigits : 0
+}).format(Number(value) || 0);
+const formatYear = (year) => formatNumber(year);
+const chartTooltipLabel = (context) => {
+  const value = typeof context.parsed === 'number' ? context.parsed : (context.parsed?.y ?? context.parsed?.x ?? 0);
+  return `${context.label ? `${context.label}: ` : ''}${formatNumber(value)}`;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
 
   if (typeof Chart !== 'undefined') {
@@ -85,10 +98,10 @@ document.addEventListener('DOMContentLoaded', () => {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: chartTooltipLabel } } },
           scales: {
             x: { grid: { color: 'rgba(11,79,114,0.09)' } },
-            y: { grid: { color: 'rgba(11,79,114,0.09)' } }
+            y: { grid: { color: 'rgba(11,79,114,0.09)' }, ticks: { callback: (value) => formatNumber(value) } }
           }
         }
       });
@@ -103,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(11,79,114,0.09)' } } }
+          plugins: { legend: { display: false }, tooltip: { callbacks: { label: chartTooltipLabel } } },
+          scales: { x: { grid: { display: false } }, y: { grid: { color: 'rgba(11,79,114,0.09)' }, ticks: { callback: (value) => formatNumber(value) } } }
         }
       });
     }
@@ -118,7 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } } }
+          plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12, font: { size: 11 } } }, tooltip: { callbacks: { label: chartTooltipLabel } } }
         }
       });
     }
@@ -196,6 +209,11 @@ function updateDashboard() {
   const currentRegions = regionalData.regions[currentLang];
   const currentCategories = categoryData.categories[currentLang];
 
+  if (trendChart) {
+    trendChart.data.labels = ['2018', '2019', '2020', '2021', '2022', '2023', '2024', '2025'].map(formatYear);
+    trendChart.update();
+  }
+
   if (regionalChart) {
     regionalChart.data.labels = currentRegions;
     regionalChart.data.datasets[0].data = regCounts;
@@ -210,13 +228,13 @@ function updateDashboard() {
 
   const kpiTotal = document.getElementById('kpi-total');
   if (kpiTotal) {
-    kpiTotal.innerText = totalSum.toLocaleString();
+    kpiTotal.innerText = formatNumber(totalSum);
   }
 
   const kpiTopRegion = document.getElementById('kpi-top-region');
   if (kpiTopRegion && regCounts.length > 0) {
     const topRegIdx = regCounts.indexOf(Math.max(...regCounts));
-    kpiTopRegion.innerText = `${currentRegions[topRegIdx]} (${regCounts[topRegIdx].toLocaleString()})`;
+    kpiTopRegion.innerText = `${currentRegions[topRegIdx]} (${formatNumber(regCounts[topRegIdx])})`;
   }
 
   const kpiTopCategory = document.getElementById('kpi-top-category');
@@ -240,10 +258,10 @@ function renderTable(elementId, labels, dataArr, total) {
     const pct = total > 0 ? ((val / total) * 100).toFixed(1) : '0.0';
     const row = document.createElement('tr');
     row.innerHTML = `
-      <td>${idx + 1}</td>
+      <td>${formatNumber(idx + 1)}</td>
       <td><strong>${label}</strong></td>
-      <td>${val.toLocaleString()}</td>
-      <td><span style="color: #0b84b8; font-weight: 600;">${pct}%</span></td>
+      <td>${formatNumber(val)}</td>
+      <td><span style="color: #0b84b8; font-weight: 600;">${formatNumber(pct, 1)}%</span></td>
     `;
     tbody.appendChild(row);
   });
