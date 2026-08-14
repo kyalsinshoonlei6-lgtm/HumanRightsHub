@@ -58,13 +58,18 @@ const yearlyTotals = {
 
 let trendChart, regionalChart, categoryChart;
 
-// Keep every generated number in the same numeral system as the page language.
-// Myanmar's Unicode digits are supplied by the browser's Intl formatter.
-const numberLocale = () => currentLang === 'my' ? 'my-MM-u-nu-mymr' : 'en-US';
-const formatNumber = (value, maximumFractionDigits = 0) => new Intl.NumberFormat(numberLocale(), {
-  maximumFractionDigits,
-  minimumFractionDigits: maximumFractionDigits > 0 ? maximumFractionDigits : 0
-}).format(Number(value) || 0);
+// Use an explicit digit map: some browsers ignore the Myanmar numeral system
+// requested through Intl and silently render Latin digits instead.
+const myanmarDigits = '၀၁၂၃၄၅၆၇၈၉';
+const formatNumber = (value, maximumFractionDigits = 0) => {
+  const formatted = new Intl.NumberFormat('en-US', {
+    maximumFractionDigits,
+    minimumFractionDigits: maximumFractionDigits > 0 ? maximumFractionDigits : 0
+  }).format(Number(value) || 0);
+  return currentLang === 'my'
+    ? formatted.replace(/\d/g, (digit) => myanmarDigits[digit])
+    : formatted;
+};
 const formatYear = (year) => formatNumber(year);
 const chartTooltipLabel = (context) => {
   const value = typeof context.parsed === 'number' ? context.parsed : (context.parsed?.y ?? context.parsed?.x ?? 0);
