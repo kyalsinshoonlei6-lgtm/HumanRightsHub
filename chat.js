@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   const db = (typeof firebase !== 'undefined' && firebase.apps.length) ? firebase.firestore() : null;
+  const auth = (typeof firebase !== 'undefined' && firebase.apps.length) ? firebase.auth() : null;
   const confessionForm = document.getElementById('confession-form');
   const feedContainer = document.getElementById('feed-container');
 
@@ -80,6 +81,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const text = postTextInput.value.trim();
       if (!text) return;
 
+      const user = auth?.currentUser;
+      if (!user) {
+        window.location.assign('form.html?mode=signin&returnTo=chat.html');
+        return;
+      }
+
       const submitBtn = confessionForm.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
 
@@ -87,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await db.collection('confessions').add({
           text: text,
           likes: 0,
+          authorId: user.uid,
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
         postTextInput.value = '';
