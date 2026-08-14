@@ -1,6 +1,6 @@
 /* Human Rights Hub quiz: local, accessible, bilingual and score-aware. */
 document.addEventListener('DOMContentLoaded', () => {
-  const questions = [
+  const coreQuestions = [
     { topic: 'UDHR', icon: 'fa-landmark', correct: 0, en: { q: 'In which year was the Universal Declaration of Human Rights adopted?', o: ['1948', '1958', '1968', '1978'], e: 'The UN General Assembly adopted the Universal Declaration of Human Rights on 10 December 1948.' }, my: { q: 'အပြည်ပြည်ဆိုင်ရာ လူ့အခွင့်အရေးကြေညာစာတမ်းကို မည်သည့်နှစ်တွင် အတည်ပြုခဲ့သနည်း?', o: ['၁၉၄၈', '၁၉၅၈', '၁၉၆၈', '၁၉၇၈'], e: 'ကုလသမဂ္ဂ အထွေထွေညီလာခံက ၁၉၄၈ ခုနှစ် ဒီဇင်ဘာ ၁၀ ရက်တွင် UDHR ကို အတည်ပြုခဲ့သည်။' } },
     { topic: 'Article 1', icon: 'fa-people-group', correct: 0, en: { q: 'Article 1 says that all human beings are born free and equal in what?', o: ['Dignity and rights', 'Wealth and status', 'Language and religion', 'Education and employment'], e: 'Article 1 places equal dignity and rights at the foundation of human rights.' }, my: { q: 'အပိုဒ် ၁ အရ လူသားအားလုံးသည် မည်သည့်အရာတွင် လွတ်လပ်၍ တန်းတူညီမျှစွာ မွေးဖွားလာကြသနည်း?', o: ['ဂုဏ်သိက္ခာနှင့် အခွင့်အရေး', 'ချမ်းသာမှုနှင့် အဆင့်အတန်း', 'ဘာသာစကားနှင့် ကိုးကွယ်မှု', 'ပညာရေးနှင့် အလုပ်အကိုင်'], e: 'အပိုဒ် ၁ သည် ဂုဏ်သိက္ခာနှင့် အခွင့်အရေး တန်းတူညီမျှမှုကို လူ့အခွင့်အရေး၏ အခြေခံအဖြစ် သတ်မှတ်ထားသည်။' } },
     { topic: 'Article 3', icon: 'fa-heart-pulse', correct: 0, en: { q: 'Which right is protected by Article 3 of the UDHR?', o: ['Life, liberty and security of person', 'A paid holiday', 'A political office', 'Private property only'], e: 'Article 3 protects life, liberty, and security of person.' }, my: { q: 'UDHR အပိုဒ် ၃ တွင် မည်သည့်အခွင့်အရေးကို ကာကွယ်ပေးထားသနည်း?', o: ['အသက်ရှင်ခွင့်၊ လွတ်လပ်ခွင့်နှင့် လုံခြုံခွင့်', 'လစာပါသော အားလပ်ရက်', 'နိုင်ငံရေးရာထူး', 'ကိုယ်ပိုင်ပစ္စည်းသာ'], e: 'အပိုဒ် ၃ သည် အသက်ရှင်ခွင့်၊ လွတ်လပ်ခွင့်နှင့် ပုဂ္ဂိုလ်လုံခြုံခွင့်ကို ကာကွယ်ပေးထားသည်။' } },
@@ -19,12 +19,59 @@ document.addEventListener('DOMContentLoaded', () => {
     { topic: 'Article 26', icon: 'fa-graduation-cap', correct: 0, en: { q: 'What does Article 26 recognize as a right?', o: ['Education', 'Only university education', 'Education only for citizens with wealth', 'No access to learning'], e: 'Article 26 recognizes the right to education and states that elementary education should be free and compulsory.' }, my: { q: 'အပိုဒ် ၂၆ သည် မည်သည့်အရာကို အခွင့်အရေးအဖြစ် အသိအမှတ်ပြုသနည်း?', o: ['ပညာသင်ယူခွင့်', 'တက္ကသိုလ်ပညာသာ', 'ချမ်းသာသော နိုင်ငံသားများအတွက်သာ ပညာရေး', 'သင်ယူခွင့်မရှိခြင်း'], e: 'အပိုဒ် ၂၆ သည် ပညာသင်ယူခွင့်ကို အသိအမှတ်ပြုပြီး မူလတန်းပညာကို အခမဲ့နှင့် မသင်မနေရ ဖြစ်သင့်သည်ဟု ဖော်ပြထားသည်။' } }
   ];
 
+  const importedQuestions = [
+  { id: 1, icon: "fa-gavel", question: { my: "အောင်ဆန်းသည် လမ်းခင်းရာတွင် ဘတ်ဂျက်မကောက်မတိုင်ဘဲ အလွဲသုံးစားလုပ်သည်ကို တွေ့ရှိခဲ့သည်။ မည်သည့်လုပ်ပိုင်ခွင့်ကို သုံးသင့်သနည်း။", en: "Aung San found budget misappropriation in road construction. What right should he exercise?" }, options: { my: ["တရားဝင် တိုင်ကြားစာပေးပို့၍ ထောက်ပြခွင့်", "ဘာမှမသိသလိုနေမည်", "လူမှုကွန်ရက်တွင် ဆဲဆိုခွင့်", "အထက်လူကြီး ခွင့်ပြုမှပြောခွင့်"], en: ["Submit formal complaint & criticize legally", "Pretend to know nothing", "Insult publicly on social media", "Speak only after approval"] }, correct: 0, explanation: { my: "အဂတိလိုက်စားမှုကို တရားဝင်တိုင်ကြားပိုင်ခွင့်ရှိပါသည်။", en: "Citizens hold the right to petition and report corruption legally." } },
+  { id: 2, icon: "fa-hands-praying", question: { my: "နိုင်ငံသားတစ်ယောက်အနေဖြင့် မည်သည့် ဘာသာတရားကိုမဆို လွတ်လပ်စွာ ကိုးကွယ်ခွင့် ရှိပါသလား။", en: "Does a citizen have the right to freely practice any religion?" }, options: { my: ["ရှိပါသည်", "မရှိပါ", "အစိုးရခွင့်ပြုမှရမည်", "လူများသည့်ဘာသာမှရမည်"], en: ["Yes", "No", "Only with government permission", "Only for majority religion"] }, correct: 0, explanation: { my: "လွတ်လပ်စွာ ကိုးကွယ်ခွင့်သည် အခြေခံ မွေးရာပါ အခွင့်အရေးဖြစ်ပါသည်။", en: "Freedom of thought, conscience, and religion is a fundamental right." } },
+  { id: 3, icon: "fa-briefcase", question: { my: "အလုပ်ရှင်တစ်ဦးသည် အသက် ၁၈ နှစ်ပြည့်ပြီးသူကို တစ်ပတ်လျှင် မည်မျှ အလုပ်ခိုင်းခွင့်ရှိသနည်း။", en: "Standard maximum working hours per week for adults normally is:" }, options: { my: ["နာရီ ၄၀ မှ ၄၈ နာရီ", "နာရီ ၇၀", "နာရီ ၁၀၀", "မိမိစိတ်ကြိုက်"], en: ["40 to 48 hours", "70 hours", "100 hours", "Unlimited"] }, correct: 0, explanation: { my: "အလုပ်သမားဥပဒေအရ တစ်ပတ်လျှင် နာရီ ၄၈ နာရီထက် မပိုရပါ။", en: "Standard labor law mandates max 48 working hours per week." } },
+  { id: 4, icon: "fa-graduation-cap", question: { my: "ကလေးငယ်တိုင်း ပညာသင်ကြားခွင့် မည်သို့ရှိသနည်း။", en: "What is the education right for every child?" }, options: { my: ["အခြေခံပညာ အခမဲ့ သင်ကြားခွင့်ရှိရမည်", "ပိုက်ဆံရှိမှ သင်ခွင့်ရှိမည်", "အမျိုးသားများသာ သင်ရမည်", "အတန်းကြီးမှ သင်ရမည်"], en: ["Right to free basic education", "Only if rich", "Only for boys", "Only for adults"] }, correct: 0, explanation: { my: "ကလေးသူငယ်တိုင်း အခြေခံပညာကို အခမဲ့ သင်ကြားခွင့်ရှိသည်။", en: "Primary and basic education must be free and accessible to all children." } },
+  { id: 5, icon: "fa-building-circle-xmark", question: { my: "အလုပ်ခွင်တွင် မတရား ပရိယာယ်ဖြင့် အလုပ်ထုတ်ခံရပါက မည်သို့ပြုလုပ်နိုင်သနည်း။", en: "What can you do if wrongfully terminated from work?" }, options: { my: ["အလုပ်သမားညှိနှိုင်းဖြေရှင်းရေးသို့ တိုင်ကြားနိုင်သည်", "ဘာမှမလုပ်နိုင်ပါ", "ကုမ္ပဏီကို မီးရှို့ရမည်", "ရဲစခန်းတွင် ရိုက်နှက်ရမည်"], en: ["Lodge a complaint to Labor Dispute Body", "Nothing can be done", "Burn the company", "Use violence"] }, correct: 0, explanation: { my: "အလုပ်သမားရေးရာ ခုံကောင်စီနှင့် ခုံရုံးများသို့ တိုင်ကြားနိုင်ပါသည်။", en: "You can submit grievances to relevant labor dispute committees." } },
+  { id: 6, icon: "fa-user-shield", question: { my: "မိမိ၏ ကိုယ်ရေးကိုယ်တာအချက်အလက်များကို ခွင့်ပြုချက်မရှိဘဲ သုံးစွဲပါက မည်သည့် အခွင့်အရေး ချိုးဖောက်ခံရသနည်း။", en: "Which right is violated if your personal data is used without permission?" }, options: { my: ["လုံခြုံမှုနှင့် ကိုယ်ရေးကိုယ်တာ ကာကွယ်ခွင့် (Privacy)", "လွတ်လပ်စွာ သွားလာခွင့်", "မဲပေးပိုင်ခွင့်", "ဘာသာရေးလွတ်လပ်ခွင့်"], en: ["Right to Privacy", "Freedom of movement", "Right to vote", "Freedom of religion"] }, correct: 0, explanation: { my: "ကိုယ်ရေးကိုယ်တာ အချက်အလက်များ လုံခြုံရေးသည် အခြေခံအခွင့်အရေးဖြစ်ပါသည်။", en: "Protection of personal information is guaranteed under Privacy Rights." } },
+  { id: 7, icon: "fa-scale-balanced", question: { my: "အမျိုးသမီးနှင့် အမျိုးသား တူညီသော အလုပ်အတွက် လစာတူညီစွာ ရရှိသင့်ပါသလား။", en: "Should women and men receive equal pay for equal work?" }, options: { my: ["ရရှိသင့်သည် (Equal Pay for Equal Work)", "အမျိုးသားက ပိုရရမည်", "အမျိုးသမီးက ပိုရရမည်", "အလုပ်ရှင် သဘောအတိုင်း"], en: ["Yes, Equal Pay for Equal Work", "Men should always get more", "Women should get more", "At employer's absolute whim"] }, correct: 0, explanation: { my: "တူညီသော အလုပ်အတွက် တန်းတူညီမျှ လစာရရှိပိုင်ခွင့် ရှိသည်။", en: "Equal remuneration for work of equal value is a fundamental principle." } },
+  { id: 8, icon: "fa-copyright", question: { my: "ဆန်းသစ်တီထွင်ထားသော စာအုပ် သို့မဟုတ် သီချင်းကို တရားမဝင် ကူးယူရောင်းချပါက မည်သည့်ဥပဒေဖြင့် ငြိစွန်းသနည်း။", en: "Copying someone's song or book illegally violates which law?" }, options: { my: ["မူပိုင်ခွင့်ဥပဒေ (Copyright Law)", "ယာဉ်စည်းကမ်းဥပဒေ", "အိမ်ငှားဥပဒေ", "သစ်တောဥပဒေ"], en: ["Intellectual Property / Copyright Law", "Traffic Law", "Tenancy Law", "Forest Law"] }, correct: 0, explanation: { my: "မူပိုင်ခွင့် (Copyright) သည် တီထွင်ဖန်တီးသူ၏ အခွင့်အရေးကို ကာကွယ်ပေးပါသည်။", en: "Copyright laws protect creators against unauthorized use." } },
+  { id: 9, icon: "fa-people-group", question: { my: "ငြိမ်းချမ်းစွာ စုဝေးခွင့်နှင့် စူဝေးဆန္ဒထုတ်ဖော်ခွင့်သည် အခြေခံအခွင့်အရေး ဟုတ်ပါသလား။", en: "Is peaceful assembly a basic human right?" }, options: { my: ["ဟုတ်ပါသည်", "မဟုတ်ပါ", "ရာဇဝတ်မှုဖြစ်သည်", "သူဌေးများသာ လုပ်ခွင့်ရှိသည်"], en: ["Yes", "No", "Always a crime", "Only for wealthy people"] }, correct: 0, explanation: { my: "ငြိမ်းချမ်းစွာ စုဝေးခွင့် (Freedom of Peaceful Assembly) သည် လူ့အခွင့်အရေးဖြစ်ပါသည်။", en: "Everyone has the right to freedom of peaceful assembly and association." } },
+  { id: 10, icon: "fa-handcuffs", question: { my: "လူတစ်ဦးကို ၎င်း၏ သဘောဆန္ဒမပါဘဲ အတင်းအဓမ္မ ခိုင်းစေခြင်း (Slave Labor) ပြုလုပ်ခွင့် ရှိပါသလား။", en: "Is forced labor legally permitted?" }, options: { my: ["လုံးဝ မရှိပါ", "ရှိပါသည်", "အစိုးရက ခိုင်းလျှင်ရသည်", "ပိုက်ဆံပေးလျှင် ရသည်"], en: ["No, strictly prohibited", "Yes", "Allowed if government orders", "Allowed if paid minimal fee"] }, correct: 0, explanation: { my: "ကျေးကျွန်ပြုခြင်းနှင့် အဓမ္မခိုင်းစေခြင်းကို အကြွင်းမဲ့ ပိတ်ပင်ထားသည်။", en: "Slavery and forced labor are strictly prohibited globally." } },
+  { id: 11, icon: "fa-hospital", question: { my: "ကျန်းမာရေး စောင့်ရှောက်မှု ခံယူပိုင်ခွင့်သည် မည်သည့် အခွင့်အရေး အမျိုးအစားတွင် ပါဝင်သနည်း။", en: "Right to health care falls under which type of rights?" }, options: { my: ["လူမှုရေးနှင့် စီးပွားရေး အခွင့်အရေး", "နိုင်ငံရေး အခွင့်အရေး သာလျှင်", "ဘာသာရေး အခွင့်အရေး", "တရားစီရင်ရေး အခွင့်အရေး"], en: ["Social and Economic Right", "Political Right only", "Religious Right", "Judicial Right"] }, correct: 0, explanation: { my: "ကျန်းမာရေးစောင့်ရှောက်မှုသည် လူမှုရေးနှင့် စီးပွားရေးဆိုင်ရာ အခြေခံအခွင့်အရေးဖြစ်သည်၊၊", en: "Health care is a fundamental social and economic right." } },
+  { id: 12, icon: "fa-comment-dots", question: { my: "လွတ်လပ်စွာ ထုတ်ဖော်ပြောဆိုခွင့် (Freedom of Speech) ၏ အဓိပ္ပာယ်မှာ မည်သည်နည်း။", en: "What is the meaning of Freedom of Speech?" }, options: { my: ["ဥပဒေဘောင်အတွင်း စိစစ်ခြင်းမရှိဘဲ မိမိအယူအဆ ထုတ်ဖော်ခွင့်", "သူတပါးကို မဟုတ်မမှန် စွပ်စွဲခွင့်", "အကြမ်းဖက်မှု လှုံ့ဆော်ခွင့်", "အမြဲတမ်း တိတ်ဆိတ်နေရခြင်း"], en: ["Right to express opinions legally without censorship", "Right to slander others", "Right to incite violence", "Remaining silent always"] }, correct: 0, explanation: { my: "လွတ်လပ်စွာ ထုတ်ဖော်ပြောဆိုခွင့်သည် ဥပဒေဘောင်အတွင်း အကြမ်းမဖက်ဘေ ထုတ်ဖော်ခွင့်ဖြစ်ပါသည်။", en: "Freedom of speech allows expressing ideas legally and peacefully." } },
+  { id: 13, icon: "fa-house-user", question: { my: "မိမိ၏ နေအိမ်သို့ တရားရုံး ဝရမ်းမပါဘဲ ဝင်ရောက်ရှာဖွေခွင့် ရှိပါသလား။", en: "Can authorities search your home without a legal warrant?" }, options: { my: ["ဥပဒေအရ အထူးကိစ္စမှအပ မရှိပါ", "အမြဲတမ်း ရှိသည်", "အိမ်နီးနားချင်း ခွင့်ပြုလျှင် ရသည်", "ညဘက်တွင် ရသည်"], en: ["No, except special legal conditions", "Always allowed", "Allowed with neighbor permission", "Allowed at night"] }, correct: 0, explanation: { my: "နေအိမ်လုံခြုံပိုင်ခွင့်အရ ဥပဒေစိုးမိုးရေးအဖွဲ့များသည် ဝရမ်းမပါဘဲ မဝင်ရပါ၊၊", en: "Home privacy is protected; search warrants are generally required." } },
+  { id: 14, icon: "fa-passport", question: { my: "မိမိနိုင်ငံအတွင်း လွတ်လပ်စွာ သွားလာခွင့်နှင့် နေထိုင်ခွင့် ရှိပါသလား။", en: "Do citizens have the right to freedom of movement within their country?" }, options: { my: ["ရှိပါသည်", "မရှိပါ", "မြို့တော်ဝန် ခွင့်ပြုမှရမည်", "ပတ်စပို့ပါမှ ရမည်"], en: ["Yes", "No", "Only with mayor approval", "Only with passport"] }, correct: 0, explanation: { my: "နိုင်ငံသားတိုင်း မိမိနိုင်ငံအတွင်း လွတ်လပ်စွာ သွားလာခွင့်ရှိသည်။", en: "Everyone has the right to freedom of movement within state borders." } },
+  { id: 15, icon: "fa-newspaper", question: { my: "သတင်းမီဒီယာ လွတ်လပ်ခွင့် (Freedom of Press) ၏ အရေးပါပုံမှာ မည်သည်နည်း။", en: "Why is Freedom of the Press important?" }, options: { my: ["အစိုးရနှင့် တာဝန်ရှိသူများကို စောင့်ကြည့်ထောက်ပြနိုင်ရန်", "သတင်းအမှားများ ဖြန့်ရန်", "လူထုကို ခြိမ်းခြောက်ရန်", "ကြော်ငြာများသာ ပြသရန်"], en: ["To hold authority accountable", "To spread fake news", "To threaten public", "To show ads only"] }, correct: 0, explanation: { my: "မီဒီယာလွတ်လပ်ခွင့်သည် ဒီမိုကရေစီ၏ စတုတ္ထမဏ္ဍိုင်ဖြစ်ပါသည်။", en: "Press freedom serves as a vital check on state authority." } },
+  { id: 16, icon: "fa-shield-halved", question: { my: "ဖမ်းဆီးခံရသူတစ်ဦးတွင် ရှေ့နေနှင့် တိုင်ပင်ခွင့် မည်သည့်အချိန်တွင် ရရှိသနည်း။", en: "When does a detained person have the right to consult a lawyer?" }, options: { my: ["ဖမ်းဆီးခံရသည်နှင့် ချက်ချင်း", "ထောင်ဒဏ်ကျပြီးမှ", "တစ်နှစ်ကြာမှ", "တရားသူကြီး သနားမှ"], en: ["Immediately upon arrest", "Only after sentencing", "After one year", "At judge's mercy"] }, correct: 0, explanation: { my: "ဖမ်းဆီးခံရသူတိုင်း တရားဥပဒေအကာအကွယ်နှင့် ရှေ့နေငှားရမ်းခွင့် ချက်ချင်းရှိသည်။", en: "Right to legal counsel applies immediately upon detention." } },
+  { id: 17, icon: "fa-child", question: { my: "ကလေးသူငယ်အခွင့်အရေးများဆိုင်ရာ သဘောတူစာချုပ် (CRC) တွင် မည်သည့်အချက် ပါဝင်သနည်း။", en: "What is included in the Convention on the Rights of the Child (CRC)?" }, options: { my: ["ကလေးများ အသက်ရှင်သန်ခွင့်နှင့် ဖွံ့ဖြိုးတိုးတက်ခွင့်", "ကလေးများကို အလုပ်ကြမ်းခိုင်းခွင့်", "ကျောင်းမထားဘဲ ထားခွင့်", "ကလေးများကို ပြစ်ဒဏ်ကြီးလေးစွာ ပေးခွင့်"], en: ["Child survival and development rights", "Child labor rights", "Right to deny schooling", "Right to impose harsh punishment"] }, correct: 0, explanation: { my: "CRC သည် ကလေးများ의 ဘေးကင်းရေးနှင့် သင်ယူခွင့်ကို အကာအကွယ်ပေးသည်။", en: "CRC ensures child protection, survival, and healthy development." } },
+  { id: 18, icon: "fa-vote-yea", question: { my: "ဒီမိုကရေစီစနစ်တွင် မဲပေးပိုင်ခွင့် (Right to Vote) သည် မည်သူ들과 သက်ဆိုင်သနည်း။", en: "Who possesses the Right to Vote in a democracy?" }, options: { my: ["ဥပဒေအရ သတ်မှတ်ထားသော သက်ပြည့်နိုင်ငံသား အားလုံး", "ပညာတတ်များသာ", "သူဌေးများသာ", "အမျိုးသားများသာ"], en: ["All eligible adult citizens", "Educated only", "Wealthy only", "Men only"] }, correct: 0, explanation: { my: "တန်းတူညီမျှ မဲပေးပိုင်ခွင့်သည် သက်ပြည့်နိုင်ငံသားတိုင်း၏ အခွင့်အရေးဖြစ်သည်။", en: "Universal suffrage guarantees vote to all eligible citizens." } },
+  { id: 19, icon: "fa-earth-americas", question: { my: "ကမ္ဘာ့လူ့အခွင့်အရေး ကြေညာစာတမ်း (UDHR) ကို မည်သည့်နှစ်တွင် အတည်ပြုခဲ့သနည်း။", en: "In which year was the Universal Declaration of Human Rights (UDHR) adopted?" }, options: { my: ["၁၉၄၈ ခုနှစ်", "၁၉၅၀ ခုနှစ်", "၁၉၃၉ ခုနှစ်", "၂၀၀၀ ခုနှစ်"], en: ["1948", "1950", "1939", "2000"] }, correct: 0, explanation: { my: "ကုလသမဂ္ဂမှ ၁၉၄၈ ခုနှစ် ဒီဇင်ဘာ ၁၀ ရက်တွင် အတည်ပြုခဲ့သည်။", en: "UN adopted the UDHR on December 10, 1948." } },
+  { id: 20, icon: "fa-venus-mars", question: { my: "ခွဲခြားဆက်ဆံခံရမှုမှ ကင်းလွတ်ခွင့် (Right to Non-Discrimination) ဆိုသည်မှာ မည်သည်နည်း။", en: "What does the Right to Non-Discrimination mean?" }, options: { my: ["လူမျိုး၊ ဘာသာ၊ လိင် မခွဲခြားဘဲ တန်းတူအခွင့်အရေးရရှိခြင်း", "လူနည်းစုများကို နှိမ့်ချခြင်း", "အထူးအခွင့်အရေး ပေးခြင်း", "အချို့ကိုသာ ကာကွယ်ပေးခြင်း"], en: ["Equal rights regardless of race, religion, or gender", "Lowering minorities", "Special privilege for few", "Protecting select groups"] }, correct: 0, explanation: { my: "လူတိုင်း လူသားဖြစ်မှုအပေါ် မူတည်၍ တန်းတူ အခွင့်အရေး ရရှိရမည်။", en: "Everyone is entitled to rights without distinction of any kind." } },
+  { id: 21, icon: "fa-circle-dollar-to-slot", question: { my: "အနည်းဆုံး အခကြေးငွေ (Minimum Wage) သတ်မှတ်ခြင်း၏ ရည်ရွယ်ချက်မှာ မည်သည်နည်း။", en: "What is the primary purpose of Minimum Wage legislation?" }, options: { my: ["အလုပ်သမားများ သင့်တင့်သော လူနေမှုအဆင့်အတန်း ရရှိရန်", "အလုပ်ရှင်များကို ကြွယ်ဝစေရန်", "ကုန်ဈေးနှုန်း တက်စေရန်", "အလုပ်လက်မဲ့ တိုးစေရန်"], en: ["Ensure workers basic decent living standard", "Enrich employers", "Increase inflation", "Increase unemployment"] }, correct: 0, explanation: { my: "အနည်းဆုံး လစာသည် အလုပ်သမားများ၏ ရပိုင်ခွင့်ကို ကာကွယ်ပေးသည်။", en: "Minimum wage protects workers from unduly low pay." } },
+  { id: 22, icon: "fa-umbrella", question: { my: "ဒုက္ခသည်များ ခေတ္တခိုလှုံခွင့် (Right to Asylum) ကို မည်သည့်အချိန်တွင် တောင်းခံနိုင်သနည်း။", en: "When can someone apply for the Right to Asylum?" }, options: { my: ["မိမိနိုင်ငံတွင် ညှဉ်းပန်းနှိပ်စက်မှု ခံရမည့် အန္တရာယ်ရှိချိန်", "အပျော်ခရီး ထွက်လိုချိန်", "စီးပွားရေး တွက်ချေမကိုက်ချိန်", "ကျောင်းတက်လိုချိန်"], en: ["When facing persecution in home country", "For vacation travel", "For business reasons", "To attend school"] }, correct: 0, explanation: { my: "ဘေးအန္တရာယ်နှင့် နှိပ်စက်မှုမှ လွတ်မြောက်ရန် ခိုလှုံခွင့် တောင်းခံနိုင်သည်။", en: "Everyone has the right to seek asylum from persecution." } },
+  { id: 23, icon: "fa-leaf", question: { my: "သန့်ရှင်းသော ပတ်ဝန်းကျင်တွင် နေထိုင်ခွင့်သည် လူ့အခွင့်အရေး ဟုတ်ပါသလား။", en: "Is the right to a clean environment recognized as a human right?" }, options: { my: ["ဟုတ်ပါသည် (Right to a Healthy Environment)", "မဟုတ်ပါ", "စက်ရုံပိုင်ရှင်များသာ ဆုံးဖြတ်ရမည်", "သစ်တောဌာနသာ သက်ဆိုင်သည်"], en: ["Yes (Right to a Healthy Environment)", "No", "Only factory owners decide", "Only forest department"] }, correct: 0, explanation: { my: "သန့်ရှင်း ဘေးကင်းသော ပတ်ဝန်းကျင်သည် အခြေခံ လူ့အခွင့်အရေးဖြစ်ပါသည်။", en: "UN recognizes clean, healthy environment as a human right." } },
+  { id: 24, icon: "fa-wheelchair", question: { my: "မသန်စွမ်းသူများ၏ အခွင့်အရေးများ (CRPD) အရ မည်သို့ စီစဉ်ပေးရမည်နည်း။", en: "Under CRPD, what accessibility provisions are required for persons with disabilities?" }, options: { my: ["အများပြည်သူဆိုင်ရာ နေရာများတွင် ဝင်ရောက်အသုံးပြုနိုင်အောင် စီစဉ်ပေးခြင်း", "၎င်းတို့အား သီးခြားခွဲထားခြင်း", "အလုပ်လုပ်ခွင့် ပိတ်ပင်ခြင်း", "ကူညီပေးရန် ငြင်းဆန်ခြင်း"], en: ["Ensure accessibility in public spaces", "Segregate them", "Bar them from work", "Refuse assistance"] }, correct: 0, explanation: { my: "မသန်စွမ်းသူများ အတားအဆီးမရှိ ဝင်ရောက် အသုံးပြုနိုင်ရန် ဖန်တီးပေးရမည်။", en: "Barrier-free environment must be provided for all ability levels." } },
+  { id: 25, icon: "fa-shield-cat", question: { my: "တရားမဝင် ဖမ်းဆီးထိန်းသိမ်းခြင်းမှ ကင်းလွတ်ခွင့် (Freedom from Arbitrary Arrest) သည် မည်သည်နည်း။", en: "What is Freedom from Arbitrary Arrest?" }, options: { my: ["ခိုင်လုံသော ဥပဒေအကြောင်းအရင်းမပါဘဲ ဖမ်းဆီးခွင့်မရှိခြင်း", "ရဲက ကြိုက်သလို ဖမ်းပိုင်ခွင့်ရှိခြင်း", "ပြစ်မှုကျူးလွန်သူကို မဖမ်းရခြင်း", "မည်သူမျှ ထောင်မကျခြင်း"], en: ["Cannot be arrested without valid legal cause", "Police arrest freely", "No criminal can be caught", "Nobody ever goes to jail"] }, correct: 0, explanation: { my: "တရားဥပဒေ စိုးမိုးရေးအရ ဝရမ်းနှင့် သက်သေမပါဘဲ မဖမ်းရပါ။", en: "Arrests must strictly conform to procedure established by law." } },
+  { id: 26, icon: "fa-laptop-code", question: { my: "အင်တာနက် အသုံးပြုခွင့်နှင့် သတင်းအချက်အလက် ရယူခွင့်သည် မည်သည့် အခွင့်အရေးနည်း။", en: "Internet access and right to information are classified as:" }, options: { my: ["သတင်းအချက်အလက် ရယူခွင့်နှင့် ထုတ်ဖော်ခွင့်", "ဇိမ်ခံပစ္စည်း သာလျှင်", "အစိုးရ သီးသန့် အခွင့်အရေး", "ဥပဒေမဲ့ ကိစ္စ"], en: ["Right to Information and Freedom of Expression", "Luxury only", "Government privilege", "Illegal activity"] }, correct: 0, explanation: { my: "အင်တာနက် သုံးစွဲခွင့်သည် ခေတ်သစ် အချက်အလက် သိရှိခွင့် အဓိက သော့ချက်ဖြစ်သည်၊၊", en: "Access to the internet is vital for realizing right to information." } },
+  { id: 27, icon: "fa-ban-smoking", question: { my: "အများပြည်သူဆိုင်ရာ နေရာများတွင် ဆေးလိပ်မသောက်ရ စည်းကမ်းသည် မည်သည့် အခွင့်အရေးကို ကာကွယ်သနည်း။", en: "Public smoking bans protect which human right?" }, options: { my: ["အခြားသူများ၏ ကျန်းမာရေးနှင့် ဘေးကင်းခွင့်", "ဆေးလိပ်သောက်သူ၏ လွတ်လပ်ခွင့်", "စီးပွားရေးဆိုင်ရာ အခွင့်အရေး", "နားနေခွင့်"], en: ["Right to Health and Safety of others", "Smoker's freedom", "Economic rights", "Right to rest"] }, correct: 0, explanation: { my: "အများပြည်သူ၏ ကျန်းမာရေးသည် တစ်ဦးတည်း လွတ်လပ်ခွင့်ထက် ပိုမို အရေးပါ၊၊", en: "Public health safeguards take precedence over personal habit rights." } },
+  { id: 28, icon: "fa-book-open-reader", question: { my: "တိုင်းရင်းသား မိခင်ဘာသာစကားဖြင့် သင်ယူခွင့်သည် မည်သည့် အခွင့်အရေးတွင် ပါဝင်သနည်း။", en: "Learning in one's mother tongue falls under which rights?" }, options: { my: ["ယဉ်ကျေးမှုနှင့် ပညာရေး အခွင့်အရေး", "နိုင်ငံရေး အခွင့်အရေး သာလျှင်", "တရားစီရင်ရေး အခွင့်အရေး", "စီးပွားရေး အခွင့်အရေး"], en: ["Cultural and Educational Rights", "Political Right only", "Judicial Right", "Economic Right"] }, correct: 0, explanation: { my: "တိုင်းရင်းသား စာပေနှင့် ယဉ်ကျေးမှု ထိန်းသိမ်းပိုင်ခွင့် အပြည့်အဝ ရှိသည်။", en: "Minority groups have rights to preserve language and culture." } },
+  { id: 29, icon: "fa-hand-fist", question: { my: "ညှဉ်းပန်းနှိပ်စက်မှု ပိတ်ပင်ရေး (Freedom from Torture) သည် မည်မျှ အရေးပါသနည်း။", en: "How absolute is the Prohibition of Torture?" }, options: { my: ["မည်သည့် အခြေအနေတွင်မျှ ပြုလုပ်ခွင့်မရှိပါ (Absolute Right)", "စစ်ဖြစ်လျှင် ပြုလုပ်နိုင်သည်", "အရေးပေါ် အခြေအနေတွင် ရသည်", "အထက်အမိန့်ပါက ရသည်"], en: ["Absolute right, no exception allowed", "Allowed in war", "Allowed in emergency", "Allowed if ordered"] }, correct: 0, explanation: { my: "ညှဉ်းပန်းနှိပ်စက်မှုကို ကမ္ဘာ့ဥပဒေအရ လုံးဝ ခွင့်မပြုပါ (Absolute Right)။", en: "Torture is strictly prohibited without any exception globally." } },
+  { id: 30, icon: "fa-bed", question: { my: "အလုပ်သမားတစ်ဦးတွင် အားလပ်ရက်နှင့် အနားယူခွင့် (Right to Rest and Leisure) ရှိပါသလား။", en: "Do workers have a Right to Rest and Leisure?" }, options: { my: ["ရှိပါသည် (လစာပါ လွှတ်ရက်များ အပါအဝင်)", "မရှိပါ (အမြဲ အလုပ်လုပ်ရမည်)", "အလုပ်ရှင် သနားမှ ရမည်", "ညဘက်သာ အနားယူရမည်"], en: ["Yes (including paid holidays)", "No (must work non-stop)", "Only if employer is generous", "Only at night"] }, correct: 0, explanation: { my: "အနားယူခွင့်နှင့် သင့်တင့်သော အလုပ်ချိန်သည် အလုပ်သမား အခွင့်အရေးဖြစ်သည်။", en: "Right to rest includes reasonable working hours and periodic paid holidays." } }
+];;
+  const questions = [
+    ...coreQuestions.map((question, index) => ({ ...question, id: `core-${index + 1}` })),
+    ...importedQuestions.map((question) => ({
+      id: `community-${question.id}`,
+      topic: question.id <= 10 ? 'Everyday rights' : question.id <= 20 ? 'Rights in practice' : 'Rights and protections',
+      icon: question.icon,
+      correct: question.correct,
+      en: { q: question.question.en, o: question.options.en, e: question.explanation.en },
+      my: { q: question.question.my, o: question.options.my, e: question.explanation.my }
+    }))
+  ];
+
+  // Each level draws ten unused questions from a larger pool. A participant
+  // will not receive the same question again until that level's pool is used.
   const difficultyLevels = {
-    guided: { count: 6, topics: ['UDHR', 'Article 1', 'Article 3', 'Article 5', 'Article 7', 'Article 8', 'Article 12', 'Article 15', 'Article 18', 'Article 26'] },
-    standard: { count: 8, topics: ['Article 3', 'Article 5', 'Article 7', 'Article 8', 'Article 12', 'Article 14', 'Article 15', 'Article 18', 'Article 19', 'Article 20', 'Article 23', 'Article 24', 'Article 25', 'Article 26'] },
-    challenge: { count: 10, topics: ['UDHR', 'Article 1', 'Article 3', 'Article 5', 'Article 7', 'Article 8', 'Article 12', 'Article 14', 'Article 15', 'Article 18', 'Article 19', 'Article 20', 'Article 23', 'Article 24', 'Article 25', 'Article 26'] }
+    guided: { count: 10, includes: (question) => question.id.startsWith('core-') ? Number(question.id.slice(5)) <= 8 : Number(question.id.slice(10)) <= 14 },
+    standard: { count: 10, includes: (question) => question.id.startsWith('core-') ? Number(question.id.slice(5)) >= 5 : Number(question.id.slice(10)) >= 8 && Number(question.id.slice(10)) <= 24 },
+    challenge: { count: 10, includes: (question) => question.id.startsWith('core-') ? Number(question.id.slice(5)) >= 9 : Number(question.id.slice(10)) >= 15 }
   };
   const achievementKey = 'hrhQuizAchievements';
+  const questionHistoryKey = 'hrhQuizQuestionHistoryV2';
 
   const labels = {
     en: { question: 'Question', of: 'of', next: 'Next question', finish: 'See my result', explanation: 'Why this is correct', correct: 'Correct answer', incorrect: 'Not quite', best: 'Best score', result: 'Your result', foundation: 'Foundation badge', advocate: 'Advocate badge', guardian: 'Guardian badge', foundationNote: 'A strong starting point—keep exploring the essentials.', advocateNote: 'You know the core rights. Keep building your knowledge.', guardianNote: 'Excellent work. You have demonstrated strong rights knowledge.' },
@@ -41,9 +88,24 @@ document.addEventListener('DOMContentLoaded', () => {
   let roundResult = null;
 
   const getCopy = () => labels[language];
+  const myanmarDigits = '၀၁၂၃၄၅၆၇၈၉';
+  const formatQuizNumber = (value, maximumFractionDigits = 0) => {
+    const formatted = new Intl.NumberFormat('en-US', {
+      maximumFractionDigits,
+      minimumFractionDigits: maximumFractionDigits > 0 ? maximumFractionDigits : 0
+    }).format(Number(value) || 0);
+    return language === 'my' ? formatted.replace(/\d/g, (digit) => myanmarDigits[digit]) : formatted;
+  };
   const bestScore = () => Number(localStorage.getItem('hrhQuizBest') || 0);
   const updateBest = (percent) => { if (percent > bestScore()) localStorage.setItem('hrhQuizBest', String(percent)); };
   const show = (element, visible) => { element.hidden = !visible; };
+  const getQuestionHistory = () => {
+    try {
+      const history = JSON.parse(localStorage.getItem(questionHistoryKey));
+      return history && typeof history === 'object' ? history : {};
+    } catch (_) { return {}; }
+  };
+  const saveQuestionHistory = (history) => localStorage.setItem(questionHistoryKey, JSON.stringify(history));
 
   const getAchievements = () => {
     try {
@@ -100,12 +162,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const renderBest = () => {
     const score = bestScore();
-    el('best-score').textContent = score ? `${score}%` : '—';
+    el('best-score').textContent = score ? `${formatQuizNumber(score)}%` : '—';
   };
 
   const startRound = () => {
     const level = difficultyLevels[difficulty];
-    round = shuffle(questions.filter((question) => level.topics.includes(question.topic))).slice(0, level.count).map((question) => ({ ...question, order: shuffle([0, 1, 2, 3]) }));
+    const pool = questions.filter(level.includes);
+    const history = getQuestionHistory();
+    const previouslyUsed = new Set(Array.isArray(history[difficulty]) ? history[difficulty] : []);
+    let available = pool.filter((question) => !previouslyUsed.has(question.id));
+
+    // Start a new cycle only after this participant has used the level's pool.
+    if (available.length < level.count) {
+      history[difficulty] = [];
+      available = [...pool];
+    }
+
+    const selected = shuffle(available).slice(0, level.count);
+    history[difficulty] = [...new Set([...(history[difficulty] || []), ...selected.map((question) => question.id)])];
+    saveQuestionHistory(history);
+    round = selected.map((question) => ({ ...question, order: shuffle([0, 1, 2, 3]) }));
     index = 0;
     answers = new Array(round.length).fill(null);
     roundResult = null;
@@ -120,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const question = round[index];
     const t = getCopy();
     const answer = answers[index];
-    el('question-count').textContent = `${t.question} ${index + 1} ${t.of} ${round.length}`;
+    el('question-count').textContent = `${t.question} ${formatQuizNumber(index + 1)} ${t.of} ${formatQuizNumber(round.length)}`;
     el('question-topic').textContent = question.topic;
     el('progress-fill').style.width = `${((index + 1) / round.length) * 100}%`;
     el('question-icon').className = `fa-solid ${question.icon}`;
@@ -170,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tierTitle = t[tier];
     const tierNote = t[`${tier}Note`];
     el('result-title').textContent = t.result;
-    el('result-score').innerHTML = `<strong>${correctCount} / ${round.length} · ${percent}%</strong>`;
+    el('result-score').innerHTML = `<strong>${formatQuizNumber(correctCount)} / ${formatQuizNumber(round.length)} · ${formatQuizNumber(percent)}%</strong>`;
     el('result-medallion').className = `result-medallion result-medallion--${tier}`;
     el('earned-badge').className = `earned-badge earned-badge--${tier}`;
     el('earned-badge').innerHTML = `<span class="earned-badge__seal">${tier === 'guardian' ? 'III' : tier === 'advocate' ? 'II' : 'I'}</span><span class="earned-badge__copy"><strong>${tierTitle}</strong><small>${tierNote}</small></span>`;
