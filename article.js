@@ -35,14 +35,19 @@
   ];
 
   const groups = [
-    { label: 'Foundations / အခြေခံမူများ', start: 1, end: 2, accent: '#149fc5' },
-    { label: 'Civil & political / နိုင်ငံသားနှင့် နိုင်ငံရေး', start: 3, end: 21, accent: '#3979c9' },
-    { label: 'Economic, social & cultural / စီးပွား၊ လူမှု၊ ယဉ်ကျေးမှု', start: 22, end: 27, accent: '#158b78' },
-    { label: 'Collective responsibility / အများဆိုင်ရာ တာဝန်', start: 28, end: 30, accent: '#7759b7' }
+    { label: 'Foundations', labelMy: 'အခြေခံမူများ', start: 1, end: 2, accent: '#149fc5' },
+    { label: 'Civil & political', labelMy: 'နိုင်ငံသားနှင့် နိုင်ငံရေး', start: 3, end: 21, accent: '#3979c9' },
+    { label: 'Economic, social & cultural', labelMy: 'စီးပွား၊ လူမှုနှင့် ယဉ်ကျေးမှု', start: 22, end: 27, accent: '#158b78' },
+    { label: 'Collective responsibility', labelMy: 'အများဆိုင်ရာ တာဝန်', start: 28, end: 30, accent: '#7759b7' }
   ];
 
-  const twoDigits = (number) => String(number).padStart(2, '0');
+  const myanmarDigits = '၀၁၂၃၄၅၆၇၈၉';
   const isMyanmar = () => document.body.classList.contains('lang-my');
+  const localizeDigits = (value) => isMyanmar()
+    ? String(value).replace(/\d/g, (digit) => myanmarDigits[digit])
+    : String(value);
+  const twoDigits = (number) => localizeDigits(String(number).padStart(2, '0'));
+  const articleLabel = (number) => `${isMyanmar() ? 'အပိုဒ်' : 'Article'} ${twoDigits(number)}`;
   let activeArticle = 1;
   let transitionTimer;
 
@@ -69,6 +74,7 @@
       copyEn: root.querySelector('#article-copy-en'),
       copyMy: root.querySelector('#article-copy-my'),
       progressCurrent: root.querySelector('#article-progress-current'),
+      progressTotal: root.querySelector('#article-progress-total'),
       progressBar: root.querySelector('#article-progress-bar'),
       previous: root.querySelector('#article-previous'),
       next: root.querySelector('#article-next'),
@@ -76,47 +82,66 @@
       nextLabel: root.querySelector('#next-label')
     };
 
-    const optionFragment = document.createDocumentFragment();
-    articles.forEach((article, index) => {
-      const option = document.createElement('option');
-      option.value = String(index + 1);
-      option.textContent = `Article ${twoDigits(index + 1)} — ${article.title}`;
-      optionFragment.append(option);
-    });
-    elements.select.append(optionFragment);
-
-    groups.forEach((group) => {
-      const section = document.createElement('section');
-      section.className = 'article-group';
-      const heading = document.createElement('h3');
-      heading.className = 'article-group__title';
-      heading.textContent = group.label;
-      const grid = document.createElement('div');
-      grid.className = 'article-group__grid';
-
-      for (let number = group.start; number <= group.end; number += 1) {
-        const button = document.createElement('button');
-        button.className = 'article-index-button';
-        button.type = 'button';
-        button.dataset.article = String(number);
-        button.textContent = twoDigits(number);
-        button.setAttribute('aria-label', `Open Article ${number}: ${articles[number - 1].title}`);
-        button.addEventListener('click', () => renderArticle(number));
-        grid.append(button);
-      }
-
-      section.append(heading, grid);
-      elements.groups.append(section);
-    });
-
     const categoryFor = (number) => groups.find((group) => number >= group.start && number <= group.end);
     const neighbour = (offset) => ((activeArticle - 1 + offset + articles.length) % articles.length) + 1;
+
+    function renderArticleNavigation() {
+      const optionFragment = document.createDocumentFragment();
+      articles.forEach((article, index) => {
+        const option = document.createElement('option');
+        option.value = String(index + 1);
+        option.textContent = `${articleLabel(index + 1)} — ${isMyanmar() ? article.titleMy : article.title}`;
+        optionFragment.append(option);
+      });
+      elements.select.replaceChildren(optionFragment);
+      elements.select.value = String(activeArticle);
+
+      elements.groups.replaceChildren();
+      groups.forEach((group) => {
+        const section = document.createElement('section');
+        section.className = 'article-group';
+        const heading = document.createElement('h3');
+        heading.className = 'article-group__title';
+        heading.textContent = isMyanmar() ? group.labelMy : group.label;
+        const grid = document.createElement('div');
+        grid.className = 'article-group__grid';
+
+        for (let number = group.start; number <= group.end; number += 1) {
+          const button = document.createElement('button');
+          button.className = 'article-index-button';
+          button.type = 'button';
+          button.dataset.article = String(number);
+          button.textContent = twoDigits(number);
+          button.setAttribute('aria-label', isMyanmar()
+            ? `${articleLabel(number)} ကိုဖွင့်ရန်: ${articles[number - 1].titleMy}`
+            : `Open ${articleLabel(number)}: ${articles[number - 1].title}`);
+          button.classList.toggle('is-active', number === activeArticle);
+          button.setAttribute('aria-pressed', String(number === activeArticle));
+          button.addEventListener('click', () => renderArticle(number));
+          grid.append(button);
+        }
+        section.append(heading, grid);
+        elements.groups.append(section);
+      });
+    }
 
     function syncLanguageText() {
       const article = articles[activeArticle - 1];
       const group = categoryFor(activeArticle);
-      elements.title.textContent = isMyanmar() ? article.titleMy : article.title;
-      elements.category.textContent = group.label;
+      const title = isMyanmar() ? article.titleMy : article.title;
+      elements.title.textContent = title;
+      elements.category.textContent = isMyanmar() ? group.labelMy : group.label;
+      elements.visualNumber.textContent = twoDigits(activeArticle);
+      elements.number.textContent = articleLabel(activeArticle);
+      elements.progressCurrent.textContent = twoDigits(activeArticle);
+      elements.progressTotal.textContent = localizeDigits(articles.length);
+      elements.previousLabel.textContent = articleLabel(neighbour(-1));
+      elements.nextLabel.textContent = articleLabel(neighbour(1));
+      elements.image.alt = isMyanmar() ? `${articleLabel(activeArticle)} အတွက် ရုပ်ပုံ` : `Illustration for ${articleLabel(activeArticle)}: ${article.title}`;
+      elements.imageOpen.setAttribute('aria-label', isMyanmar() ? `${articleLabel(activeArticle)} ရုပ်ပုံကိုဖွင့်ရန်` : `Open ${articleLabel(activeArticle)} illustration: ${article.title}`);
+      elements.lightboxImage.alt = elements.image.alt;
+      elements.lightboxCaption.textContent = `${articleLabel(activeArticle)} — ${title}`;
+      renderArticleNavigation();
     }
 
     function updateAddress(number) {
@@ -189,7 +214,7 @@
     elements.select.addEventListener('change', (event) => renderArticle(event.target.value));
     elements.previous.addEventListener('click', () => renderArticle(neighbour(-1)));
     elements.next.addEventListener('click', () => renderArticle(neighbour(1)));
-    document.getElementById('lang-toggle')?.addEventListener('click', () => window.setTimeout(syncLanguageText, 0));
+    document.addEventListener('hrh:languagechange', syncLanguageText);
 
     const closeLightbox = () => {
       elements.lightbox.classList.add('hidden');
