@@ -481,7 +481,7 @@ document.addEventListener('DOMContentLoaded', () => {
       auth.onAuthStateChanged((user) => {
         if (user) {
           const requestedPage = new URLSearchParams(window.location.search).get('returnTo');
-          let destination = 'profile.html';
+          let destination = 'index.html';
           if (requestedPage) {
             try {
               const requestedUrl = new URL(requestedPage, window.location.origin);
